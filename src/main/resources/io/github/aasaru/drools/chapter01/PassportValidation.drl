@@ -1,0 +1,22 @@
+package io.github.aasaru.drools.chapter01
+ 
+import io.github.aasaru.drools.chapter01.PassportValidation.Passport;
+import java.time.LocalDate;
+
+rule "Valid passport"
+    dialect "mvel"
+    when
+        Passport( !isExpired()  )
+    then
+        System.out.println( "This passport is good");
+end
+
+rule "Expired passport"
+    dialect "mvel"
+    when
+        Passport( isExpired()  )
+    then
+        System.out.println( "This passport is expired");
+end
+
+
