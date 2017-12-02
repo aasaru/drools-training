@@ -26,30 +26,45 @@ import java.time.Month;
 public class PassportValidation {
 
   public static void main(final String[] args) {
-    KieSession ksession = KieServices.Factory.get().getKieClasspathContainer().newKieSession("PassportValidationKS");
+    execute(5);
+  }
+
+  private static void execute(int step) {
+    System.out.println("Running step " + step);
+    KieSession ksession = KieServices.Factory.get().getKieClasspathContainer().newKieSession("PassportValidationStep"+step);
 
     // Insert facts to the session
     final Passport canadianPassport = new Passport();
     canadianPassport.setExpiresOn(LocalDate.of(2047, Month.NOVEMBER, 25));
-    canadianPassport.setPassportNumber("P1111111");
+    canadianPassport.setPassportNumber("P111");
     canadianPassport.setCountryCode("CAN");
+    canadianPassport.setUnusedVisaPages(1);
     ksession.insert(canadianPassport);
 
     final Passport kiwiPassport = new Passport();
     kiwiPassport.setExpiresOn(LocalDate.of(2016, Month.FEBRUARY, 11));
-    kiwiPassport.setPassportNumber("P2222");
+    kiwiPassport.setPassportNumber("P222");
     kiwiPassport.setCountryCode("NZL");
+    kiwiPassport.setUnusedVisaPages(0);
     ksession.insert(kiwiPassport);
 
     final Passport aussiePassport = new Passport();
     aussiePassport.setExpiresOn(LocalDate.of(2048, Month.MARCH, 11));
-    aussiePassport.setPassportNumber("P33333");
+    aussiePassport.setPassportNumber("P333");
     aussiePassport.setCountryCode("AUS");
+    aussiePassport.setUnusedVisaPages(0);
     ksession.insert(aussiePassport);
 
     ksession.fireAllRules();
-
     ksession.dispose();
+
+    if (step >= 4) {
+      System.out.println("==== PASSPORT STATE AFTER DOOLS SESSION === ");
+      System.out.println("Passport " + canadianPassport.getPassportNumber() + " passed validation: " + canadianPassport.validationPassed);
+      System.out.println("Passport " + kiwiPassport.getPassportNumber() + " passed validation: " + kiwiPassport.validationPassed);
+      System.out.println("Passport " + aussiePassport.getPassportNumber() + " passed validation: " + aussiePassport.validationPassed);
+    }
+
   }
 
   public static class Passport {
@@ -58,7 +73,7 @@ public class PassportValidation {
     private LocalDate expiresOn;
     private int unusedVisaPages;
 
-    private boolean validationPassed;
+    private Boolean validationPassed = null;
 
     private Passport() { }
 
@@ -99,11 +114,11 @@ public class PassportValidation {
       this.unusedVisaPages = unusedVisaPages;
     }
 
-    public boolean isValidationPassed() {
+    public Boolean getValidationPassed() {
       return validationPassed;
     }
 
-    public void setValidationPassed(boolean validationPassed) {
+    public void setValidationPassed(Boolean validationPassed) {
       this.validationPassed = validationPassed;
     }
 

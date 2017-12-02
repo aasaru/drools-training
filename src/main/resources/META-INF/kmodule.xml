@@ -19,8 +19,20 @@
 <kmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://www.drools.org/xsd/kmodule">
 
-  <kbase packages="io.github.aasaru.drools.chapter01" >
-    <ksession name="PassportValidationKS"/>
+  <kbase packages="io.github.aasaru.drools.chapter01.step1">
+    <ksession name="PassportValidationStep1"/>
+  </kbase>
+  <kbase packages="io.github.aasaru.drools.chapter01.step2" >
+    <ksession name="PassportValidationStep2"/>
+  </kbase>
+  <kbase packages="io.github.aasaru.drools.chapter01.step3" >
+    <ksession name="PassportValidationStep3"/>
+  </kbase>
+  <kbase packages="io.github.aasaru.drools.chapter01.step4" >
+    <ksession name="PassportValidationStep4"/>
+  </kbase>
+  <kbase packages="io.github.aasaru.drools.chapter01.step5" >
+    <ksession name="PassportValidationStep5"/>
   </kbase>
 
   <kbase packages="io.github.aasaru.drools.chapter02">
