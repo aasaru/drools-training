@@ -36,24 +36,28 @@ public class PassportValidation {
     // Insert facts to the session
     final Passport canadianPassport = new Passport();
     canadianPassport.setExpiresOn(LocalDate.of(2047, Month.NOVEMBER, 25));
-    canadianPassport.setPassportNumber("P111");
-    canadianPassport.setCountryCode("CAN");
+    canadianPassport.setPassportNumber("C111");
     canadianPassport.setUnusedVisaPages(1);
     ksession.insert(canadianPassport);
 
     final Passport kiwiPassport = new Passport();
     kiwiPassport.setExpiresOn(LocalDate.of(2016, Month.FEBRUARY, 11));
-    kiwiPassport.setPassportNumber("P222");
-    kiwiPassport.setCountryCode("NZL");
+    kiwiPassport.setPassportNumber("K222");
     kiwiPassport.setUnusedVisaPages(0);
     ksession.insert(kiwiPassport);
 
     final Passport aussiePassport = new Passport();
     aussiePassport.setExpiresOn(LocalDate.of(2048, Month.MARCH, 11));
-    aussiePassport.setPassportNumber("P333");
-    aussiePassport.setCountryCode("AUS");
+    aussiePassport.setPassportNumber("A333");
     aussiePassport.setUnusedVisaPages(0);
     ksession.insert(aussiePassport);
+
+    final Passport britonPassport = new Passport();
+    britonPassport.setExpiresOn(LocalDate.of(2045, Month.APRIL, 20));
+    britonPassport.setPassportNumber("B333");
+    britonPassport.setUnusedVisaPages(10);
+    ksession.insert(britonPassport);
+
 
     ksession.fireAllRules();
     ksession.dispose();
@@ -63,12 +67,12 @@ public class PassportValidation {
       System.out.println("Passport " + canadianPassport.getPassportNumber() + " passed validation: " + canadianPassport.validationPassed);
       System.out.println("Passport " + kiwiPassport.getPassportNumber() + " passed validation: " + kiwiPassport.validationPassed);
       System.out.println("Passport " + aussiePassport.getPassportNumber() + " passed validation: " + aussiePassport.validationPassed);
+      System.out.println("Passport " + britonPassport.getPassportNumber() + " passed validation: " + britonPassport.validationPassed);
     }
 
   }
 
   public static class Passport {
-    private String countryCode;
     private String passportNumber;
     private LocalDate expiresOn;
     private int unusedVisaPages;
@@ -89,21 +93,12 @@ public class PassportValidation {
       return expiresOn.isBefore(LocalDate.now());
     }
 
-
     public String getPassportNumber() {
       return passportNumber;
     }
 
     public void setPassportNumber(String passportNumber) {
       this.passportNumber = passportNumber;
-    }
-
-    public String getCountryCode() {
-      return countryCode;
-    }
-
-    public void setCountryCode(String countryCode) {
-      this.countryCode = countryCode;
     }
 
     public int getUnusedVisaPages() {

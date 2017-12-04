@@ -9,9 +9,7 @@ rule "Valid passport"
         $passport: Passport( !isExpired(), unusedVisaPages > 0  )
     then
         System.out.println("Passport " + $passport.getPassportNumber() + " is OK");
-        modify($passport){
-          setValidationPassed(true)
-        }
+        $passport.setValidationPassed(true);
 end
 
 rule "Expired passport"
@@ -20,9 +18,7 @@ rule "Expired passport"
         $passport: Passport( isExpired()  )
     then
         System.out.println("Passport " + $passport.getPassportNumber() + " is INVALID because it is expired ");
-        modify($passport){
-          setValidationPassed(false)
-        }
+        $passport.setValidationPassed(false);
 end
 
 rule "Full passport"
@@ -31,7 +27,5 @@ rule "Full passport"
         $passport: Passport( unusedVisaPages == 0   )
     then
         System.out.println("Passport " + $passport.getPassportNumber() + " is INVALID because it has no space for visa");
-        modify($passport){
-          setValidationPassed(false)
-        }
+        $passport.setValidationPassed(false);
 end

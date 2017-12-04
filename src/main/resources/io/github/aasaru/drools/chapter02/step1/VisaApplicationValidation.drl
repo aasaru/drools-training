@@ -1,0 +1,18 @@
+package io.github.aasaru.drools.chapter02
+
+import io.github.aasaru.drools.chapter02.VisaApplicationValidation.Passport;
+import io.github.aasaru.drools.chapter02.VisaApplicationValidation.VisaApplication;
+
+import java.time.LocalDate;
+
+rule "Passport is valid at least 6 months after visit end date"
+    dialect "mvel"
+    when
+        $passport: Passport()
+        $visaApplication: VisaApplication( passportNumber == $passport.passportNumber, $passport.expiresOn.isBefore(visitEndDate.plusMonths(6)) )
+    then
+        System.out.println( "Passport " + $passport.getPassportNumber() + " is not valid 6 months after planned visit end date");
+        $visaApplication.setValidationPassed(false);
+
+end
+

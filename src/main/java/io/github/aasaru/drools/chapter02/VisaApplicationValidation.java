@@ -24,38 +24,85 @@ import java.time.LocalDate;
 import java.time.Month;
 
 public class VisaApplicationValidation {
-
   public static void main(final String[] args) {
-    KieSession ksession = KieServices.Factory.get().getKieClasspathContainer().newKieSession("VisaApplicationKS");
+    execute("4");
+  }
 
-    // Insert facts to session
-    final Passport passport = new Passport();
-    passport.setExpiresOn(LocalDate.of(2027, Month.NOVEMBER, 25));
-    passport.setPassportNumber("C311958551");
-    passport.setCountryCode("USA");
-    ksession.insert(passport);
 
-    final VisaApplication application1 = new VisaApplication();
-    application1.setPassportNumber(passport.getPassportNumber());
-    application1.setVisitStartDate(LocalDate.of(2025, Month.MAY, 10));
-    application1.setVisitEndDate(LocalDate.of(2025, Month.MAY, 14));
-    ksession.insert(application1);
+  private static void execute(String step) {
+    System.out.println("Running step " + step);
+    KieSession ksession = KieServices.Factory.get().getKieClasspathContainer().newKieSession("VisaApplicationStep" + step);
 
-    final Passport passport2 = new Passport();
-    passport2.setExpiresOn(LocalDate.of(2012, Month.FEBRUARY, 11));
-    passport2.setPassportNumber("C445112334");
-    passport2.setCountryCode("USA");
-    ksession.insert(passport2);
+    // Insert facts to the session
+    final Passport canadianPassport = new Passport();
+    canadianPassport.setExpiresOn(LocalDate.of(2047, Month.NOVEMBER, 25));
+    canadianPassport.setPassportNumber("C111");
+    canadianPassport.setUnusedVisaPages(1);
+    ksession.insert(canadianPassport);
+
+    final Passport kiwiPassport = new Passport();
+    kiwiPassport.setExpiresOn(LocalDate.of(2016, Month.FEBRUARY, 11));
+    kiwiPassport.setPassportNumber("K222");
+    kiwiPassport.setUnusedVisaPages(0);
+    ksession.insert(kiwiPassport);
+
+    final Passport aussiePassport = new Passport();
+    aussiePassport.setExpiresOn(LocalDate.of(2048, Month.MARCH, 11));
+    aussiePassport.setPassportNumber("A333");
+    aussiePassport.setUnusedVisaPages(0);
+    ksession.insert(aussiePassport);
+
+    final Passport britonPassport = new Passport();
+    britonPassport.setExpiresOn(LocalDate.of(2045, Month.APRIL, 20));
+    britonPassport.setPassportNumber("B333");
+    britonPassport.setUnusedVisaPages(10);
+    ksession.insert(britonPassport);
+
+
+    final VisaApplication canadianApplication = new VisaApplication();
+    canadianApplication.setPassportNumber(canadianPassport.getPassportNumber());
+    canadianApplication.setVisitStartDate(LocalDate.of(2025, Month.MAY, 10));
+    canadianApplication.setVisitEndDate(LocalDate.of(2025, Month.MAY, 14));
+    ksession.insert(canadianApplication);
+
+    final VisaApplication kiwiApplication = new VisaApplication();
+    kiwiApplication.setPassportNumber(kiwiPassport.getPassportNumber());
+    kiwiApplication.setVisitStartDate(LocalDate.of(2029, Month.MAY, 1));
+    kiwiApplication.setVisitEndDate(LocalDate.of(2029, Month.JANUARY, 14));
+    ksession.insert(kiwiApplication);
+
+    final VisaApplication aussieApplication = new VisaApplication();
+    aussieApplication.setPassportNumber(aussiePassport.getPassportNumber());
+    aussieApplication.setVisitStartDate(LocalDate.of(2035, Month.JANUARY, 1));
+    aussieApplication.setVisitEndDate(LocalDate.of(2035, Month.MAY, 31));
+    ksession.insert(aussieApplication);
+
+    final VisaApplication britonApplication = new VisaApplication();
+    britonApplication.setPassportNumber(britonPassport.getPassportNumber());
+    britonApplication.setVisitStartDate(LocalDate.of(2017, Month.SEPTEMBER, 1));
+    britonApplication.setVisitEndDate(LocalDate.of(2025, Month.JANUARY, 14));
+    ksession.insert(britonApplication);
 
     ksession.fireAllRules();
-
     ksession.dispose();
+
+    if (!step.equals("1") && !step.equals("Solution")) {
+      System.out.println("==== APPLICATIONS STATE AFTER DOOLS SESSION === ");
+      System.out.println("Passport " + canadianApplication.getPassportNumber() + " passed validation: " + canadianApplication.validationPassed);
+      System.out.println("Passport " + kiwiApplication.getPassportNumber() + " passed validation: " + kiwiApplication.validationPassed);
+      System.out.println("Passport " + aussieApplication.getPassportNumber() + " passed validation: " + aussieApplication.validationPassed);
+      System.out.println("Passport " + britonApplication.getPassportNumber() + " passed validation: " + britonApplication.validationPassed);
+    }
+
+
   }
 
   public static class VisaApplication {
     private String passportNumber;
     private LocalDate visitStartDate;
     private LocalDate visitEndDate;
+
+    private Boolean validationPassed = null;
 
 
     public String getPassportNumber() {
@@ -81,12 +128,23 @@ public class VisaApplicationValidation {
     public void setVisitEndDate(LocalDate visitEndDate) {
       this.visitEndDate = visitEndDate;
     }
+
+    public Boolean getValidationPassed() {
+      return validationPassed;
+    }
+
+    public void setValidationPassed(Boolean validationPassed) {
+      this.validationPassed = validationPassed;
+    }
   }
+
 
   public static class Passport {
     private String passportNumber;
     private LocalDate expiresOn;
-    private String countryCode;
+    private int unusedVisaPages;
+
+    private Boolean validationPassed = null;
 
     private Passport() { }
 
@@ -98,6 +156,10 @@ public class VisaApplicationValidation {
       this.expiresOn = expiresOn;
     }
 
+    public boolean isExpired() {
+      return expiresOn.isBefore(LocalDate.now());
+    }
+
     public String getPassportNumber() {
       return passportNumber;
     }
@@ -106,17 +168,23 @@ public class VisaApplicationValidation {
       this.passportNumber = passportNumber;
     }
 
-    public String getCountryCode() {
-      return countryCode;
+    public int getUnusedVisaPages() {
+      return unusedVisaPages;
     }
 
-    public void setCountryCode(String countryCode) {
-      this.countryCode = countryCode;
+    public void setUnusedVisaPages(int unusedVisaPages) {
+      this.unusedVisaPages = unusedVisaPages;
     }
 
-    public boolean isValid() {
-      return this.expiresOn.isAfter(LocalDate.now());
+    public Boolean getValidationPassed() {
+      return validationPassed;
     }
+
+    public void setValidationPassed(Boolean validationPassed) {
+      this.validationPassed = validationPassed;
+    }
+
   }
+
 
 }

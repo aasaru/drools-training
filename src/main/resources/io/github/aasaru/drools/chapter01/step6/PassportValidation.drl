@@ -3,13 +3,15 @@ package io.github.aasaru.drools.chapter01
 import io.github.aasaru.drools.chapter01.PassportValidation.Passport;
 import java.time.LocalDate;
 
-rule "Valid passport"
+rule "If no validationPassed info present then consider OK"
     dialect "mvel"
     when
         $passport: Passport( validationPassed == null  )
     then
         System.out.println("Passport " + $passport.getPassportNumber() + " is without validation info, consider OK for now");
-        $passport.setValidationPassed(true);
+        modify($passport) {
+          setValidationPassed(true)
+        }
 end
 
 rule "Expired passport"
@@ -18,7 +20,9 @@ rule "Expired passport"
         $passport: Passport( isExpired()  )
     then
         System.out.println("Passport " + $passport.getPassportNumber() + " is INVALID because it is expired ");
-        $passport.setValidationPassed(false);
+        modify($passport) {
+          setValidationPassed(false)
+        }
 end
 
 rule "Full passport"
@@ -27,5 +31,7 @@ rule "Full passport"
         $passport: Passport( unusedVisaPages == 0   )
     then
         System.out.println("Passport " + $passport.getPassportNumber() + " is INVALID because it has no space for visa");
-        $passport.setValidationPassed(false);
+        modify($passport) {
+          setValidationPassed(false)
+        }
 end

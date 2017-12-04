@@ -16,8 +16,8 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<kmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://www.drools.org/xsd/kmodule">
+<kmodule
+  xmlns="http://www.drools.org/xsd/kmodule">
 
   <kbase packages="io.github.aasaru.drools.chapter01.step1">
     <ksession name="PassportValidationStep1"/>
@@ -34,9 +34,24 @@
   <kbase packages="io.github.aasaru.drools.chapter01.step5" >
     <ksession name="PassportValidationStep5"/>
   </kbase>
+  <kbase packages="io.github.aasaru.drools.chapter01.step6">
+    <ksession name="PassportValidationStep6"/>
+  </kbase>
 
-  <kbase packages="io.github.aasaru.drools.chapter02">
-    <ksession name="VisaApplicationKS"/>
+  <kbase packages="io.github.aasaru.drools.chapter02.solution">
+    <ksession name="VisaApplicationStepSolution"/>
+  </kbase>
+  <kbase packages="io.github.aasaru.drools.chapter02.step1">
+    <ksession name="VisaApplicationStep1"/>
+  </kbase>
+  <kbase packages="io.github.aasaru.drools.chapter02.step2">
+    <ksession name="VisaApplicationStep2"/>
+  </kbase>
+  <kbase packages="io.github.aasaru.drools.chapter02.step3">
+    <ksession name="VisaApplicationStep3"/>
+  </kbase>
+  <kbase packages="io.github.aasaru.drools.chapter02.step4">
+    <ksession name="VisaApplicationStep4"/>
   </kbase>
 
 </kmodule>
