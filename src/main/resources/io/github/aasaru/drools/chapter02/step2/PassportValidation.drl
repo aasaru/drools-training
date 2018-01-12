@@ -1,0 +1,59 @@
+package io.github.aasaru.drools.chapter01
+ 
+import io.github.aasaru.drools.domain.Passport;
+import java.time.LocalDate;
+
+rule "Valid passport"
+    dialect "mvel"
+    salience -50
+    when
+        $passport: Passport( validationPassed == null  )
+    then
+        System.out.println( $passport + " is still without validation info, consider OK" );
+        modify($passport) {
+          setValidationPassed(true)
+        }
+end
+
+rule "Expired passport"
+    dialect "mvel"
+    when
+        $passport: Passport( isExpired()  )
+    then
+        System.out.println( $passport + " is INVALID because it is expired" );
+        modify($passport) {
+          setValidationPassed(false)
+        }
+end
+
+rule "Full passport"
+    dialect "mvel"
+    when
+        $passport: Passport( unusedVisaPages == 0   )
+    then
+        System.out.println( $passport + " is INVALID because it has no space for visa" );
+        modify($passport) {
+          setValidationPassed(false)
+        }
+end
+
+
+
+
+
+
+// what we want is to first run all rules that set validation to false. And then we want to
+// so if you desperatley need to set order - the simplest is salience
+// but this could get hacky
+
+
+
+
+
+
+
+
+
+
+
+

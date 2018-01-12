@@ -40,7 +40,7 @@ public class Common {
 
         int step = Integer.parseInt(stepStr);
 
-        if (step <= minStep || step > maxStep) {
+        if (step < minStep || step > maxStep) {
           System.out.println("Step number out of range. Insert a number between " + minStep + " and " + maxStep);
         }
         else {

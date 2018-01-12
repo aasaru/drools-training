@@ -21,13 +21,12 @@ import io.github.aasaru.drools.Common;
 import io.github.aasaru.drools.domain.Passport;
 import io.github.aasaru.drools.repository.ApplicationRepository;
 import org.kie.api.KieServices;
-import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.StatelessKieSession;
 
 import java.io.IOException;
 import java.util.List;
 
-public class PassportValidation {
+public class StatelessPassportValidation {
   public static final int MAX_STEP = 5;
   public static final int MIN_STEP = 1;
 
@@ -38,16 +37,10 @@ public class PassportValidation {
   static void execute(int step) {
     System.out.println("Running step " + step);
 
-    // Insert facts to the session
-
     List<Passport> passports = ApplicationRepository.getPassports();
 
-    if (step <= 50) {
-      runStatelessSession("PassportValidationStep" + step, passports);
-    }
-    else {
-      runStatefulSession("PassportValidationStep" + step, passports);
-    }
+    StatelessKieSession statelessKieSession = KieServices.Factory.get().getKieClasspathContainer().newStatelessKieSession("StatelessPassportValidationStep" + step);
+    statelessKieSession.execute(passports);
 
     if (step >= 4) {
       System.out.println("==== PASSPORT STATE AFTER DOOLS SESSION === ");
@@ -57,20 +50,5 @@ public class PassportValidation {
     }
 
   }
-
-  private static void runStatelessSession(String kieSessionName, List<Passport> passports) {
-    StatelessKieSession statelessKieSession = KieServices.Factory.get().getKieClasspathContainer().newStatelessKieSession(kieSessionName);
-    statelessKieSession.execute(passports);
-  }
-
-  private static void runStatefulSession(String kieSessionName, List<Passport> passports) {
-    KieSession ksession = KieServices.Factory.get().getKieClasspathContainer().newKieSession(kieSessionName);
-
-    passports.forEach(ksession::insert);
-
-    ksession.fireAllRules();
-    ksession.dispose();
-  }
-
 
 }

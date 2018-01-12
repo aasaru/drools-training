@@ -15,19 +15,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.github.aasaru.drools.chapter01;
+package io.github.aasaru.drools.chapter02;
 
 import org.junit.jupiter.api.Test;
 
-public class PassportValidationTest {
+public class StatefulStatelessPassportValidationTest {
 
   @Test
   public void shouldExecuteAllSteps() {
-    PassportValidation.execute(1);
-    PassportValidation.execute(2);
-    PassportValidation.execute(3);
-    PassportValidation.execute(4);
-    PassportValidation.execute(5);
+    StatefulPassportValidation.execute(1);
+    StatefulPassportValidation.execute(2);
+    StatefulPassportValidation.execute(3);
+
   }
 
 }

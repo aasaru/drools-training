@@ -3,12 +3,20 @@ package io.github.aasaru.drools.chapter01
 import io.github.aasaru.drools.domain.Passport;
 import java.time.LocalDate;
 
+rule "Valid passport"
+    dialect "mvel"
+    when
+        $passport: Passport( !isExpired(), unusedVisaPages > 0  )
+    then
+        System.out.println( $passport + " is OK" );
+end
+
 rule "Expired passport"
     dialect "mvel"
     when
         $passport: Passport( isExpired()  )
     then
-        System.out.println("Passport " + $passport + " is INVALID because it is expired ");
+        System.out.println( $passport + " is INVALID because it is expired" );
 end
 
 rule "Full passport"
@@ -16,13 +24,5 @@ rule "Full passport"
     when
         $passport: Passport( unusedVisaPages == 0   )
     then
-        System.out.println("Passport " + $passport + " is INVALID because it has no space for visa");
-end
-
-rule "Valid passport"
-    dialect "mvel"
-    when
-        $passport: Passport( !isExpired(), unusedVisaPages > 0  )
-    then
-        System.out.println("Passport " + $passport + " is OK");
+        System.out.println( $passport + " is INVALID because it has no space for visa" );
 end
