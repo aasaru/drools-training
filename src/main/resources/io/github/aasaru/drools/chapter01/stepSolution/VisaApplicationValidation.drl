@@ -1,7 +1,7 @@
 package io.github.aasaru.drools.chapter02
 
-import io.github.aasaru.drools.chapter02.VisaApplicationValidation.Passport;
-import io.github.aasaru.drools.chapter02.VisaApplicationValidation.VisaApplication;
+import io.github.aasaru.drools.domain.Passport;
+import io.github.aasaru.drools.domain.VisaApplication;
 
 import java.time.LocalDate;
 
@@ -14,7 +14,7 @@ rule "Invalidate visa application that has planned visit start date set after pl
         $visaApplication.setValidationPassed(false);
 end
 
-rule "Invalidate visa applications that have planned visit start date in the past"
+rule "Invalidate visa application that has planned visit start date in the past"
     dialect "mvel"
     when
         $visaApplication: VisaApplication( visitStartDate.isBefore(LocalDate.now()) )

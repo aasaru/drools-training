@@ -20,25 +20,25 @@
   xmlns="http://www.drools.org/xsd/kmodule">
 
   <kbase packages="io.github.aasaru.drools.chapter01.step1">
-    <ksession name="PassportValidationStep1"/>
+    <ksession name="PassportValidationStep1" type="stateless"/>
   </kbase>
   <kbase packages="io.github.aasaru.drools.chapter01.step2" >
-    <ksession name="PassportValidationStep2"/>
+    <ksession name="PassportValidationStep2" type="stateless"/>
   </kbase>
   <kbase packages="io.github.aasaru.drools.chapter01.step3" >
-    <ksession name="PassportValidationStep3"/>
+    <ksession name="PassportValidationStep3" type="stateless"/>
   </kbase>
   <kbase packages="io.github.aasaru.drools.chapter01.step4" >
-    <ksession name="PassportValidationStep4"/>
+    <ksession name="PassportValidationStep4" type="stateless"/>
   </kbase>
   <kbase packages="io.github.aasaru.drools.chapter01.step5" >
-    <ksession name="PassportValidationStep5"/>
+    <ksession name="PassportValidationStep5" type="stateless"/>
   </kbase>
   <kbase packages="io.github.aasaru.drools.chapter01.step6">
     <ksession name="PassportValidationStep6"/>
   </kbase>
 
-  <kbase packages="io.github.aasaru.drools.chapter02.solution">
+  <kbase packages="io.github.aasaru.drools.chapter02.step0">
     <ksession name="VisaApplicationStepSolution"/>
   </kbase>
   <kbase packages="io.github.aasaru.drools.chapter02.step1">
@@ -53,5 +53,13 @@
   <kbase packages="io.github.aasaru.drools.chapter02.step4">
     <ksession name="VisaApplicationStep4"/>
   </kbase>
+
+  <kbase packages="io.github.aasaru.drools.chapter03.solution">
+    <ksession name="FamilyVisaApplicationStepSolution"/>
+  </kbase>
+  <kbase packages="io.github.aasaru.drools.chapter03.step1">
+    <ksession name="FamilyVisaApplicationStep1"/>
+  </kbase>
+
 
 </kmodule>

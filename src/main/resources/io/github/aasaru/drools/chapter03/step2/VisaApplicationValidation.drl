@@ -1,22 +1,9 @@
-package io.github.aasaru.drools.chapter02
+package io.github.aasaru.drools.chapter03
 
-import io.github.aasaru.drools.chapter02.VisaApplicationValidation.Passport;
-import io.github.aasaru.drools.chapter02.VisaApplicationValidation.VisaApplication;
+import io.github.aasaru.drools.domain.Passport;
+import io.github.aasaru.drools.domain.VisaApplication;
 
 import java.time.LocalDate;
-
-// we have similar rule for passport, add vor visa application as well
-rule "Valid visa application"
-    dialect "mvel"
-    when
-        $visaApplication: VisaApplication( validationPassed == null )
-    then
-        System.out.println( "Visa application for passport " + $visaApplication.getPassportNumber() + " is without validation info, consider OK for now");
-        $visaApplication.setValidationPassed(true);
-end
-
-// the rest is copy-paste from previous step
-
 
 rule "Invalidate visa applications with invalid passport"
     dialect "mvel"
@@ -24,21 +11,19 @@ rule "Invalidate visa applications with invalid passport"
         $passport: Passport( validationPassed == false )
         $visaApplication: VisaApplication( passportNumber == $passport.passportNumber )
     then
-        System.out.println( "Set visa application invalid as passport (" + $passport.getPassportNumber() + ") hasn't passed validation");
+        System.out.println( "Set visa application invalid as passport " + $passport.getPassportNumber() + " hasn't passed validation");
         $visaApplication.setValidationPassed(false);
 end
 
+//// ALL RULES WRITTEN THIS FAR (both from chapter01 and chapter03) HAVE BEEN COPIED BELOW
 
-// passport validation rules from chapter01.step5
 rule "Valid passport"
     dialect "mvel"
     when
         $passport: Passport( validationPassed == null  )
     then
         System.out.println("Passport " + $passport.getPassportNumber() + " is without validation info, consider OK for now");
-        modify($passport) {
-          setValidationPassed(true)
-        }
+        $passport.setValidationPassed(true);
 end
 
 rule "Expired passport"
@@ -47,9 +32,7 @@ rule "Expired passport"
         $passport: Passport( isExpired()  )
     then
         System.out.println("Passport " + $passport.getPassportNumber() + " is INVALID because it is expired ");
-        modify($passport) {
-          setValidationPassed(false)
-        }
+        $passport.setValidationPassed(false);
 end
 
 rule "Full passport"
@@ -58,12 +41,10 @@ rule "Full passport"
         $passport: Passport( unusedVisaPages == 0   )
     then
         System.out.println("Passport " + $passport.getPassportNumber() + " is INVALID because it has no space for visa");
-        modify($passport) {
-          setValidationPassed(false)
-        }
+        $passport.setValidationPassed(false);
 end
 
-// previous rules about application from solution and step1
+// previous rules about application from stepSolution and step1
 
 rule "Invalidate visa application that has planned visit start date set after planned visit end date"
     dialect "mvel"
