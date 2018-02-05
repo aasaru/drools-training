@@ -31,6 +31,7 @@ end
 
 rule "Invalidate visa application where passport expires earlier than 6 months after visit end date"
   dialect "mvel"
+  salience -50
   when
     $passport: Passport()
     $visaApplication: VisaApplication( passportNumber == $passport.passportNumber,

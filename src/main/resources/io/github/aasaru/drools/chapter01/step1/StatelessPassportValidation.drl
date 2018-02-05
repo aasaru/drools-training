@@ -1,0 +1,20 @@
+package io.github.aasaru.drools.chapter01
+ 
+import io.github.aasaru.drools.domain.Passport;
+import java.time.LocalDate;
+
+rule "Valid passport"
+    dialect "mvel"
+    when
+        Passport( !isExpired(), unusedVisaPages > 0 )
+    then
+        System.out.println("This passport is OK");
+end
+
+rule "Expired or full passport"
+    dialect "mvel"
+    when
+        Passport( isExpired() || unusedVisaPages == 0 )
+    then
+        System.out.println("This passport is INVALID because it is expired or has no space for visa");
+end

@@ -1,0 +1,19 @@
+package io.github.aasaru.drools.chapter05
+
+import io.github.aasaru.drools.domain.InvalidFamilyVisaApplication;
+import io.github.aasaru.drools.domain.FamilyVisaApplication;
+import io.github.aasaru.drools.domain.Visa;
+
+import java.time.LocalDate;
+
+rule "Issue visas for valida pplications"
+    dialect "mvel"
+    when
+        $familyVisaApplication: FamilyVisaApplication( )
+        not ( InvalidFamilyVisaApplication( this.familyVisaApplication == $familyVisaApplication ) )
+    then
+        for (String passportNumber : $familyVisaApplication.getPassportNumbers()) {
+          System.out.println( "Issue visa for passport number " + passportNumber);
+          insertLogical( new Visa( passportNumber ) )
+        }
+end

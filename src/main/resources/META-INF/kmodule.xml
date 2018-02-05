@@ -34,41 +34,48 @@
   <kbase packages="io.github.aasaru.drools.chapter01.step5" >
     <ksession name="StatelessPassportValidationStep5" type="stateless"/>
   </kbase>
-  <kbase packages="io.github.aasaru.drools.chapter01.step6">
-    <ksession name="StatelessPassportValidationStep6"/>
-  </kbase>
 
   <kbase packages="io.github.aasaru.drools.chapter02.step1">
-    <ksession name="StatefulPassportValidationStep1"/>
-  </kbase>
-  <kbase packages="io.github.aasaru.drools.chapter02.step2">
-    <ksession name="StatefulPassportValidationStep2"/>
-  </kbase>
-  <kbase packages="io.github.aasaru.drools.chapter02.step3">
-    <ksession name="StatefulPassportValidationStep3"/>
-  </kbase>
-
-  <kbase packages="io.github.aasaru.drools.chapter03.step0">
-    <ksession name="VisaApplicationStepSolution"/>
-  </kbase>
-  <kbase packages="io.github.aasaru.drools.chapter03.step1">
     <ksession name="VisaApplicationStep1"/>
   </kbase>
-  <kbase packages="io.github.aasaru.drools.chapter03.step2">
+  <kbase packages="io.github.aasaru.drools.chapter02.step2">
     <ksession name="VisaApplicationStep2"/>
   </kbase>
-  <kbase packages="io.github.aasaru.drools.chapter03.step3">
+  <kbase packages="io.github.aasaru.drools.chapter02.step3">
     <ksession name="VisaApplicationStep3"/>
   </kbase>
-  <kbase packages="io.github.aasaru.drools.chapter03.step4">
+  <kbase packages="io.github.aasaru.drools.chapter02.step4">
     <ksession name="VisaApplicationStep4"/>
   </kbase>
 
-  <kbase packages="io.github.aasaru.drools.chapter04.solution">
-    <ksession name="FamilyVisaApplicationStepSolution"/>
+  <kbase packages="io.github.aasaru.drools.chapter03.step1">
+    <ksession name="VisaIssueStep1"/>
   </kbase>
+  <kbase packages="io.github.aasaru.drools.chapter03.step2">
+    <ksession name="VisaIssueStep2"/>
+  </kbase>
+  <kbase packages="io.github.aasaru.drools.chapter03.step3">
+    <ksession name="VisaIssueStep3"/>
+  </kbase>
+
   <kbase packages="io.github.aasaru.drools.chapter04.step1">
+    <ksession name="VisaInsertLogicalStep1"/>
+  </kbase>
+  <kbase packages="io.github.aasaru.drools.chapter04.step2">
+    <ksession name="VisaInsertLogicalStep2"/>
+  </kbase>
+  <kbase packages="io.github.aasaru.drools.chapter04.step3">
+    <ksession name="VisaInsertLogicalStep3"/>
+  </kbase>
+
+  <kbase packages="io.github.aasaru.drools.chapter05.step1">
     <ksession name="FamilyVisaApplicationStep1"/>
+  </kbase>
+  <kbase packages="io.github.aasaru.drools.chapter05.step2">
+    <ksession name="FamilyVisaApplicationStep2"/>
+  </kbase>
+  <kbase packages="io.github.aasaru.drools.chapter05.step3">
+    <ksession name="FamilyVisaApplicationStep3"/>
   </kbase>
 
 

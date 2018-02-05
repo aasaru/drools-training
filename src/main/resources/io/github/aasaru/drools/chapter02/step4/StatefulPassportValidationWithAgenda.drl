@@ -1,0 +1,51 @@
+package io.github.aasaru.drools.chapter01
+ 
+import io.github.aasaru.drools.domain.Passport;
+import java.time.LocalDate;
+
+rule "Valid passport"
+    dialect "mvel"
+    agenda-group "valid-pasport"
+    when
+        $passport: Passport( validationResult == null  )
+    then
+        System.out.println( $passport + " is still without validation info, consider OK" );
+        modify($passport) {
+          setValidation(true)
+        }
+end
+
+rule "Expired passport"
+    dialect "mvel"
+    agenda-group "invalid-passport"
+    when
+        $passport: Passport( isExpired()  )
+    then
+        System.out.println( $passport + " is INVALID because it is expired" );
+        modify($passport) {
+          setValidation(false)
+        }
+end
+
+rule "Full passport"
+    dialect "mvel"
+    agenda-group "invalid-passport"
+    when
+        $passport: Passport( unusedVisaPages == 0   )
+    then
+        System.out.println( $passport + " is INVALID because it has no space for visa" );
+        modify($passport) {
+          setValidation(false)
+        }
+end
+
+
+
+
+
+
+
+// better is to define logical groups. the order within groups is arbitary
+// see Java code
+// notice that stacks work first in- last out.
+

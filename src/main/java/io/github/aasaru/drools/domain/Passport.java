@@ -24,10 +24,15 @@ public class Passport {
   private String name;
   private LocalDate expiresOn;
   private int unusedVisaPages;
+  private boolean underage;
 
-  private Boolean validationPassed = null;
+  private Validation validation = Validation.UNKNOWN;
 
   private Passport() {
+  }
+
+  public LocalDate getExpiresOn() {
+    return expiresOn;
   }
 
   public boolean isExpired() {
@@ -46,17 +51,21 @@ public class Passport {
     return unusedVisaPages;
   }
 
-  public Boolean getValidationPassed() {
-    return validationPassed;
+  public Validation getValidation() {
+    return validation;
   }
 
-  public void setValidationPassed(Boolean validationPassed) {
-    this.validationPassed = validationPassed;
+  public void setValidation(Validation validation) {
+    this.validation = validation;
+  }
+
+  public boolean isUnderage() {
+    return underage;
   }
 
   @Override
   public String toString() {
-    return String.format("Passport[%s, %s]", passportNumber, name);
+    return String.format("Passport[no:%s, name:%s]", passportNumber, name);
   }
 
   public static PassportBuilder newBuilder() {
@@ -68,6 +77,7 @@ public class Passport {
     private String name;
     private LocalDate expiresOn;
     private int unusedVisaPages;
+    private boolean underage;
 
     private PassportBuilder() {
     }
@@ -92,12 +102,18 @@ public class Passport {
       return this;
     }
 
+    public PassportBuilder withUnderage(boolean underage) {
+      this.underage = underage;
+      return this;
+    }
+
     public Passport build() {
       Passport passport = new Passport();
       passport.passportNumber = passportNumber;
       passport.name = name;
       passport.expiresOn = expiresOn;
       passport.unusedVisaPages = unusedVisaPages;
+      passport.underage = underage;
       return passport;
     }
   }

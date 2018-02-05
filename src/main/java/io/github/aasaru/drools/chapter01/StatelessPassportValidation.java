@@ -23,15 +23,11 @@ import io.github.aasaru.drools.repository.ApplicationRepository;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.StatelessKieSession;
 
-import java.io.IOException;
 import java.util.List;
 
 public class StatelessPassportValidation {
-  public static final int MAX_STEP = 5;
-  public static final int MIN_STEP = 1;
-
-  public static void main(final String[] args) throws IOException {
-    execute(Common.promptForStep(args, MIN_STEP, MAX_STEP));
+  public static void main(final String[] args) {
+    execute(Common.promptForStep(1, args, 1, 5));
   }
 
   static void execute(int step) {
@@ -40,12 +36,14 @@ public class StatelessPassportValidation {
     List<Passport> passports = ApplicationRepository.getPassports();
 
     StatelessKieSession statelessKieSession = KieServices.Factory.get().getKieClasspathContainer().newStatelessKieSession("StatelessPassportValidationStep" + step);
+    System.out.println("==== DROOLS SESSION START ==== ");
     statelessKieSession.execute(passports);
+    System.out.println("==== DROOLS SESSION END ==== ");
 
     if (step >= 4) {
-      System.out.println("==== PASSPORT STATE AFTER DOOLS SESSION === ");
+      System.out.println("==== PASSPORTS AFTER DROOLS SESSION ==== ");
 
-      passports.forEach(passport -> System.out.println(passport + " passed validation: " + passport.getValidationPassed()));
+      passports.forEach(passport -> System.out.println(passport + " validation " + passport.getValidation()));
 
     }
 

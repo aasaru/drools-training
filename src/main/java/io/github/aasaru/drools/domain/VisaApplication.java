@@ -25,7 +25,7 @@ public class VisaApplication {
   private LocalDate visitStartDate;
   private LocalDate visitEndDate;
 
-  private Boolean validationPassed = null;
+  private Validation validation = Validation.UNKNOWN;
 
   public String getPassportNumber() {
     return passportNumber;
@@ -39,17 +39,17 @@ public class VisaApplication {
     return visitEndDate;
   }
 
-  public Boolean getValidationPassed() {
-    return validationPassed;
+  public Validation getValidation() {
+    return validation;
   }
 
-  public void setValidationPassed(Boolean validationPassed) {
-    this.validationPassed = validationPassed;
+  public void setValidation(Validation validation) {
+    this.validation = validation;
   }
 
   @Override
   public String toString() {
-    return "VisaApplication(id#" + applicationId + ", passport#" + passportNumber + ")";
+    return "VisaApplication(id:" + applicationId + ", passport:" + passportNumber + ")";
   }
 
   public static VisaApplicationBuilder newBuilder() {

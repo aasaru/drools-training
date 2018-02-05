@@ -23,7 +23,7 @@ import java.io.InputStreamReader;
 
 public class Common {
 
-  public static int promptForStep(String[] args, int minStep, int maxStep) {
+  public static int promptForStep(int chapter, String[] args, int minStep, int maxStep) {
     String stepStr = "";
 
     while (true) {
@@ -34,7 +34,7 @@ public class Common {
           return Integer.parseInt(stepStr);
         }
         else {
-          System.out.print("Enter step (" + minStep + "..." + maxStep + "): ");
+          System.out.print(String.format("Chapter %d. Enter step (%d...%d): ", chapter, minStep, maxStep));
           stepStr = br.readLine();
         }
 

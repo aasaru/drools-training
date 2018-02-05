@@ -23,120 +23,108 @@ import io.github.aasaru.drools.domain.VisaApplication;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Arrays.asList;
 
 public class ApplicationRepository {
 
-  public static final String CANADIAN_PASSPORT_NUMBER = "CA-111";
-  public static final String NEW_ZEALAND_PASSPORT_NUMBER = "NZ-222";
-  public static final String AUSTRALIAN_PASSPORT_NUMBER = "AU-333";
-  public static final String GREAT_BRITAIN_PASSPORT_NUMBER = "GB-333";
+  public static final String SARAH_PASSPORT_NUMBER = "CA-SARAH-1";
+  public static final String SIMON_PASSPORT_NUMBER = "CA-SIMON-2";
+  public static final String EMILY_PASSPORT_NUMBER = "AU-EMILY-3";
+  public static final String JAMES_PASSPORT_NUMBER = "AU-JAMES-4";
 
   public static List<Passport> getPassports() {
+    List<Passport> passports = new ArrayList<>();
 
-    final Passport canadianPassport = Passport.newBuilder()
-      .withPassportNumber(CANADIAN_PASSPORT_NUMBER)
-      .withName("Mary")
+    passports.add(Passport.newBuilder()
+      .withPassportNumber(SARAH_PASSPORT_NUMBER)
+      .withName("Sarah Murphy")
       .withUnusedVisaPages(1)
+      .withExpiresOn(LocalDate.of(2017, Month.DECEMBER, 17))
+      .withUnderage(false)
+      .build());
+
+    passports.add(Passport.newBuilder()
+      .withPassportNumber(SIMON_PASSPORT_NUMBER)
+      .withName("Simon Murphy")
+      .withUnusedVisaPages(0)
+      .withExpiresOn(LocalDate.of(2045, Month.MAY, 11))
+      .withUnderage(true)
+      .build());
+
+    passports.add(Passport.newBuilder()
+      .withPassportNumber(EMILY_PASSPORT_NUMBER)
+      .withName("Emily Brown")
+      .withUnusedVisaPages(20)
       .withExpiresOn(LocalDate.of(2047, Month.NOVEMBER, 25))
-      .build();
+      .withUnderage(true)
+      .build());
 
-    final Passport kiwiPassport = Passport.newBuilder()
-      .withPassportNumber(NEW_ZEALAND_PASSPORT_NUMBER)
-      .withName("John")
-      .withUnusedVisaPages(0)
-      .withExpiresOn(LocalDate.of(2016, Month.FEBRUARY, 11))
-      .build();
-
-    final Passport aussiePassport = Passport.newBuilder()
-      .withPassportNumber(AUSTRALIAN_PASSPORT_NUMBER)
-      .withName("Robert")
-      .withUnusedVisaPages(0)
-      .withExpiresOn(LocalDate.of(2048, Month.MARCH, 11))
-      .build();
-
-    final Passport britonPassport = Passport.newBuilder()
-      .withPassportNumber(GREAT_BRITAIN_PASSPORT_NUMBER)
-      .withName("Daniel")
+    passports.add(Passport.newBuilder()
+      .withPassportNumber(JAMES_PASSPORT_NUMBER)
+      .withName("James Brown")
       .withUnusedVisaPages(10)
-      .withExpiresOn(LocalDate.of(2045, Month.APRIL, 20))
-      .build();
+      .withExpiresOn(LocalDate.of(2045, Month.APRIL, 10))
+      .withUnderage(true)
+      .build());
 
-    return asList(canadianPassport, kiwiPassport, aussiePassport, britonPassport);
+    return passports;
   }
 
   public static List<VisaApplication> getVisaApplications() {
+    List<VisaApplication> visaApplications = new ArrayList<>();
 
-    final VisaApplication canadianApplication = VisaApplication.newBuilder()
+    visaApplications.add(VisaApplication.newBuilder()
       .withApplicationId(1)
-      .withPassportNumber(CANADIAN_PASSPORT_NUMBER)
-      .withVisitStartDate(LocalDate.of(2025, Month.MAY, 10))
-      .withVisitEndDate(LocalDate.of(2025, Month.MAY, 14))
-      .build();
+      .withPassportNumber(SARAH_PASSPORT_NUMBER)
+      .withVisitStartDate(LocalDate.of(2039, Month.DECEMBER, 27))
+      .withVisitEndDate(LocalDate.of(2040, Month.JANUARY, 4))
+      .build());
 
-    final VisaApplication kiwiApplication = VisaApplication.newBuilder()
+    visaApplications.add(VisaApplication.newBuilder()
       .withApplicationId(2)
-      .withPassportNumber(NEW_ZEALAND_PASSPORT_NUMBER)
-      .withVisitStartDate(LocalDate.of(2029, Month.MAY, 1))
-      .withVisitEndDate(LocalDate.of(2029, Month.JANUARY, 14))
-      .build();
+      .withPassportNumber(SIMON_PASSPORT_NUMBER)
+      .withVisitStartDate(LocalDate.of(2039, Month.DECEMBER, 27))
+      .withVisitEndDate(LocalDate.of(2039, Month.JANUARY, 4))
+      .build());
 
-    final VisaApplication aussieApplication = VisaApplication.newBuilder()
+    visaApplications.add(VisaApplication.newBuilder()
       .withApplicationId(3)
-      .withPassportNumber(AUSTRALIAN_PASSPORT_NUMBER)
-      .withVisitStartDate(LocalDate.of(2035, Month.JANUARY, 1))
-      .withVisitEndDate(LocalDate.of(2035, Month.MAY, 31))
-      .build();
+      .withPassportNumber(EMILY_PASSPORT_NUMBER)
+      .withVisitStartDate(LocalDate.of(2044, Month.JANUARY, 1))
+      .withVisitEndDate(LocalDate.of(2044, Month.MARCH, 31))
+      .build());
 
-    final VisaApplication britonApplication = VisaApplication.newBuilder()
+    visaApplications.add(VisaApplication.newBuilder()
       .withApplicationId(4)
-      .withPassportNumber(GREAT_BRITAIN_PASSPORT_NUMBER)
-      .withVisitStartDate(LocalDate.of(2017, Month.SEPTEMBER, 1))
-      .withVisitEndDate(LocalDate.of(2025, Month.JANUARY, 14))
-      .build();
+      .withPassportNumber(JAMES_PASSPORT_NUMBER)
+      .withVisitStartDate(LocalDate.of(2045, Month.JANUARY, 1))
+      .withVisitEndDate(LocalDate.of(2045, Month.MARCH, 10))
+      .build());
 
-    return asList(canadianApplication, kiwiApplication, aussieApplication, britonApplication);
+    return visaApplications;
   }
 
-
   public static List<FamilyVisaApplication> getFamilyVisaApplications() {
+    List<FamilyVisaApplication> familyVisaApplications = new ArrayList<>();
 
-    final FamilyVisaApplication canadianApplication =
-      FamilyVisaApplication.newBuilder()
+    familyVisaApplications.add(FamilyVisaApplication.newBuilder()
+      .withApplicationId(10)
+      .withPassportNumbers(asList(SARAH_PASSPORT_NUMBER, SIMON_PASSPORT_NUMBER))
+      .withVisitStartDate(LocalDate.of(2039, Month.DECEMBER, 27))
+      .withVisitEndDate(LocalDate.of(2040, Month.JANUARY, 4))
+      .build());
+
+    familyVisaApplications.add(FamilyVisaApplication.newBuilder()
         .withApplicationId(11)
-        .withPassportNumbers(asList(CANADIAN_PASSPORT_NUMBER))
-        .withVisitStartDate(LocalDate.of(2025, Month.MAY, 10))
-        .withVisitEndDate(LocalDate.of(2025, Month.MAY, 14))
-        .build();
+      .withPassportNumbers(asList(EMILY_PASSPORT_NUMBER, JAMES_PASSPORT_NUMBER))
+      .withVisitStartDate(LocalDate.of(2044, Month.JANUARY, 1))
+      .withVisitEndDate(LocalDate.of(2044, Month.MAY, 31))
+      .build());
 
-    final FamilyVisaApplication kiwiApplication =
-      FamilyVisaApplication.newBuilder()
-        .withApplicationId(12)
-        .withPassportNumbers(asList(NEW_ZEALAND_PASSPORT_NUMBER))
-        .withVisitStartDate(LocalDate.of(2029, Month.MAY, 1))
-        .withVisitEndDate(LocalDate.of(2029, Month.JANUARY, 14))
-        .build();
-
-
-    final FamilyVisaApplication aussieApplication = FamilyVisaApplication.newBuilder()
-      .withApplicationId(13)
-      .withPassportNumbers(asList(AUSTRALIAN_PASSPORT_NUMBER))
-      .withVisitStartDate(LocalDate.of(2035, Month.JANUARY, 1))
-      .withVisitEndDate(LocalDate.of(2035, Month.MAY, 31))
-      .build();
-
-
-    final FamilyVisaApplication britonApplication = FamilyVisaApplication.newBuilder()
-      .withApplicationId(14)
-      .withPassportNumbers(asList(GREAT_BRITAIN_PASSPORT_NUMBER))
-      .withVisitStartDate(LocalDate.of(2017, Month.SEPTEMBER, 1))
-      .withVisitEndDate(LocalDate.of(2025, Month.JANUARY, 14))
-      .build();
-
-    return asList(canadianApplication, kiwiApplication, aussieApplication, britonApplication);
-
+    return familyVisaApplications;
   }
 
 }
