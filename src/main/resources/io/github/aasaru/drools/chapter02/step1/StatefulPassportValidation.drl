@@ -1,19 +1,8 @@
-package io.github.aasaru.drools.chapter01
+package io.github.aasaru.drools.chapter02
  
 import io.github.aasaru.drools.domain.Passport;
 import io.github.aasaru.drools.domain.Validation;
 import java.time.LocalDate;
-
-rule "Valid passport"
-    dialect "mvel"
-    when
-        $passport: Passport( validation == Validation.UNKNOWN )
-    then
-        System.out.println( $passport + " is without validation info, consider CORRECT for now" );
-        modify($passport) {
-          setValidation( Validation.PASSED )
-        }
-end
 
 rule "Expired passport"
     dialect "mvel"
@@ -34,5 +23,17 @@ rule "Full passport"
         System.out.println( $passport + " is INVALID because it has no space for visa" );
         modify($passport) {
           setValidation( Validation.FAILED )
+        }
+end
+
+
+rule "Valid passport"
+    dialect "mvel"
+    when
+        $passport: Passport( validation == Validation.UNKNOWN )
+    then
+        System.out.println( $passport + " is without validation info, consider CORRECT for now" );
+        modify($passport) {
+          setValidation( Validation.PASSED )
         }
 end

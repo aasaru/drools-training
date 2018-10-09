@@ -1,4 +1,4 @@
-package io.github.aasaru.drools.chapter03
+package io.github.aasaru.drools.chapter04
 
 import io.github.aasaru.drools.domain.Passport;
 import io.github.aasaru.drools.domain.Validation;
@@ -31,7 +31,6 @@ end
 
 rule "Invalidate visa application where passport expires earlier than 6 months after visit end date"
   dialect "mvel"
-  salience -50
   when
     $passport: Passport()
     $visaApplication: VisaApplication( passportNumber == $passport.passportNumber,

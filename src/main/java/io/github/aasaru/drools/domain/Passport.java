@@ -20,101 +20,111 @@ package io.github.aasaru.drools.domain;
 import java.time.LocalDate;
 
 public class Passport {
-  private String passportNumber;
-  private String name;
-  private LocalDate expiresOn;
-  private int unusedVisaPages;
-  private boolean underage;
-
-  private Validation validation = Validation.UNKNOWN;
-
-  private Passport() {
-  }
-
-  public LocalDate getExpiresOn() {
-    return expiresOn;
-  }
-
-  public boolean isExpired() {
-    return expiresOn.isBefore(LocalDate.now());
-  }
-
-  public String getPassportNumber() {
-    return passportNumber;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public int getUnusedVisaPages() {
-    return unusedVisaPages;
-  }
-
-  public Validation getValidation() {
-    return validation;
-  }
-
-  public void setValidation(Validation validation) {
-    this.validation = validation;
-  }
-
-  public boolean isUnderage() {
-    return underage;
-  }
-
-  @Override
-  public String toString() {
-    return String.format("Passport[no:%s, name:%s]", passportNumber, name);
-  }
-
-  public static PassportBuilder newBuilder() {
-    return new PassportBuilder();
-  }
-
-  public static final class PassportBuilder {
     private String passportNumber;
     private String name;
     private LocalDate expiresOn;
     private int unusedVisaPages;
     private boolean underage;
 
-    private PassportBuilder() {
+    private Validation validation = Validation.UNKNOWN;
+
+    private String cause = "";
+
+    private Passport() {
     }
 
-    public PassportBuilder withPassportNumber(String passportNumber) {
-      this.passportNumber = passportNumber;
-      return this;
+    public LocalDate getExpiresOn() {
+        return expiresOn;
     }
 
-    public PassportBuilder withName(String name) {
-      this.name = name;
-      return this;
+    public boolean isExpired() {
+        return expiresOn.isBefore(LocalDate.now());
     }
 
-    public PassportBuilder withExpiresOn(LocalDate expiresOn) {
-      this.expiresOn = expiresOn;
-      return this;
+    public String getPassportNumber() {
+        return passportNumber;
     }
 
-    public PassportBuilder withUnusedVisaPages(int unusedVisaPages) {
-      this.unusedVisaPages = unusedVisaPages;
-      return this;
+    public String getName() {
+        return name;
     }
 
-    public PassportBuilder withUnderage(boolean underage) {
-      this.underage = underage;
-      return this;
+    public int getUnusedVisaPages() {
+        return unusedVisaPages;
     }
 
-    public Passport build() {
-      Passport passport = new Passport();
-      passport.passportNumber = passportNumber;
-      passport.name = name;
-      passport.expiresOn = expiresOn;
-      passport.unusedVisaPages = unusedVisaPages;
-      passport.underage = underage;
-      return passport;
+    public Validation getValidation() {
+        return validation;
     }
-  }
+
+    public void setValidation(Validation validation) {
+        this.validation = validation;
+    }
+
+    public boolean isUnderage() {
+        return underage;
+    }
+
+    public String getCause() {
+        return cause;
+    }
+
+    public void setCause(String cause) {
+        this.cause = cause;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Passport[no:%s, name:%s]", passportNumber, name);
+    }
+
+    public static PassportBuilder newBuilder() {
+        return new PassportBuilder();
+    }
+
+    public static final class PassportBuilder {
+        private String passportNumber;
+        private String name;
+        private LocalDate expiresOn;
+        private int unusedVisaPages;
+        private boolean underage;
+
+        private PassportBuilder() {
+        }
+
+        public PassportBuilder withPassportNumber(String passportNumber) {
+            this.passportNumber = passportNumber;
+            return this;
+        }
+
+        public PassportBuilder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public PassportBuilder withExpiresOn(LocalDate expiresOn) {
+            this.expiresOn = expiresOn;
+            return this;
+        }
+
+        public PassportBuilder withUnusedVisaPages(int unusedVisaPages) {
+            this.unusedVisaPages = unusedVisaPages;
+            return this;
+        }
+
+        public PassportBuilder withUnderage(boolean underage) {
+            this.underage = underage;
+            return this;
+        }
+
+        public Passport build() {
+            Passport passport = new Passport();
+            passport.passportNumber = passportNumber;
+            passport.name = name;
+            passport.expiresOn = expiresOn;
+            passport.unusedVisaPages = unusedVisaPages;
+            passport.underage = underage;
+            return passport;
+        }
+    }
 }
