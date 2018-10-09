@@ -9,7 +9,7 @@ rule "Valid passport"
     when
         $passport: Passport( validation == Validation.UNKNOWN )
     then
-        System.out.println( $passport + " is without validation info, consider OK for now" );
+        System.out.println( $passport + " is without validation info, consider CORRECT for now" );
         modify($passport) {
           setValidation( Validation.PASSED )
         }

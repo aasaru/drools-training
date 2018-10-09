@@ -11,6 +11,7 @@
 
   <properties>
     <java.module.name>io.github.aasaru.drools-training</java.module.name>
+      <drools.version>7.12.0.Final</drools.version>
   </properties>
 
   <repositories>
@@ -62,25 +63,25 @@
     <dependency>
       <groupId>org.kie</groupId>
       <artifactId>kie-api</artifactId>
-      <version>7.5.0-SNAPSHOT</version>
+      <version>${drools.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.drools</groupId>
       <artifactId>drools-core</artifactId>
-      <version>7.5.0-SNAPSHOT</version>
+      <version>${drools.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.drools</groupId>
       <artifactId>drools-compiler</artifactId>
-      <version>7.5.0-SNAPSHOT</version>
+      <version>${drools.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.kie</groupId>
       <artifactId>kie-internal</artifactId>
-      <version>7.5.0-SNAPSHOT</version>
+      <version>${drools.version}</version>
     </dependency>
 
     <dependency>

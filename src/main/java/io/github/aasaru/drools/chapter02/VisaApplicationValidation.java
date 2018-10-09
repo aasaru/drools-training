@@ -45,39 +45,18 @@ public class VisaApplicationValidation {
     List<VisaApplication> visaApplications = ApplicationRepository.getVisaApplications();
     visaApplications.forEach(ksession::insert);
 
-    if (step == 3) {
-      Agenda agenda = ksession.getAgenda();
-      agenda.getAgendaGroup("valid-application").setFocus();
-      agenda.getAgendaGroup("invalid-application").setFocus();
-      agenda.getAgendaGroup("valid-passport").setFocus();
-      agenda.getAgendaGroup("invalid-passport").setFocus();
-    }
-
-    if (step == 4) {
-      Agenda agenda = ksession.getAgenda();
-      agenda.getAgendaGroup("issue-visa").setFocus();
-      agenda.getAgendaGroup("valid-application").setFocus();
-      agenda.getAgendaGroup("invalid-application").setFocus();
-      agenda.getAgendaGroup("valid-passport").setFocus();
-      agenda.getAgendaGroup("invalid-passport").setFocus();
-    }
 
     ksession.fireAllRules();
     ksession.dispose();
 
-
-    System.out.println("==== APPLICATIONS STATE AFTER DROOLS SESSION === ");
-    visaApplications.forEach(visaApplication -> System.out.println(visaApplication + " verdict: " + visaApplication.getValidation()));
-
-    if (step > 2) {
-      Collection<?> ksessionObjects = ksession.getObjects();
-      System.out.println("== All objects from session == ");
-      ksessionObjects.forEach(System.out::println);
+    System.out.println("==== PASSPORTS AFTER DROOLS SESSION === ");
+    passports.forEach(passport -> System.out.println(passport + " verdict: " + passport.getValidation()));
 
 
-      Collection<?> visaObjects = ksession.getObjects(o -> o.getClass() == Visa.class);
-      System.out.println("== Visas from session == ");
-      visaObjects.forEach(System.out::println);
+
+    if (step >= 2) {
+      System.out.println("==== APPLICATIONS STATE AFTER DROOLS SESSION === ");
+      visaApplications.forEach(visaApplication -> System.out.println(visaApplication + " verdict: " + visaApplication.getValidation()));
     }
 
 
