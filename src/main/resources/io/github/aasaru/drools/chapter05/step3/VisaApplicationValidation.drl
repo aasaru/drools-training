@@ -1,7 +1,10 @@
 package io.github.aasaru.drools.chapter05
 
+import io.github.aasaru.drools.domain.InvalidPassport;
+import io.github.aasaru.drools.domain.InvalidVisaApplication;
 import io.github.aasaru.drools.domain.Passport;
 import io.github.aasaru.drools.domain.Validation;
+import io.github.aasaru.drools.domain.ValidVisaApplication;
 import io.github.aasaru.drools.domain.VisaApplication;
 
 import java.time.LocalDate;
@@ -9,24 +12,22 @@ import java.time.LocalDate;
 rule "Invalidate visa application with invalid passport"
   dialect "mvel"
   when
-    $passport: Passport( validation == Validation.FAILED )
-    $visaApplication: VisaApplication( passportNumber == $passport.passportNumber )
+    $visaApplication: VisaApplication()
+    $invalidPassport: InvalidPassport( this.passport.passportNumber == $visaApplication.passportNumber )
   then
-    System.out.println( "Set " + $visaApplication + " invalid as " + $passport + " hasn't passed validation");
-    modify($visaApplication) {
-      setValidation( Validation.FAILED )
-    }
+    System.out.println( "Set " + $visaApplication + " invalid as " + $invalidPassport.passport + " is invalid");
+    insert( new InvalidVisaApplication($visaApplication) )
+
 end
 
 rule "Set application without validation info as passed"
   dialect "mvel"
   when
-    $visaApplication: VisaApplication( validation == Validation.UNKNOWN )
+    $visaApplication: VisaApplication()
+    not ( InvalidVisaApplication( this.visaApplication == $visaApplication ) )
   then
-    System.out.println( $visaApplication + " is without validation info, consider OK for now" );
-    modify($visaApplication) {
-      setValidation( Validation.PASSED )
-    }
+    System.out.println( $visaApplication + " is not known to be invalid, consider Valid" );
+    insertLogical( new ValidVisaApplication($visaApplication) )
 end
 
 rule "Invalidate visa application where passport expires earlier than 6 months after visit end date"
@@ -37,7 +38,5 @@ rule "Invalidate visa application where passport expires earlier than 6 months a
                                        $passport.expiresOn.isBefore(visitEndDate.plusMonths(6)) )
   then
     System.out.println( "Set " + $visaApplication + " invalid as " + $passport + " is not valid 6 months after planned visit end date");
-    modify($visaApplication) {
-      setValidation( Validation.FAILED )
-    }
+    insert( new InvalidVisaApplication($visaApplication) )
 end

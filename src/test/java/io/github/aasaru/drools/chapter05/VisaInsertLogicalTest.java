@@ -26,6 +26,8 @@ public class VisaInsertLogicalTest {
     VisaInsertLogical.execute(1);
     VisaInsertLogical.execute(2);
     VisaInsertLogical.execute(3);
+    VisaInsertLogical.execute(4);
+    VisaInsertLogical.execute(5);
   }
 
 }

@@ -31,7 +31,7 @@ import java.util.List;
 
 public class VisaIssue {
   public static void main(final String[] args) {
-    execute(Common.promptForStep(3, args, 1, 3));
+    execute(Common.promptForStep(4, args, 1, 3));
   }
 
 
@@ -63,10 +63,6 @@ public class VisaIssue {
     System.out.println("==== APPLICATIONS STATE AFTER DROOLS SESSION === ");
     visaApplications.forEach(visaApplication -> System.out.println(visaApplication + " verdict: " + visaApplication.getValidation()));
 
-
-//    Collection<?> ksessionObjects = ksession.getObjects();
-//    System.out.println("== All objects from session == ");
-//    ksessionObjects.forEach(System.out::println);
 
 
     Collection<?> visaObjects = ksession.getObjects(o -> o.getClass() == Visa.class);

@@ -78,6 +78,12 @@
   <kbase packages="io.github.aasaru.drools.chapter05.step3">
     <ksession name="VisaInsertLogicalStep3"/>
   </kbase>
+  <kbase packages="io.github.aasaru.drools.chapter05.step4">
+    <ksession name="VisaInsertLogicalStep4"/>
+  </kbase>
+  <kbase packages="io.github.aasaru.drools.chapter05.step5">
+    <ksession name="VisaInsertLogicalStep5"/>
+  </kbase>
 
   <kbase packages="io.github.aasaru.drools.chapter06.step1">
     <ksession name="FamilyVisaApplicationStep1"/>

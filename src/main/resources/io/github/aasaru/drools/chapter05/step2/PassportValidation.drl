@@ -9,10 +9,11 @@ import java.time.LocalDate;
 rule "Valid passport"
     dialect "mvel"
     when
-        $passport: Passport( validation == Validation.UNKNOWN )
+        $passport: Passport( )
+        not (InvalidPassport( this.passport == $passport) )
     then
-        System.out.println( $passport + " is without validation info, consider OK for now" );
-        insert( new ValidPassport($passport) )
+        System.out.println( $passport + " is not invalid, consider OK for now" );
+        insertLogical( new ValidPassport($passport) )
 end
 
 rule "Expired passport"

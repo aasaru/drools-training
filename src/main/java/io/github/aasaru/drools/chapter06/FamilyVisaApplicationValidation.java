@@ -31,7 +31,7 @@ import java.util.List;
 
 public class FamilyVisaApplicationValidation {
   public static void main(final String[] args) {
-    execute(Common.promptForStep(5, args, 1, 4));
+    execute(Common.promptForStep(6, args, 1, 4));
   }
 
   static void execute(int step) {
