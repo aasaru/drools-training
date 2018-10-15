@@ -15,5 +15,5 @@ rule "Invalidate visa applications with invalid passport"
         InvalidPassport( this.passport == $passport )
     then
         System.out.println( "Set " + $familyVisaApplication + " invalid as it contains invalid passport");
-        insertLogical( new InvalidFamilyVisaApplication($familyVisaApplication) )
+        insert( new InvalidFamilyVisaApplication($familyVisaApplication) )
 end

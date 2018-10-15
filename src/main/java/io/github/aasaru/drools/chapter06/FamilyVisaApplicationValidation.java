@@ -18,10 +18,7 @@
 package io.github.aasaru.drools.chapter06;
 
 import io.github.aasaru.drools.Common;
-import io.github.aasaru.drools.domain.FamilyVisaApplication;
-import io.github.aasaru.drools.domain.InvalidFamilyVisaApplication;
-import io.github.aasaru.drools.domain.Passport;
-import io.github.aasaru.drools.domain.Visa;
+import io.github.aasaru.drools.domain.*;
 import io.github.aasaru.drools.repository.ApplicationRepository;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieSession;
@@ -31,7 +28,7 @@ import java.util.List;
 
 public class FamilyVisaApplicationValidation {
   public static void main(final String[] args) {
-    execute(Common.promptForStep(6, args, 1, 4));
+    execute(Common.promptForStep(6, args, 1, 5));
   }
 
   static void execute(int step) {
@@ -56,6 +53,10 @@ public class FamilyVisaApplicationValidation {
     Collection<?> visas = ksession.getObjects(o -> o.getClass() == Visa.class);
     System.out.println("== Visas from session == ");
     visas.forEach(System.out::println);
+
+    Collection<?> groupLeaders = ksession.getObjects(o -> o.getClass() == GroupLeader.class);
+    System.out.println("== Group leaders from session == ");
+    groupLeaders.forEach(System.out::println);
 
   }
 

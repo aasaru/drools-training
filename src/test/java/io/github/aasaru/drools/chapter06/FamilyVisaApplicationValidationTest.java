@@ -26,6 +26,8 @@ public class FamilyVisaApplicationValidationTest {
   public void shouldExecuteAllSteps() {
     FamilyVisaApplicationValidation.execute(1);
     FamilyVisaApplicationValidation.execute(2);
+    FamilyVisaApplicationValidation.execute(3);
+    FamilyVisaApplicationValidation.execute(4);
   }
 
 }

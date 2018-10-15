@@ -16,5 +16,5 @@ rule "Expired or full passport"
     when
         Passport( isExpired() || unusedVisaPages == 0 )
     then
-        System.out.println("This passport is INVALID because it is expired or has no space for visa");
+        System.out.println( "This passport is INVALID because it is expired or has no space for visa" );
 end

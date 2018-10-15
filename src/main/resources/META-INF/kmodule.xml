@@ -94,6 +94,12 @@
   <kbase packages="io.github.aasaru.drools.chapter06.step3">
     <ksession name="FamilyVisaApplicationStep3"/>
   </kbase>
+  <kbase packages="io.github.aasaru.drools.chapter06.step4">
+    <ksession name="FamilyVisaApplicationStep4"/>
+  </kbase>
+  <kbase packages="io.github.aasaru.drools.chapter06.step5">
+    <ksession name="FamilyVisaApplicationStep5"/>
+  </kbase>
 
 
 </kmodule>

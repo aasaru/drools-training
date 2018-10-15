@@ -47,6 +47,14 @@ public class VisaInsertLogical {
     ksession.dispose();
     System.out.println("==== DROOLS SESSION END ==== ");
 
+    System.out.println("==== VALID PASSPORTS FROM DROOLS SESSION === ");
+    Collection<?> validPassport = ksession.getObjects(o -> o.getClass() == ValidPassport.class);
+    validPassport.forEach(System.out::println);
+
+    System.out.println("==== VALID APPLICATIONS FROM DROOLS SESSION === ");
+    Collection<?> validApplications = ksession.getObjects(o -> o.getClass() == ValidVisaApplication.class);
+    validApplications.forEach(System.out::println);
+
     System.out.println("==== INVALID PASSPORTS FROM DROOLS SESSION === ");
     Collection<?> invalidPassport = ksession.getObjects(o -> o.getClass() == InvalidPassport.class);
     invalidPassport.forEach(System.out::println);

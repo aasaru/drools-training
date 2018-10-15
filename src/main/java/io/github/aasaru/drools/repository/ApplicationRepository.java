@@ -43,7 +43,7 @@ public class ApplicationRepository {
       .withName("Sarah Murphy")
       .withUnusedVisaPages(1)
       .withExpiresOn(LocalDate.of(2017, Month.DECEMBER, 17))
-      .withUnderage(false)
+      .withAge(50)
       .build());
 
     passports.add(Passport.newBuilder()
@@ -51,7 +51,7 @@ public class ApplicationRepository {
       .withName("Simon Murphy")
       .withUnusedVisaPages(0)
       .withExpiresOn(LocalDate.of(2045, Month.MAY, 11))
-      .withUnderage(true)
+      .withAge(12)
       .build());
 
     passports.add(Passport.newBuilder()
@@ -59,7 +59,7 @@ public class ApplicationRepository {
       .withName("Emily Brown")
       .withUnusedVisaPages(20)
       .withExpiresOn(LocalDate.of(2047, Month.NOVEMBER, 25))
-      .withUnderage(true)
+      .withAge(16)
       .build());
 
     passports.add(Passport.newBuilder()
@@ -67,7 +67,7 @@ public class ApplicationRepository {
       .withName("James Brown")
       .withUnusedVisaPages(10)
       .withExpiresOn(LocalDate.of(2045, Month.APRIL, 10))
-      .withUnderage(true)
+      .withAge(17)
       .build());
 
     return passports;

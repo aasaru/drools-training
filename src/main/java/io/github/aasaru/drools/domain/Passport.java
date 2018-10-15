@@ -24,7 +24,7 @@ public class Passport {
     private String name;
     private LocalDate expiresOn;
     private int unusedVisaPages;
-    private boolean underage;
+    private int age;
 
     private Validation validation = Validation.UNKNOWN;
 
@@ -61,8 +61,8 @@ public class Passport {
         this.validation = validation;
     }
 
-    public boolean isUnderage() {
-        return underage;
+    public int getAge() {
+        return age;
     }
 
     public String getCause() {
@@ -87,7 +87,7 @@ public class Passport {
         private String name;
         private LocalDate expiresOn;
         private int unusedVisaPages;
-        private boolean underage;
+        private int age;
 
         private PassportBuilder() {
         }
@@ -112,8 +112,8 @@ public class Passport {
             return this;
         }
 
-        public PassportBuilder withUnderage(boolean underage) {
-            this.underage = underage;
+        public PassportBuilder withAge(int age) {
+            this.age = age;
             return this;
         }
 
@@ -123,7 +123,7 @@ public class Passport {
             passport.name = name;
             passport.expiresOn = expiresOn;
             passport.unusedVisaPages = unusedVisaPages;
-            passport.underage = underage;
+            passport.age = age;
             return passport;
         }
     }

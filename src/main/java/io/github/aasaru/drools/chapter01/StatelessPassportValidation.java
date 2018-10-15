@@ -21,6 +21,7 @@ import io.github.aasaru.drools.Common;
 import io.github.aasaru.drools.domain.Passport;
 import io.github.aasaru.drools.repository.ApplicationRepository;
 import org.kie.api.KieServices;
+import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.StatelessKieSession;
 
 import java.util.List;
@@ -35,9 +36,10 @@ public class StatelessPassportValidation {
 
     List<Passport> passports = ApplicationRepository.getPassports();
 
-    StatelessKieSession statelessKieSession = KieServices.Factory.get().getKieClasspathContainer().newStatelessKieSession("StatelessPassportValidationStep" + step);
+    KieContainer kieContainer = KieServices.Factory.get().getKieClasspathContainer();
+    StatelessKieSession kieSession = kieContainer.newStatelessKieSession("StatelessPassportValidationStep" + step);
     System.out.println("==== DROOLS SESSION START ==== ");
-    statelessKieSession.execute(passports);
+    kieSession.execute(passports);
     System.out.println("==== DROOLS SESSION END ==== ");
 
     if (step >= 4) {

@@ -8,7 +8,7 @@ rule "Valid passport"
     when
         Passport( !isExpired(), unusedVisaPages > 0 )
     then
-        System.out.println("This passport is CORRECT");
+        System.out.println( "This passport is CORRECT" );
 end
 
 rule "Expired passport"
@@ -16,7 +16,7 @@ rule "Expired passport"
     when
         Passport( isExpired() )
     then
-        System.out.println("This passport is INVALID because it is expired ");
+        System.out.println( "This passport is INVALID because it is expired" );
 end
 
 rule "Full passport"
@@ -24,5 +24,5 @@ rule "Full passport"
     when
         Passport( unusedVisaPages == 0 )
     then
-        System.out.println("This passport is INVALID because it has no space for visa");
+        System.out.println( "This passport is INVALID because it has no space for visa" );
 end
