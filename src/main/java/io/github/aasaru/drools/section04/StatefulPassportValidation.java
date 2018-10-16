@@ -21,7 +21,7 @@ import java.util.List;
 
 public class StatefulPassportValidation {
   public static void main(final String[] args) {
-    execute(Common.promptForStep(2, args, 1, 2));
+    execute(Common.promptForStep(4, args, 1, 2));
   }
 
 

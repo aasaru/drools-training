@@ -21,7 +21,7 @@ import java.util.List;
 
 public class StatelessPassportValidation {
   public static void main(final String[] args) {
-    execute(Common.promptForStep(1, args, 1, 6));
+    execute(Common.promptForStep(3, args, 1, 6));
   }
 
   static void execute(int step) {

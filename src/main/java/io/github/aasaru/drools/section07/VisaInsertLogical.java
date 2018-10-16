@@ -21,7 +21,7 @@ import java.util.List;
 
 public class VisaInsertLogical {
   public static void main(final String[] args) {
-    execute(Common.promptForStep(5, args, 1, 5));
+    execute(Common.promptForStep(7, args, 1, 5));
   }
 
 
