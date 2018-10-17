@@ -38,8 +38,8 @@ rule "Invalidate visa application where passport expires earlier than 6 months a
                        $passport.expiresOn.isBefore(visitEndDate.plusMonths(6)),
                        validation != Validation.FAILED)
   then
-    System.out.println( "Set " + $visaApplication + " invalid as " + $passport + " is not valid 6 months after planned visit end date");
-    modify($visaApplication) {
-      setValidation( Validation.FAILED )
-    }
+    System.out.println( "Set " + $visaApplication + " invalid as " + $passport + " not valid 6 months after visit end");
+         modify($visaApplication) {
+           setValidation( Validation.FAILED )
+         }
 end

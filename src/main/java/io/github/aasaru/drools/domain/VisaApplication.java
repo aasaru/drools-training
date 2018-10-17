@@ -42,7 +42,7 @@ public class VisaApplication {
 
   @Override
   public String toString() {
-    return "VisaApplication(id:" + applicationId + ", passport:" + passportNumber + ")";
+    return "VisaApplication(#" + applicationId + ", pass:" + passportNumber + ")";
   }
 
   public static VisaApplicationBuilder newBuilder() {
