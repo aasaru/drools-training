@@ -7,26 +7,26 @@ import java.time.LocalDate
 rule "Valid passport"
   dialect "mvel"
   when
-    $passport: Passport( !isExpired(), unusedVisaPages > 0  )
+	$passport: Passport( !isExpired(), $unusedPages: unusedVisaPages > 0 )
   then
-    System.out.println( $passport + " is CORRECT" );
-    $passport.setValidation( Validation.PASSED );
+	System.out.println( $passport + " is CORRECT. It has " + $unusedPages + " pages free." );
+	$passport.setValidation( Validation.PASSED );
 end
 
 rule "Expired passport"
   dialect "mvel"
   when
-    $passport: Passport( isExpired() )
+	$passport: Passport( isExpired() )
   then
-    System.out.println( $passport + " is INVALID because it is expired" );
-    $passport.setValidation( Validation.FAILED );
+	System.out.println( $passport + " is INVALID because it is expired" );
+	$passport.setValidation( Validation.FAILED );
 end
 
 rule "Full passport"
   dialect "mvel"
   when
-    $passport: Passport( unusedVisaPages == 0 )
+	$passport: Passport( unusedVisaPages == 0 )
   then
-    System.out.println( $passport + " is INVALID because it has no space for visa" );
-    $passport.setValidation( Validation.FAILED );
+	System.out.println( $passport + " is INVALID because it has no space for visa" );
+	$passport.setValidation( Validation.FAILED );
 end

@@ -8,13 +8,13 @@ import java.time.LocalDate
 import io.github.aasaru.drools.domain.Visa;
 
 rule "Issue visa for valid applications"
-    dialect "mvel"
-    when
-      $visaApplication: VisaApplication( )
-      not InvalidPassport( this.passport.passportNumber == $visaApplication.passportNumber )
-      not InvalidVisaApplication( this.visaApplication == $visaApplication )
-    then
-      Visa visa = new Visa( $visaApplication.getPassportNumber() );
-      System.out.println("Issue " + visa);
-      insertLogical( visa )
+	dialect "mvel"
+	when
+	  $visaApplication: VisaApplication( )
+	  not InvalidPassport( this.passport.passportNumber == $visaApplication.passportNumber )
+	  not InvalidVisaApplication( this.visaApplication == $visaApplication )
+	then
+	  Visa visa = new Visa( $visaApplication.getPassportNumber() );
+	  System.out.println("Issue " + visa);
+	  insertLogical( visa )
 end

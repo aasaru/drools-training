@@ -12,11 +12,11 @@ import java.time.LocalDate;
 rule "Invalidate visa application where passport expires earlier than 6 months after visit end date"
   dialect "mvel"
   when
-    $passport: Passport()
-    $visaApplication: VisaApplication( passportNumber == $passport.passportNumber,
-                                       $passport.expiresOn.isBefore(visitEndDate.plusMonths(6)) )
-    not ( InvalidVisaApplication( this.visaApplication == $visaApplication ) )
+	$passport: Passport()
+	$visaApplication: VisaApplication( passportNumber == $passport.passportNumber,
+									   $passport.expiresOn.isBefore(visitEndDate.plusMonths(6)) )
+	not ( InvalidVisaApplication( this.visaApplication == $visaApplication ) )
   then
-    System.out.println( "Set " + $visaApplication + " invalid as " + $passport + " is not valid 6 months after planned visit end date");
-    insert( new InvalidVisaApplication($visaApplication) )
+	System.out.println( "Set " + $visaApplication + " invalid as " + $passport + " is not valid 6 months after planned visit end date");
+	insert( new InvalidVisaApplication($visaApplication) )
 end
