@@ -22,7 +22,8 @@ rule "Expired passport"
 	then
 		System.out.println( $passport + " is INVALID because it is expired" );
 		modify($passport) {
-		  setValidation( Validation.FAILED )
+		  setValidation( Validation.FAILED ),
+		  setCause( "passport is expired" )
 		}
 end
 
@@ -33,6 +34,7 @@ rule "Full passport"
 	then
 		System.out.println( $passport + " is INVALID because it has no space for visa" );
 		modify($passport) {
-		  setValidation( Validation.FAILED )
+		  setValidation( Validation.FAILED ),
+		  setCause( "passport has no space for visa" )
 		}
 end

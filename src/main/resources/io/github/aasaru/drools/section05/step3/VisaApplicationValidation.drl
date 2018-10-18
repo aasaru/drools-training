@@ -11,7 +11,7 @@ rule "Invalidate visa application with invalid passport"
   when
     $passport: Passport( validation == Validation.FAILED )
     $visaApplication: VisaApplication( passportNumber == $passport.passportNumber,
-                       validation != Validation.FAILED)
+                                       validation != Validation.FAILED )
   then
     System.out.println( "Set " + $visaApplication + " invalid as " + $passport + " hasn't passed validation");
     modify($visaApplication) {
@@ -33,13 +33,13 @@ end
 rule "Invalidate visa application where passport expires earlier than 6 months after visit end date"
   dialect "mvel"
   when
-    $passport: Passport( validation != Validation.FAILED)
+    $passport: Passport( validation != Validation.FAILED )
     $visaApplication: VisaApplication( passportNumber == $passport.passportNumber,
-                       $passport.expiresOn.isBefore(visitEndDate.plusMonths(6)),
-                       validation != Validation.FAILED)
+                                       $passport.expiresOn.isBefore(visitEndDate.plusMonths(6)),
+                                       validation != Validation.FAILED )
   then
-    System.out.println( "Set " + $visaApplication + " invalid as " + $passport + " not valid 6 months after visit end");
-         modify($visaApplication) {
-           setValidation( Validation.FAILED )
-         }
+    System.out.println( "Set " + $visaApplication + " invalid as " + $passport + " not valid 6 months after visit");
+    modify($visaApplication) {
+     setValidation( Validation.FAILED )
+    }
 end
