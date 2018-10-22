@@ -10,7 +10,7 @@ rule "Valid passport"
 	dialect "mvel"
 	when
 		$passport: Passport( )
-		not (InvalidPassport( this.passport == $passport) )
+		not( InvalidPassport( this.passport == $passport) )
 	then
 		System.out.println( $passport + " is not invalid, consider OK for now" );
 		insertLogical( new ValidPassport($passport) )

@@ -71,6 +71,18 @@ public class VisaIssue {
 
     passports.forEach(ksession::insert);
 
+
+
+
+
+
+
+
+
+
+
+
+
     List<VisaApplication> visaApplications = ApplicationRepository.getVisaApplications();
     visaApplications.forEach(ksession::insert);
 
