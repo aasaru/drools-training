@@ -1,5 +1,7 @@
 package io.github.aasaru.drools.section06
 
+import io.github.aasaru.drools.domain.Validation;
+import io.github.aasaru.drools.domain.VisaApplication;
 import io.github.aasaru.drools.domain.Visa;
 
 rule "Report were visas"
@@ -17,7 +19,7 @@ rule "Report no visas"
 	activation-group "conclusion"
 	salience 10
 	when
-    not Visa()
+    VisaApplication( validation == Validation.FAILED )
 	then
 	  System.out.println("Conclusion: no visas were issued");
 end
