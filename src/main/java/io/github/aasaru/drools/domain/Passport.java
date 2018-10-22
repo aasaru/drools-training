@@ -30,6 +30,10 @@ public class Passport {
     return expiresOn;
   }
 
+  public void setExpiresOn(LocalDate expiresOn) {
+    this.expiresOn = expiresOn;
+  }
+
   public boolean isExpired() {
     return expiresOn.isBefore(LocalDate.now());
   }

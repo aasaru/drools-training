@@ -16,15 +16,20 @@ import io.github.aasaru.drools.domain.Visa;
 import io.github.aasaru.drools.domain.VisaApplication;
 import io.github.aasaru.drools.repository.ApplicationRepository;
 import org.kie.api.KieServices;
+import org.kie.api.event.rule.DebugAgendaEventListener;
+import org.kie.api.event.rule.DebugRuleRuntimeEventListener;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.rule.Agenda;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
+import static io.github.aasaru.drools.repository.ApplicationRepository.EMILY_PASSPORT_NUMBER;
+
 public class VisaIssue {
   public static void main(final String[] args) {
-    execute(Common.promptForStep(6, args, 1, 3));
+    execute(Common.promptForStep(6, args, 1, 5));
   }
 
 
@@ -32,7 +37,17 @@ public class VisaIssue {
     System.out.println("Running step " + step);
     KieSession ksession = KieServices.Factory.get().getKieClasspathContainer().newKieSession("VisaIssueStep" + step);
 
+    ksession.addEventListener(new AgendaGroupEventListener(System.out));
+
     List<Passport> passports = ApplicationRepository.getPassports();
+
+    if (step == 5) {
+      if (Common.promptForYesNoQuestion("Do you want to set all passports as expired?")) {
+        System.out.println("Setting all passports as expired before Drools session starts");
+        passports.forEach(passport -> passport.setExpiresOn(LocalDate.MIN));
+      }
+    }
+
     passports.forEach(ksession::insert);
 
     List<VisaApplication> visaApplications = ApplicationRepository.getVisaApplications();
@@ -47,21 +62,21 @@ public class VisaIssue {
       agenda.getAgendaGroup("invalid-passport").setFocus();
     }
 
+    if (step >= 4) {
+      Agenda agenda = ksession.getAgenda();
+      agenda.getAgendaGroup("issue-visa").setFocus();
+      agenda.getAgendaGroup("validate-application").setFocus();
+      agenda.getAgendaGroup("validate-passport").setFocus();
+    }
+
     System.out.println("==== DROOLS SESSION START ==== ");
     ksession.fireAllRules();
     ksession.dispose();
     System.out.println("==== DROOLS SESSION END ==== ");
 
-
-    System.out.println("==== APPLICATIONS STATE AFTER DROOLS SESSION === ");
-    visaApplications.forEach(visaApplication -> System.out.println(visaApplication + " verdict: " + visaApplication.getValidation()));
-
-
-
     Collection<?> visaObjects = ksession.getObjects(o -> o.getClass() == Visa.class);
     System.out.println("== Visas from session == ");
     visaObjects.forEach(System.out::println);
-
 
   }
 

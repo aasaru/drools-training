@@ -6,7 +6,8 @@ import java.time.LocalDate;
 
 rule "Valid passport"
 	dialect "mvel"
-	salience 50
+	agenda-group "validate-passport"
+  salience 10
 	when
 		$passport: Passport( validation == Validation.UNKNOWN )
 	then
@@ -18,7 +19,8 @@ end
 
 rule "Expired passport"
 	dialect "mvel"
-	salience 60
+	agenda-group "validate-passport"
+  salience 20
 	when
 		$passport: Passport( isExpired()  )
 	then
@@ -31,7 +33,8 @@ end
 
 rule "Full passport"
 	dialect "mvel"
-	salience 60
+	agenda-group "validate-passport"
+	salience 20
 	when
 		$passport: Passport( unusedVisaPages == 0   )
 	then

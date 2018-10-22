@@ -1,6 +1,5 @@
 package io.github.aasaru.drools.section06
 
-import io.github.aasaru.drools.domain.Passport;
 import io.github.aasaru.drools.domain.Validation;
 import io.github.aasaru.drools.domain.VisaApplication;
 import java.time.LocalDate

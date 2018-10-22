@@ -8,6 +8,7 @@ import java.time.LocalDate;
 
 rule "Invalidate visa application with invalid passport"
   dialect "mvel"
+  agenda-group "validate-application"
   salience 20
   when
     $passport: Passport( validation == Validation.FAILED )
@@ -22,6 +23,7 @@ end
 
 rule "Set application without validation info as passed"
   dialect "mvel"
+  agenda-group "validate-application"
   salience 10
   when
     $visaApplication: VisaApplication( validation == Validation.UNKNOWN )
@@ -34,6 +36,7 @@ end
 
 rule "Invalidate visa application where passport expires earlier than 6 months after visit end date"
   dialect "mvel"
+  agenda-group "validate-application"
   salience 20
   when
     $passport: Passport( validation != Validation.FAILED )

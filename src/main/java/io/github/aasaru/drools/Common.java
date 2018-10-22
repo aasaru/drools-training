@@ -50,4 +50,31 @@ public class Common {
 
   }
 
+
+  public static boolean promptForYesNoQuestion(String question) {
+    String enteredStr = "";
+
+    while (true) {
+      BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+      try {
+        System.out.print(String.format("%s Enter 'yes' or 'no': ", question));
+        enteredStr = br.readLine().trim();
+
+        if ("yes".equalsIgnoreCase(enteredStr) || "y".equalsIgnoreCase(enteredStr)) {
+          return true;
+        }
+
+        if ("no".equalsIgnoreCase(enteredStr) || "n".equalsIgnoreCase(enteredStr)) {
+          return false;
+        }
+
+        System.out.println("Enter either 'yes' or 'no'");
+      }
+      catch (IOException e) {
+        System.out.println("Invalid input: " + enteredStr);
+      }
+    }
+
+  }
+
 }
