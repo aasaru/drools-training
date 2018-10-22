@@ -35,8 +35,7 @@ rule "Full passport"
 	dialect "mvel"
 	agenda-group "validate-passport"
 	salience 20
-	// NB! THIS RULE WON'T RUN!
-	enabled false
+	date-expires "01-Sep-2018"
 	when
 		$passport: Passport( unusedVisaPages == 0   )
 	then

@@ -17,15 +17,12 @@ import io.github.aasaru.drools.domain.VisaApplication;
 import io.github.aasaru.drools.repository.ApplicationRepository;
 import org.kie.api.KieServices;
 import org.kie.api.event.rule.DebugAgendaEventListener;
-import org.kie.api.event.rule.DebugRuleRuntimeEventListener;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.rule.Agenda;
 
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
-
-import static io.github.aasaru.drools.repository.ApplicationRepository.EMILY_PASSPORT_NUMBER;
 
 public class VisaIssue {
   public static void main(final String[] args) {
@@ -38,6 +35,30 @@ public class VisaIssue {
     KieSession ksession = KieServices.Factory.get().getKieClasspathContainer().newKieSession("VisaIssueStep" + step);
 
     ksession.addEventListener(new AgendaGroupEventListener(System.out));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     List<Passport> passports = ApplicationRepository.getPassports();
 
@@ -53,6 +74,18 @@ public class VisaIssue {
     List<VisaApplication> visaApplications = ApplicationRepository.getVisaApplications();
     visaApplications.forEach(ksession::insert);
 
+
+
+
+
+
+
+
+
+
+
+
+
     if (step == 3) {
       Agenda agenda = ksession.getAgenda();
       agenda.getAgendaGroup("issue-visa").setFocus();
@@ -61,6 +94,16 @@ public class VisaIssue {
       agenda.getAgendaGroup("valid-passport").setFocus();
       agenda.getAgendaGroup("invalid-passport").setFocus();
     }
+
+
+
+
+
+
+
+
+
+
 
     if (step >= 4) {
       Agenda agenda = ksession.getAgenda();

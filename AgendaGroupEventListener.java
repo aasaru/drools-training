@@ -4,7 +4,7 @@ import org.kie.api.event.rule.*;
 
 import java.io.PrintStream;
 
-public class AgendaGroupEventListener extends DebugAgendaEventListener {
+public class AgendaGroupEventListener  {
 
   private PrintStream stream;
 
@@ -23,23 +23,26 @@ public class AgendaGroupEventListener extends DebugAgendaEventListener {
   }
 
   @Override
-  public void matchCreated(MatchCreatedEvent event) {
-    //super.matchCreated(event);
-  }
-
-  @Override
   public void afterMatchFired(AfterMatchFiredEvent event) {
     //super.afterMatchFired(event);
   }
 
   @Override
+  public void matchCreated(MatchCreatedEvent event) {
+    //super.matchCreated(event);
+  }
+
+  @Override
   public void agendaGroupPopped(AgendaGroupPoppedEvent event) {
+    //super.agendaGroupPopped(event);
     stream.println("==> " + event.getAgendaGroup() + " popped from stack ");
   }
 
   @Override
   public void agendaGroupPushed(AgendaGroupPushedEvent event) {
+    //super.agendaGroupPushed(event);
     stream.println("==> " + event.getAgendaGroup() + " pushed to stack ");
+
   }
 
   @Override
