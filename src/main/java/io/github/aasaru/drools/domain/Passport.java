@@ -11,6 +11,7 @@
 package io.github.aasaru.drools.domain;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Passport {
   private String passportNumber;
@@ -79,7 +80,7 @@ public class Passport {
     return new PassportBuilder();
   }
 
-  public static final class PassportBuilder {
+   public static final class PassportBuilder {
     private String passportNumber;
     private String name;
     private LocalDate expiresOn;
@@ -124,4 +125,24 @@ public class Passport {
       return passport;
     }
   }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof Passport)) return false;
+    Passport passport = (Passport) o;
+    return unusedVisaPages == passport.unusedVisaPages &&
+        age == passport.age &&
+        Objects.equals(passportNumber, passport.passportNumber) &&
+        Objects.equals(name, passport.name) &&
+        Objects.equals(expiresOn, passport.expiresOn) &&
+        validation == passport.validation &&
+        Objects.equals(cause, passport.cause);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(passportNumber, name, expiresOn, unusedVisaPages, age, validation, cause);
+  }
+
 }

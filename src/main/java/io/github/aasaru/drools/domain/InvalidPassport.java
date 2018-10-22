@@ -23,6 +23,17 @@ public class InvalidPassport {
 
   @Override
   public String toString() {
-    return "Invalid:" + passport;
+    return "Invalid" + passport;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    return obj instanceof InvalidPassport
+        && ((InvalidPassport) obj).getPassport().equals(passport);
+  }
+
+  @Override
+  public int hashCode() {
+    return passport.hashCode();
   }
 }

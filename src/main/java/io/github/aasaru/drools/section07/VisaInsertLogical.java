@@ -27,7 +27,7 @@ import java.util.List;
 
 public class VisaInsertLogical {
   public static void main(final String[] args) {
-    execute(Common.promptForStep(7, args, 1, 5));
+    execute(Common.promptForStep(7, args, 1, 4));
   }
 
 
@@ -35,24 +35,26 @@ public class VisaInsertLogical {
     System.out.println("Running step " + step);
     KieSession ksession = KieServices.Factory.get().getKieClasspathContainer().newKieSession("VisaInsertLogicalStep" + step);
 
-    if (step == 1) {
+    if (step < 3) {
       ksession.addEventListener(new RuleRuntimeEventListener() {
         @Override
         public void objectInserted(ObjectInsertedEvent event) {
-          System.out.println("==> " + event.getObject() + " inserted!");
+          System.out.println("==> " + event.getObject() + " inserted");
         }
 
         @Override
         public void objectUpdated(ObjectUpdatedEvent event) {
-          System.out.println("==> " + event.getObject() + " updated!");
+          System.out.println("==> " + event.getObject() + " updated");
+
         }
 
         @Override
         public void objectDeleted(ObjectDeletedEvent event) {
-          System.out.println("==> " + event.getOldObject() + " deleted!");
+          System.out.println("==> " + event.getOldObject() + " deleted");
         }
       });
     }
+
 
     List<Passport> passports = ApplicationRepository.getPassports();
     passports.forEach(ksession::insert);

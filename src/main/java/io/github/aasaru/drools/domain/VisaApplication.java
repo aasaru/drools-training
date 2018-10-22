@@ -11,6 +11,7 @@
 package io.github.aasaru.drools.domain;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class VisaApplication {
   private int applicationId;
@@ -86,5 +87,22 @@ public class VisaApplication {
       visaApplication.visitEndDate = visitEndDate;
       return visaApplication;
     }
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof VisaApplication)) return false;
+    VisaApplication that = (VisaApplication) o;
+    return applicationId == that.applicationId &&
+        Objects.equals(passportNumber, that.passportNumber) &&
+        Objects.equals(visitStartDate, that.visitStartDate) &&
+        Objects.equals(visitEndDate, that.visitEndDate) &&
+        validation == that.validation;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(applicationId, passportNumber, visitStartDate, visitEndDate, validation);
   }
 }

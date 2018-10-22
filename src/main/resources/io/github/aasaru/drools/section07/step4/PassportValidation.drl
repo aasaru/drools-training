@@ -1,20 +1,9 @@
 package io.github.aasaru.drools.section07
  
 import io.github.aasaru.drools.domain.InvalidPassport;
-import io.github.aasaru.drools.domain.ValidPassport;
 import io.github.aasaru.drools.domain.Passport;
 import io.github.aasaru.drools.domain.Validation;
 import java.time.LocalDate;
-
-rule "Valid passport"
-	dialect "mvel"
-	when
-		$passport: Passport( )
-		not (InvalidPassport( this.passport == $passport) )
-	then
-		System.out.println( $passport + " is not invalid, consider OK for now" );
-		insertLogical( new ValidPassport($passport) )
-end
 
 rule "Expired passport"
 	dialect "mvel"
