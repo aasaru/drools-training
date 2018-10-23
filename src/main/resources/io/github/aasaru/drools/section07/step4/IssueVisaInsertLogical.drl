@@ -1,20 +1,20 @@
 package io.github.aasaru.drools.section07
 
-import io.github.aasaru.drools.domain.Passport;
-import io.github.aasaru.drools.domain.Validation;
+import io.github.aasaru.drools.domain.InvalidPassport;
 import io.github.aasaru.drools.domain.InvalidVisaApplication;
-import io.github.aasaru.drools.domain.VisaApplication;
-import java.time.LocalDate
+import io.github.aasaru.drools.domain.Passport;
 import io.github.aasaru.drools.domain.Visa;
+import io.github.aasaru.drools.domain.VisaApplication;
 
 rule "Issue visa for valid applications"
 	dialect "mvel"
 	when
 	  $visaApplication: VisaApplication( )
-	  not InvalidPassport( this.passport.passportNumber == $visaApplication.passportNumber )
+	  $passport: Passport( this.passportNumber == $visaApplication.passportNumber )
+	  not InvalidPassport( this.passport == $passport )
 	  not InvalidVisaApplication( this.visaApplication == $visaApplication )
 	then
-	  Visa visa = new Visa( $visaApplication.getPassportNumber() );
+	  Visa visa = new Visa( $passport.getPassportNumber() );
 	  System.out.println("Issue " + visa);
 	  insertLogical( visa )
 end

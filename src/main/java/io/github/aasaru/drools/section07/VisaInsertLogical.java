@@ -67,7 +67,7 @@ public class VisaInsertLogical {
     ksession.dispose();
     System.out.println("==== DROOLS SESSION END ==== ");
 
-    if (step > 1) {
+    if (step > 1 && step < 4) {
       System.out.println("==== VALID PASSPORTS FROM DROOLS SESSION === ");
       Collection<?> validPassport = ksession.getObjects(o -> o.getClass() == ValidPassport.class);
       validPassport.forEach(System.out::println);
@@ -77,7 +77,7 @@ public class VisaInsertLogical {
       invalidPassport.forEach(System.out::println);
     }
 
-    if (step > 2) {
+    if (step == 3) {
       System.out.println("==== VALID APPLICATIONS FROM DROOLS SESSION === ");
       Collection<?> validApplications = ksession.getObjects(o -> o.getClass() == ValidVisaApplication.class);
       validApplications.forEach(System.out::println);

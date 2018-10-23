@@ -7,8 +7,7 @@ import io.github.aasaru.drools.domain.Visa;
 rule "Issue visa for valid applications"
 	dialect "mvel"
 	when
-	  $visaApplication: VisaApplication()
-	  ValidVisaApplication( this.visaApplication == $visaApplication )
+	  ValidVisaApplication( $visaApplication: this.visaApplication )
 	then
 	  Visa visa = new Visa( $visaApplication.getPassportNumber() );
 	  System.out.println("Issue " + visa);

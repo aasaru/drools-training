@@ -18,7 +18,6 @@ rule "Invalidate visa application with invalid passport"
   then
     System.out.println( "Set " + $visaApplication + " invalid as " + $invalidPassport.getPassport() + " is invalid");
     insert( new InvalidVisaApplication($visaApplication) )
-
 end
 
 rule "Set application without validation info as passed"
