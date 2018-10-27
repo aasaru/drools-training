@@ -5,7 +5,6 @@ import io.github.aasaru.drools.domain.InvalidPassport;
 import io.github.aasaru.drools.domain.Passport;
 import io.github.aasaru.drools.domain.InvalidFamilyVisaApplication;
 import io.github.aasaru.drools.domain.FamilyVisaApplication;
-import io.github.aasaru.drools.domain.Visa;
 
 import java.time.LocalDate;
 
@@ -38,7 +37,7 @@ rule "Choose the leader for the group of people under 18"
 		$familyVisaApplication: FamilyVisaApplication( )
 		$groupLeaderPassport: Passport(
 			$familyVisaApplication.passportNumbers.contains(this.passportNumber),
-			this.age < 18
+			age < 18
 		)
 		forall (
 		  $passport : Passport( $familyVisaApplication.passportNumbers.contains(this.passportNumber) ),

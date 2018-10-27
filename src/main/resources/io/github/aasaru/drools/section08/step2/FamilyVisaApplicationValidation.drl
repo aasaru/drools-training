@@ -4,7 +4,6 @@ import io.github.aasaru.drools.domain.InvalidPassport;
 import io.github.aasaru.drools.domain.Passport;
 import io.github.aasaru.drools.domain.InvalidFamilyVisaApplication;
 import io.github.aasaru.drools.domain.FamilyVisaApplication;
-import io.github.aasaru.drools.domain.Visa;
 
 import java.time.LocalDate;
 
@@ -17,4 +16,3 @@ rule "Invalidate visa applications with invalid passport"
 		System.out.println( "Set " + $familyVisaApplication + " invalid as it contains invalid passport");
 		insert( new InvalidFamilyVisaApplication($familyVisaApplication) )
 end
-

@@ -5,7 +5,6 @@ import io.github.aasaru.drools.domain.InvalidPassport;
 import io.github.aasaru.drools.domain.Passport;
 import io.github.aasaru.drools.domain.InvalidFamilyVisaApplication;
 import io.github.aasaru.drools.domain.FamilyVisaApplication;
-import io.github.aasaru.drools.domain.Visa;
 
 import java.time.LocalDate;
 
@@ -32,7 +31,7 @@ rule "Invalidate visa application where everyone is under 16"
 		insert( new InvalidFamilyVisaApplication($familyVisaApplication) )
 end
 
-rule "Choose the leader for the group on people under 18"
+rule "Choose the leader for the group of people under 18"
 	dialect "mvel"
 	when
 		$familyVisaApplication: FamilyVisaApplication( )
@@ -45,7 +44,6 @@ rule "Choose the leader for the group on people under 18"
 		  $passport : Passport( $familyVisaApplication.passportNumbers.contains(this.passportNumber) ),
 					  Passport( this == $passport, this.age <= $groupLeaderPassport.age)
 		)
-
 	then
 		System.out.println( "Set " + $groupLeaderPassport + " as group leader as the oldest person in group");
 		insert( new GroupLeader( $groupLeaderPassport, $familyVisaApplication) )
