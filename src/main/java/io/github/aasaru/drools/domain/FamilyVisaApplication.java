@@ -106,4 +106,16 @@ public class FamilyVisaApplication {
       return familyVisaApplication;
     }
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    return obj instanceof FamilyVisaApplication
+        && ((FamilyVisaApplication) obj).getApplicationId() == applicationId;
+  }
+
+  @Override
+  public int hashCode() {
+    return new Long(applicationId).hashCode();
+  }
+
 }

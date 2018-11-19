@@ -11,8 +11,7 @@ rule "Invalidate visa applications with invalid passport"
 	dialect "mvel"
 	when
 		$familyVisaApplication: FamilyVisaApplication( )
-		$passport: Passport( $familyVisaApplication.passportNumbers.contains(passportNumber) )
-		InvalidPassport( this.passport == $passport )
+		InvalidPassport( $familyVisaApplication.passportNumbers.contains(this.passport.passportNumber) )
 	then
 		System.out.println( "Set " + $familyVisaApplication + " invalid as it contains invalid passport");
 		insert( new InvalidFamilyVisaApplication($familyVisaApplication) )

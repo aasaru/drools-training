@@ -22,8 +22,8 @@ rule "Invalidate visa application where everyone is under 16"
 	when
 		$familyVisaApplication: FamilyVisaApplication( )
 		forall (
-		  $passport : Passport( $familyVisaApplication.passportNumbers.contains(this.passportNumber) ),
-					  Passport( this == $passport, this.age < 16)
+        $passport : Passport( $familyVisaApplication.passportNumbers.contains(this.passportNumber) ),
+                    Passport( this == $passport, this.age < 16)
 		)
 	then
 		System.out.println( "Set " + $familyVisaApplication + " invalid as everyone is younger than 16");

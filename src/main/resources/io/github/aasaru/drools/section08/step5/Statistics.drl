@@ -6,10 +6,10 @@ import io.github.aasaru.drools.domain.Validation;
 import java.time.LocalDate;
 
 
-rule "Everyone is at least 16"
+rule "Everyone is at least 20"
 	dialect "mvel"
 	when
-		forall ( Passport( age >= 10 ))
+		forall ( Passport( age >= 20 ))
 	then
-		System.out.println( "Everyone whose passport is in session is at least 10 years old" );
+		System.out.println( "Everyone whose passport is in session is at least 20 years old" );
 end

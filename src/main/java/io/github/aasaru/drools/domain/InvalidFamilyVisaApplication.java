@@ -25,4 +25,16 @@ public class InvalidFamilyVisaApplication {
   public String toString() {
     return "Invalid:" + familyVisaApplication;
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    return obj instanceof InvalidFamilyVisaApplication
+        && ((InvalidFamilyVisaApplication) obj).getFamilyVisaApplication().equals(familyVisaApplication);
+  }
+
+  @Override
+  public int hashCode() {
+    return familyVisaApplication.hashCode();
+  }
+
 }

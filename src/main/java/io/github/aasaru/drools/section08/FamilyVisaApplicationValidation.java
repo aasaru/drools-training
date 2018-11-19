@@ -31,6 +31,14 @@ public class FamilyVisaApplicationValidation {
     List<Passport> passports = ApplicationRepository.getPassports();
     passports.forEach(ksession::insert);
 
+    if (step == 3) {
+      if (Common.promptForYesNoQuestion("Do you want to make everyone 3 years younger?")) {
+        System.out.println("Making everyone 3 years younger");
+        passports.forEach(passport -> passport.setAge(passport.getAge()-3));
+        passports.forEach(passport -> System.out.println(passport + " is now " + passport.getAge()));
+      }
+    }
+
     List<FamilyVisaApplication> familyVisaApplications = ApplicationRepository.getFamilyVisaApplications();
     familyVisaApplications.forEach(ksession::insert);
 
