@@ -1,4 +1,4 @@
-package io.github.aasaru.drools.section05
+package io.github.aasaru.drools.section05.step2
 
 import io.github.aasaru.drools.domain.Passport;
 import io.github.aasaru.drools.domain.Validation;
@@ -34,7 +34,8 @@ rule "Invalidate visa application where passport expires earlier than 6 months a
   when
     $passport: Passport()
     $visaApplication: VisaApplication( passportNumber == $passport.passportNumber,
-                                       $passport.expiresOn.isBefore(visitEndDate.plusMonths(6)) )
+                                       $passport.expiresOn.isBefore(visitEndDate.plusMonths(6)),
+                                       validation != Validation.FAILED )
   then
     System.out.println( "Set " + $visaApplication + " invalid as " + $passport + " not valid 6 months after visit");
     modify($visaApplication) {

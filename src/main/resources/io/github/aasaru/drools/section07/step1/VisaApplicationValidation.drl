@@ -1,4 +1,4 @@
-package io.github.aasaru.drools.section07
+package io.github.aasaru.drools.section07.step1
 
 import io.github.aasaru.drools.domain.Passport;
 import io.github.aasaru.drools.domain.Validation;

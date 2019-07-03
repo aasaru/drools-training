@@ -1,4 +1,4 @@
-package io.github.aasaru.drools.section08
+package io.github.aasaru.drools.section08.step5
 
 import io.github.aasaru.drools.domain.GroupLeader;
 import io.github.aasaru.drools.domain.InvalidPassport;

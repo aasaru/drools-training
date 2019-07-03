@@ -1,4 +1,4 @@
-package io.github.aasaru.drools.section07
+package io.github.aasaru.drools.section07.step3
 
 import io.github.aasaru.drools.domain.ValidVisaApplication;
 import io.github.aasaru.drools.domain.VisaApplication;

@@ -1,4 +1,4 @@
-package io.github.aasaru.drools.section03
+package io.github.aasaru.drools.section03.step1
  
 import io.github.aasaru.drools.domain.Passport;
 import java.time.LocalDate;

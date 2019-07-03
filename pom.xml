@@ -11,7 +11,7 @@
 
   <properties>
     <java.module.name>io.github.aasaru.drools-training</java.module.name>
-      <drools.version>7.12.0.Final</drools.version>
+      <drools.version>7.23.0.Final</drools.version>
   </properties>
 
   <repositories>

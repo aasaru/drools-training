@@ -9,6 +9,9 @@
  */
 package io.github.aasaru.drools.section08;
 
+import java.io.ByteArrayInputStream;
+import java.io.UnsupportedEncodingException;
+
 import org.junit.jupiter.api.Test;
 
 public class FamilyVisaApplicationValidationTest {
@@ -17,8 +20,19 @@ public class FamilyVisaApplicationValidationTest {
   public void shouldExecuteAllSteps() {
     FamilyVisaApplicationValidation.execute(1);
     FamilyVisaApplicationValidation.execute(2);
+
+    emulateInputFromKeyboard("yes");
     FamilyVisaApplicationValidation.execute(3);
+
     FamilyVisaApplicationValidation.execute(4);
+  }
+
+  private void emulateInputFromKeyboard(String inputFromKeyboard) {
+    try {
+      System.setIn(new ByteArrayInputStream(inputFromKeyboard.getBytes("UTF-8")));
+    } catch (UnsupportedEncodingException e) {
+      throw new IllegalArgumentException(e);
+    }
   }
 
 }
