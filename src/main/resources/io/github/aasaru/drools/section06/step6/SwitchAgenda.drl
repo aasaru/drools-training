@@ -1,0 +1,23 @@
+package io.github.aasaru.drools.section06.step6
+ 
+import io.github.aasaru.drools.domain.Passport;
+import io.github.aasaru.drools.domain.Validation;
+import java.time.LocalDate;
+
+rule "Switch agenda to visa application validation"
+	dialect "mvel"
+	when
+		not Passport( validation == Validation.UNKNOWN )
+	then
+		System.out.println( "There are no more passports without validation info" );
+		drools.setFocus( "validate-application" );
+end
+
+rule "Switch agenda to visa issue"
+	dialect "mvel"
+	when
+		not VisaApplication( validation == Validation.UNKNOWN )
+	then
+		System.out.println( "There are no more visa applications without validation info" );
+		drools.setFocus( "issue-visa" );
+end

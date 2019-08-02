@@ -27,7 +27,7 @@ public class FamilyVisaApplicationValidationTest {
     FamilyVisaApplicationValidation.execute(4);
   }
 
-  private void emulateInputFromKeyboard(String inputFromKeyboard) {
+  public static void emulateInputFromKeyboard(String inputFromKeyboard) {
     try {
       System.setIn(new ByteArrayInputStream(inputFromKeyboard.getBytes("UTF-8")));
     } catch (UnsupportedEncodingException e) {

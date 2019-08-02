@@ -64,6 +64,9 @@
   <kbase packages="io.github.aasaru.drools.section06.step5">
     <ksession name="VisaIssueStep5"/>
   </kbase>
+  <kbase packages="io.github.aasaru.drools.section06.step6">
+    <ksession name="VisaIssueStep6"/>
+  </kbase>
 
   <kbase packages="io.github.aasaru.drools.section07.step1">
     <ksession name="VisaInsertLogicalStep1"/>

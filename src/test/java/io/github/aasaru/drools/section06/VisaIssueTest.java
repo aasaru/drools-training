@@ -10,6 +10,8 @@
 
 package io.github.aasaru.drools.section06;
 
+import static io.github.aasaru.drools.section08.FamilyVisaApplicationValidationTest.emulateInputFromKeyboard;
+
 import org.junit.jupiter.api.Test;
 
 public class VisaIssueTest {
@@ -19,6 +21,12 @@ public class VisaIssueTest {
     VisaIssue.execute(1);
     VisaIssue.execute(2);
     VisaIssue.execute(3);
+    VisaIssue.execute(4);
+
+    emulateInputFromKeyboard("yes");
+    VisaIssue.execute(5);
+
+    VisaIssue.execute(6);
   }
 
 }

@@ -26,39 +26,14 @@ import java.util.List;
 
 public class VisaIssue {
   public static void main(final String[] args) {
-    execute(Common.promptForStep(6, args, 1, 5));
+    execute(Common.promptForStep(6, args, 1, 6));
   }
-
 
   static void execute(int step) {
     System.out.println("Running step " + step);
     KieSession ksession = KieServices.Factory.get().getKieClasspathContainer().newKieSession("VisaIssueStep" + step);
 
     ksession.addEventListener(new AgendaGroupEventListener(System.out));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     List<Passport> passports = ApplicationRepository.getPassports();
 
@@ -72,30 +47,8 @@ public class VisaIssue {
     passports.forEach(ksession::insert);
 
 
-
-
-
-
-
-
-
-
-
-
-
     List<VisaApplication> visaApplications = ApplicationRepository.getVisaApplications();
     visaApplications.forEach(ksession::insert);
-
-
-
-
-
-
-
-
-
-
-
 
 
     if (step == 3) {
@@ -108,19 +61,17 @@ public class VisaIssue {
     }
 
 
-
-
-
-
-
-
-
-
-
-    if (step >= 4) {
+    if (step == 4 || step == 5) {
       Agenda agenda = ksession.getAgenda();
       agenda.getAgendaGroup("issue-visa").setFocus();
       agenda.getAgendaGroup("validate-application").setFocus();
+      agenda.getAgendaGroup("validate-passport").setFocus();
+    }
+
+
+    /** BONUS STEP: set focus to first agenda group only */
+    if (step == 6) {
+      Agenda agenda = ksession.getAgenda();
       agenda.getAgendaGroup("validate-passport").setFocus();
     }
 
