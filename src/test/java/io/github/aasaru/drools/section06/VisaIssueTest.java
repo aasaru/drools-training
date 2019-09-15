@@ -14,10 +14,10 @@ import static io.github.aasaru.drools.section08.FamilyVisaApplicationValidationT
 
 import org.junit.jupiter.api.Test;
 
-public class VisaIssueTest {
+class VisaIssueTest {
 
   @Test
-  public void shouldExecuteAllSteps() {
+  void shouldExecuteAllSteps() {
     VisaIssue.execute(1);
     VisaIssue.execute(2);
     VisaIssue.execute(3);

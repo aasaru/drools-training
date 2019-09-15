@@ -12,10 +12,10 @@ package io.github.aasaru.drools.section05;
 
 import org.junit.jupiter.api.Test;
 
-public class VisaApplicationValidationTest {
+class VisaApplicationValidationTest {
 
   @Test
-  public void shouldExecuteAllSteps() {
+  void shouldExecuteAllSteps() {
     VisaApplicationValidation.execute(1);
     VisaApplicationValidation.execute(2);
     VisaApplicationValidation.execute(3);

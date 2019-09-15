@@ -11,13 +11,14 @@ package io.github.aasaru.drools.section08;
 
 import java.io.ByteArrayInputStream;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.jupiter.api.Test;
 
 public class FamilyVisaApplicationValidationTest {
 
   @Test
-  public void shouldExecuteAllSteps() {
+  void shouldExecuteAllSteps() {
     FamilyVisaApplicationValidation.execute(1);
     FamilyVisaApplicationValidation.execute(2);
 
@@ -28,11 +29,7 @@ public class FamilyVisaApplicationValidationTest {
   }
 
   public static void emulateInputFromKeyboard(String inputFromKeyboard) {
-    try {
-      System.setIn(new ByteArrayInputStream(inputFromKeyboard.getBytes("UTF-8")));
-    } catch (UnsupportedEncodingException e) {
-      throw new IllegalArgumentException(e);
-    }
+    System.setIn(new ByteArrayInputStream(inputFromKeyboard.getBytes(StandardCharsets.UTF_8)));
   }
 
 }

@@ -12,10 +12,10 @@ package io.github.aasaru.drools.section04;
 
 import org.junit.jupiter.api.Test;
 
-public class StatefulPassportValidationTest {
+class StatefulPassportValidationTest {
 
   @Test
-  public void shouldExecuteAllSteps() {
+  void shouldExecuteAllSteps() {
     StatefulPassportValidation.execute(1);
     StatefulPassportValidation.execute(2);
   }
