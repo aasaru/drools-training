@@ -1,0 +1,74 @@
+
+
+1.
+
+* Spreadsheets are well established business tools (in use for over 25 years).
+Decision tables lend themselves to close collaboration between IT and domain experts, while making the business rules clear to business analysts, it is an ideal separation of concerns.
+
+
+
+
+* RuleSet area - elements that you want to apply globally to all rules in the same package
+  (NB! Not only the spreadsheet! - this is why always have only one xsl per package)
+  * spreadsheet of decision tables can contain only one RuleSet area
+
+* RuleTable area - define actual rules (rows), and the conditions, actions, and other rule attributes (columns)
+  * spreadsheet of decision tables can contain multiple RuleTable areas
+
+  * All data objects related to a spreadsheet decision table must be in the same project package as the spreadsheet decision table.
+  * Assets in the same package are imported by default.
+  * existing assets in other packages can be imported with the decision table.
+
+* Each RuleSet name combined with the RuleTable name must be unique across all decision table files in the same package.
+
+* Only the first worksheet in a spreadsheet workbook will be processed as a decision table
+
+
+Rule
+
+* Internally separate rules are created from each row
+* This is why
+
+
+
+
+ARENG:
+
+* reegel
+* funktsioon?
+-- vaja midagi, mis ei kuulu otseselt ühegi domeeni alla
+--> days to trip -> see ei kuulu ühegi domeeni alla
+--> vanus reisi esimesel päeval
+--> passi numbri järgi tuletada riik? ...
+
+
+
+
+* eraldi igal real Order ( itemsCount > $1 )
+* Order toodud päisesse
+
+* Teine RuleTable juurde - family visa application
+
+
+=> mina töötan ilustamata exceliga
+
+* ilusaks teha Excel, et seda saaks anda analüütikule
+* võimalikud väärtused määrata valikvastusteks
+
+
+
+
+
+
+=== TÄIESTI ERALDI SEKTSIOOON - RULE TEMPLATES
+https://docs.jboss.org/drools/release/7.32.0.Final/drools-docs/html_single/index.html#_rule_templates
+
+* kood on excelist välja tõstetud eraldi faili
+* ei saa peeti keerata reegleid
+
+* saaks kasutada eraldi
+
+
+
+
+Activation-group - selle abil saaks leida sobivaima

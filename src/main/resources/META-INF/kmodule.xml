@@ -32,7 +32,7 @@
   </kbase>
 
   <kbase packages="io.github.aasaru.drools.section04.step1">
-    <ksession name="StatefulPassportValidationStep1"/>
+    <ksession name="StatefulPassportValidationStep1" clockType="pseudo"/>
   </kbase>
   <kbase packages="io.github.aasaru.drools.section04.step2">
     <ksession name="StatefulPassportValidationStep2"/>
@@ -97,5 +97,41 @@
     <ksession name="FamilyVisaApplicationStep5"/>
   </kbase>
 
+  <kbase packages="io.github.aasaru.drools.section09.step1">
+    <ksession name="VisaFeeCalculationStep1"/>
+  </kbase>
+  <kbase packages="io.github.aasaru.drools.section09.step2">
+    <ksession name="VisaFeeCalculationStep2"/>
+  </kbase>
+  <kbase packages="io.github.aasaru.drools.section09.step3">
+    <ksession name="VisaFeeCalculationStep3"/>
+  </kbase>
+  <kbase packages="io.github.aasaru.drools.section09.step4">
+    <ksession name="VisaFeeCalculationStep4"/>
+  </kbase>
+  <kbase packages="io.github.aasaru.drools.section09.step5">
+    <ksession name="VisaFeeCalculationStep5"/>
+  </kbase>
+  <kbase packages="io.github.aasaru.drools.section09.step6">
+    <ksession name="VisaFeeCalculationStep6"/>
+  </kbase>
+  <kbase packages="io.github.aasaru.drools.section09.step7">
+    <ksession name="VisaFeeCalculationStep7"/>
+  </kbase>
+  <kbase packages="io.github.aasaru.drools.section09.step8">
+    <ksession name="VisaFeeCalculationStep8"/>
+  </kbase>
+  <kbase packages="io.github.aasaru.drools.section09.step9">
+    <ksession name="VisaFeeCalculationStep9"/>
+  </kbase>
+  <kbase packages="io.github.aasaru.drools.section09.step10">
+    <ksession name="VisaFeeCalculationStep10"/>
+  </kbase>
+  <kbase packages="io.github.aasaru.drools.section09.step11">
+    <ksession name="VisaFeeCalculationStep11"/>
+  </kbase>
+  <kbase packages="io.github.aasaru.drools.section09.step12">
+    <ksession name="VisaFeeCalculationStep12"/>
+  </kbase>
 
 </kmodule>

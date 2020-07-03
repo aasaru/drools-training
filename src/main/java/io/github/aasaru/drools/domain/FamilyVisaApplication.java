@@ -16,11 +16,13 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FamilyVisaApplication {
+public class FamilyVisaApplication implements GeneralVisaApplication {
   private int applicationId;
   private List<String> passportNumbers = new ArrayList<>();
   private LocalDate visitStartDate;
   private LocalDate visitEndDate;
+  private VisaType visaType;
+  private boolean isUrgent;
 
   private Boolean validationPassed = null;
 
@@ -28,6 +30,7 @@ public class FamilyVisaApplication {
     this.applicationId = applicationId;
   }
 
+  @Override
   public int getApplicationId() {
     return applicationId;
   }
@@ -36,10 +39,12 @@ public class FamilyVisaApplication {
     return passportNumbers;
   }
 
+  @Override
   public LocalDate getVisitStartDate() {
     return visitStartDate;
   }
 
+  @Override
   public LocalDate getVisitEndDate() {
     return visitEndDate;
   }
@@ -50,6 +55,19 @@ public class FamilyVisaApplication {
 
   public void setValidationPassed(Boolean validationPassed) {
     this.validationPassed = validationPassed;
+  }
+
+  public VisaType getVisaType() {
+    return visaType;
+  }
+
+  @Override
+  public boolean isUrgent() {
+    return isUrgent;
+  }
+
+  public int getPersonCount() {
+    return passportNumbers.size();
   }
 
   public static String join(Collection<String> collection) {
@@ -73,6 +91,8 @@ public class FamilyVisaApplication {
     private List<String> passportNumbers = new ArrayList<>();
     private LocalDate visitStartDate;
     private LocalDate visitEndDate;
+    private VisaType visaType;
+    private boolean isUrgent;
 
     private FamilyVisaApplicationBuilder() {
     }
@@ -98,11 +118,23 @@ public class FamilyVisaApplication {
       return this;
     }
 
+    public FamilyVisaApplicationBuilder withEntryType(VisaType visaType) {
+      this.visaType = visaType;
+      return this;
+    }
+
+    public FamilyVisaApplicationBuilder withIsUrgent(boolean isUrgent) {
+      this.isUrgent = isUrgent;
+      return this;
+    }
+
     public FamilyVisaApplication build() {
       FamilyVisaApplication familyVisaApplication = new FamilyVisaApplication(applicationId);
       familyVisaApplication.visitEndDate = this.visitEndDate;
       familyVisaApplication.passportNumbers = this.passportNumbers;
       familyVisaApplication.visitStartDate = this.visitStartDate;
+      familyVisaApplication.visaType = this.visaType;
+      familyVisaApplication.isUrgent = this.isUrgent;
       return familyVisaApplication;
     }
   }
@@ -115,7 +147,7 @@ public class FamilyVisaApplication {
 
   @Override
   public int hashCode() {
-    return new Long(applicationId).hashCode();
+    return Long.valueOf(applicationId).hashCode();
   }
 
 }

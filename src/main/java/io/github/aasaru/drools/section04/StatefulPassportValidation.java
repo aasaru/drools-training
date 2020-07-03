@@ -16,8 +16,12 @@ import io.github.aasaru.drools.repository.ApplicationRepository;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
+import org.kie.api.time.SessionClock;
+import org.kie.api.time.SessionPseudoClock;
 
+import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class StatefulPassportValidation {
   public static void main(final String[] args) {
@@ -28,7 +32,14 @@ public class StatefulPassportValidation {
   static void execute(int step) {
     System.out.println("Running step " + step);
     KieContainer kieClasspathContainer = KieServices.Factory.get().getKieClasspathContainer();
+
+
     KieSession ksession = kieClasspathContainer.newKieSession("StatefulPassportValidationStep" + step);
+
+    SessionPseudoClock sessionClock = ksession.getSessionClock();
+    System.out.println("Current time at first: " + new java.util.Date(sessionClock.getCurrentTime()));
+    sessionClock.advanceTime(1, TimeUnit.DAYS);
+    System.out.println("Current time after adjusting: " + new java.util.Date(sessionClock.getCurrentTime()));
 
     List<Passport> passports = ApplicationRepository.getPassports();
     passports.forEach(ksession::insert);

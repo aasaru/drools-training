@@ -31,6 +31,8 @@ public class StatelessPassportValidation {
 
     KieContainer kieContainer = KieServices.Factory.get().getKieClasspathContainer();
     StatelessKieSession kieSession = kieContainer.newStatelessKieSession("StatelessPassportValidationStep" + step);
+
+
     System.out.println("==== DROOLS SESSION START ==== ");
     kieSession.execute(passports);
     System.out.println("==== DROOLS SESSION END ==== ");

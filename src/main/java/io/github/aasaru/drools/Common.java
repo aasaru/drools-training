@@ -18,17 +18,24 @@ public class Common {
 
   public static int promptForStep(int section, String[] args, int minStep, int maxStep) {
     String stepStr = "";
+    boolean isRulesAsked = false;
 
     while (true) {
       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
       try {
         if (args != null && args.length > 0) {
           stepStr = args[0];
+
           return Integer.parseInt(stepStr);
         }
         else {
           System.out.print(String.format("Section %d. Enter step (%d...%d): ", section, minStep, maxStep));
           stepStr = br.readLine();
+        }
+
+        if (stepStr.toUpperCase().startsWith("RULES")) {
+          stepStr = stepStr.substring("RULES".length()).trim();
+          isRulesAsked = true;
         }
 
         int step = Integer.parseInt(stepStr);
@@ -37,7 +44,7 @@ public class Common {
           System.out.println("Step number out of range. Insert a number between " + minStep + " and " + maxStep);
         }
         else {
-          return step;
+          return isRulesAsked ?(-step) :step;
         }
       }
       catch (NumberFormatException e) {

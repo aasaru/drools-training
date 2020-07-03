@@ -67,6 +67,10 @@ public class Passport {
     this.age = age;
   }
 
+  public String getCountry() {
+    return this.passportNumber.substring(0,2);
+  }
+
   public String getCause() {
     return cause;
   }

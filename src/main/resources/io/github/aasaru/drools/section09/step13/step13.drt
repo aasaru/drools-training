@@ -1,0 +1,26 @@
+template header
+age[]
+countryNotIn
+urgentVisa
+fee
+fee
+
+package io.github.aasaru.drools.section09.step13;
+
+import io.github.aasaru.drools.domain.*;
+
+template "Visa fee pricing"
+
+rule "VisaFee_@{row.rowNumber}"
+
+    when
+        Driver(age >= @{age0}, age <= @{age1}
+            , priorClaims == "@{priorClaims}"
+            , locationRiskProfile == "@{profile}"
+        )
+        policy: Policy(type == "@{policyType}")
+    then
+        policy.setBasePrice(@{base});
+        System.out.println("@{reason}");
+end
+end template

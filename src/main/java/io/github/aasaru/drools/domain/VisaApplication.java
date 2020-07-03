@@ -10,16 +10,24 @@
 
 package io.github.aasaru.drools.domain;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class VisaApplication {
+public class VisaApplication implements GeneralVisaApplication {
   private int applicationId;
   private String passportNumber;
   private LocalDate visitStartDate;
   private LocalDate visitEndDate;
+  private VisaType visaType;
+  private boolean isUrgent;
 
   private Validation validation = Validation.UNKNOWN;
+
+  public int getApplicationId() {
+    return applicationId;
+  }
 
   public String getPassportNumber() {
     return passportNumber;
@@ -41,6 +49,18 @@ public class VisaApplication {
     this.validation = validation;
   }
 
+  public VisaType getVisaType() {
+    return visaType;
+  }
+
+  public boolean isUrgent() {
+    return isUrgent;
+  }
+
+  public long getVisitDurationInDays() {
+    return DAYS.between(visitStartDate, visitEndDate);
+  }
+
   @Override
   public String toString() {
     return "VisaApplication(#" + applicationId + ", pass:" + passportNumber + ")";
@@ -55,6 +75,8 @@ public class VisaApplication {
     private String passportNumber;
     private LocalDate visitStartDate;
     private LocalDate visitEndDate;
+    private VisaType visaType;
+    private boolean isUrgent;
 
     private VisaApplicationBuilder() {
     }
@@ -78,6 +100,14 @@ public class VisaApplication {
       this.visitEndDate = visitEndDate;
       return this;
     }
+    public VisaApplicationBuilder withVisaType(VisaType visaType) {
+      this.visaType = visaType;
+      return this;
+    }
+    public VisaApplicationBuilder withIsUrgent(boolean isUrgent) {
+      this.isUrgent = isUrgent;
+      return this;
+    }
 
     public VisaApplication build() {
       VisaApplication visaApplication = new VisaApplication();
@@ -85,6 +115,8 @@ public class VisaApplication {
       visaApplication.passportNumber = passportNumber;
       visaApplication.visitStartDate = visitStartDate;
       visaApplication.visitEndDate = visitEndDate;
+      visaApplication.visaType = visaType;
+      visaApplication.isUrgent = isUrgent;
       return visaApplication;
     }
   }
@@ -98,11 +130,14 @@ public class VisaApplication {
         Objects.equals(passportNumber, that.passportNumber) &&
         Objects.equals(visitStartDate, that.visitStartDate) &&
         Objects.equals(visitEndDate, that.visitEndDate) &&
+         visaType == visaType &&
         validation == that.validation;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(applicationId, passportNumber, visitStartDate, visitEndDate, validation);
+    return Objects.hash(applicationId, passportNumber, visitStartDate, visitEndDate, validation, visaType);
   }
+
+
 }
