@@ -16,6 +16,8 @@ import java.io.InputStreamReader;
 
 public class Common {
 
+  public static boolean disposeSession = true;
+
   public static int promptForStep(int section, String[] args, int minStep, int maxStep) {
     String stepStr = "";
 

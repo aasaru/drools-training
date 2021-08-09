@@ -64,7 +64,9 @@ public class VisaInsertLogical {
 
     System.out.println("==== DROOLS SESSION START ==== ");
     ksession.fireAllRules();
-    ksession.dispose();
+    if (Common.disposeSession) {
+      ksession.dispose();
+    }
     System.out.println("==== DROOLS SESSION END ==== ");
 
     if (step > 1 && step < 4) {

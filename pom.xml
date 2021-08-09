@@ -12,7 +12,7 @@
   <properties>
     <java.module.name>io.github.aasaru.drools-training</java.module.name>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <drools.version>7.39.0.Final</drools.version>
+    <drools.version>7.58.0.Final</drools.version>
   </properties>
 
   <repositories>
@@ -87,6 +87,13 @@
     </dependency>
 
     <dependency>
+      <groupId>org.drools</groupId>
+      <artifactId>drools-mvel</artifactId>
+      <version>${drools.version}</version>
+      <scope>compile</scope>
+    </dependency>
+
+    <dependency>
       <groupId>org.kie</groupId>
       <artifactId>kie-internal</artifactId>
       <version>${drools.version}</version>
@@ -120,6 +127,13 @@
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
       <version>5.3.1</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-all</artifactId>
+      <version>1.3</version>
       <scope>test</scope>
     </dependency>
 
