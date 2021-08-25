@@ -11,9 +11,9 @@
 package io.github.aasaru.drools.section07;
 
 import io.github.aasaru.drools.Common;
+import io.github.aasaru.drools.TestUtil;
 import io.github.aasaru.drools.domain.*;
 import org.junit.jupiter.api.Test;
-import org.kie.api.KieServices;
 import org.kie.api.runtime.KieSession;
 
 import java.util.Collection;
@@ -42,7 +42,7 @@ class VisaInsertLogicalTest {
     Common.disposeSession = false;
     VisaInsertLogical.execute(step);
 
-    KieSession ksession = getKieSession("VisaInsertLogicalStep", step);
+    KieSession ksession = TestUtil.getKieSession("VisaInsertLogicalStep", step);
 
     assertThat(getPassportNumbersOfValidPassports(ksession), containsInAnyOrder(EMILY_PASSPORT_NUMBER, JAMES_PASSPORT_NUMBER));
     assertThat(getPassportNumbersOfInvalidPassports(ksession), containsInAnyOrder(SARAH_PASSPORT_NUMBER, SIMON_PASSPORT_NUMBER));
@@ -55,7 +55,7 @@ class VisaInsertLogicalTest {
     Common.disposeSession = false;
     VisaInsertLogical.execute(step);
 
-    KieSession ksession = getKieSession("VisaInsertLogicalStep", step);
+    KieSession ksession = TestUtil.getKieSession("VisaInsertLogicalStep", step);
 
 
     Collection<ValidVisaApplication> validVisaApplications = new HashSet<>();
@@ -109,26 +109,5 @@ class VisaInsertLogicalTest {
             .collect(Collectors.toList());
   }
 
-  private KieSession getKieSession(String baseName, int step) {
-    Collection<String> kieBaseNames = KieServices.Factory.get().getKieClasspathContainer().getKieBaseNames();
-
-    KieSession ksession = null;
-    for (String kieBaseName : kieBaseNames) {
-
-      Collection<String> kieSessionNamesInKieBase = KieServices.Factory.get().getKieClasspathContainer().getKieSessionNamesInKieBase(kieBaseName);
-
-      for (String kieSessionName : kieSessionNamesInKieBase) {
-        if ((baseName + step).equals(kieSessionName)) {
-          for (KieSession kieSession : KieServices.Factory.get().getKieClasspathContainer().getKieBase(kieBaseName).getKieSessions()) {
-
-            ksession = kieSession;
-
-          }
-        }
-      }
-
-    }
-    return ksession;
-  }
 
 }

@@ -16,7 +16,6 @@ import io.github.aasaru.drools.domain.Visa;
 import io.github.aasaru.drools.domain.VisaApplication;
 import io.github.aasaru.drools.repository.ApplicationRepository;
 import org.kie.api.KieServices;
-import org.kie.api.event.rule.DebugAgendaEventListener;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.rule.Agenda;
 
@@ -77,7 +76,9 @@ public class VisaIssue {
 
     System.out.println("==== DROOLS SESSION START ==== ");
     ksession.fireAllRules();
-    ksession.dispose();
+    if (Common.disposeSession) {
+      ksession.dispose();
+    }
     System.out.println("==== DROOLS SESSION END ==== ");
 
     Collection<?> visaObjects = ksession.getObjects(o -> o.getClass() == Visa.class);

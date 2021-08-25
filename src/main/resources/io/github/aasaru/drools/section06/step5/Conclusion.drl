@@ -5,21 +5,21 @@ import io.github.aasaru.drools.domain.VisaApplication;
 import io.github.aasaru.drools.domain.Visa;
 
 rule "Report were visas"
-	dialect "mvel"
-	activation-group "conclusion"
-	salience 20
-	when
+  dialect "java"
+  activation-group "conclusion"
+  salience 20
+  when
     Visa()
-	then
-	  System.out.println("Conclusion: at least one visa was issued");
+  then
+    System.out.println("Conclusion: at least one visa was issued");
 end
 
 rule "Report no visas"
-	dialect "mvel"
-	activation-group "conclusion"
-	salience 10
-	when
+  dialect "java"
+  activation-group "conclusion"
+  salience 10
+  when
     VisaApplication( validation == Validation.FAILED )
-	then
-	  System.out.println("Conclusion: no visas were issued");
+  then
+    System.out.println("Conclusion: no visas were issued");
 end

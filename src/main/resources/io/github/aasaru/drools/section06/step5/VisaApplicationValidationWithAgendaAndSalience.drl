@@ -7,7 +7,7 @@ import io.github.aasaru.drools.domain.VisaApplication;
 import java.time.LocalDate;
 
 rule "Invalidate visa application with invalid passport"
-  dialect "mvel"
+  dialect "java"
   agenda-group "validate-application"
   salience 20
   when
@@ -22,7 +22,7 @@ rule "Invalidate visa application with invalid passport"
 end
 
 rule "Set application without validation info as passed"
-  dialect "mvel"
+  dialect "java"
   agenda-group "validate-application"
   salience 10
   when
@@ -35,7 +35,7 @@ rule "Set application without validation info as passed"
 end
 
 rule "Invalidate visa application where passport expires earlier than 6 months after visit end date"
-  dialect "mvel"
+  dialect "java"
   agenda-group "validate-application"
   salience 20
   when

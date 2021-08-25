@@ -6,12 +6,12 @@ import java.time.LocalDate
 import io.github.aasaru.drools.domain.Visa;
 
 rule "Issue visa for valid applications"
-	dialect "mvel"
-	agenda-group "issue-visa"
-	when
-		$visaApplication: VisaApplication( validation == Validation.PASSED )
-	then
-		Visa visa = new Visa( $visaApplication.getPassportNumber() );
-		System.out.println("Issue " + visa);
-		insert( visa )
+  dialect "java"
+  agenda-group "issue-visa"
+  when
+    $visaApplication: VisaApplication( validation == Validation.PASSED )
+  then
+    Visa visa = new Visa( $visaApplication.getPassportNumber() );
+    System.out.println("Issue " + visa);
+    insert( visa );
 end

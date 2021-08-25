@@ -17,6 +17,10 @@ public class Visa {
     this.passportNumber = passportNumber;
   }
 
+  public String getPassportNumber() {
+    return passportNumber;
+  }
+
   @Override
   public String toString() {
     return "Visa[passport:" + passportNumber + "]";
