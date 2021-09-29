@@ -51,7 +51,6 @@ class VisaIssueTest {
     VisaIssue.execute(step);
   }
 
-
   @Test
   void testStep2() {
     int step = 2;

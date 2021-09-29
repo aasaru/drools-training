@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 
 rule "Everyone is at least 20"
-	dialect "mvel"
+	dialect "java"
 	when
 		forall ( Passport( age >= 20 ))
 	then

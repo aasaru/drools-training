@@ -44,7 +44,9 @@ public class FamilyVisaApplicationValidation {
 
     System.out.println("==== DROOLS SESSION START ==== ");
     ksession.fireAllRules();
-    ksession.dispose();
+    if (Common.disposeSession) {
+      ksession.dispose();
+    }
     System.out.println("==== DROOLS SESSION END ==== ");
 
     System.out.println("==== INVALID FAMILY VISA APPLICATIONS FROM DROOLS SESSION === ");

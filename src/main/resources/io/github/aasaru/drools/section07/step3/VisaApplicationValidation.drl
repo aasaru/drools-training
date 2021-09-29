@@ -10,28 +10,28 @@ import io.github.aasaru.drools.domain.VisaApplication;
 import java.time.LocalDate;
 
 rule "Invalidate visa application with invalid passport"
-  dialect "mvel"
+  dialect "java"
   when
     $invalidPassport: InvalidPassport()
     $visaApplication: VisaApplication( $invalidPassport.passport.passportNumber == this.passportNumber)
     not ( InvalidVisaApplication( this.visaApplication == $visaApplication ) )
   then
     System.out.println( "Set " + $visaApplication + " invalid as " + $invalidPassport.getPassport() + " is invalid");
-    insert( new InvalidVisaApplication($visaApplication) )
+    insert( new InvalidVisaApplication($visaApplication) );
 end
 
 rule "Set application without validation info as passed"
-  dialect "mvel"
+  dialect "java"
   when
     $visaApplication: VisaApplication()
 	  not ( InvalidVisaApplication( this.visaApplication == $visaApplication ) )
   then
 	  System.out.println( $visaApplication + " is not known to be invalid, consider Valid" );
-	  insertLogical( new ValidVisaApplication($visaApplication) )
+	  insertLogical( new ValidVisaApplication($visaApplication) );
 end
 
 rule "Invalidate visa application where passport expires earlier than 6 months after visit end date"
-  dialect "mvel"
+  dialect "java"
   when
 	  $passport: Passport()
 	  not( InvalidPassport( this.passport == $passport) )
@@ -40,5 +40,5 @@ rule "Invalidate visa application where passport expires earlier than 6 months a
 		not ( InvalidVisaApplication( this.visaApplication == $visaApplication ) )
   then
     System.out.println( "Set " + $visaApplication + " invalid as " + $passport + " is not valid 6 months after planned visit end date");
-    insert( new InvalidVisaApplication($visaApplication) )
+    insert( new InvalidVisaApplication($visaApplication) );
 end

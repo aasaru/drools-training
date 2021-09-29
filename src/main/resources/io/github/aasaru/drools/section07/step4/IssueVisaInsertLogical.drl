@@ -7,7 +7,7 @@ import io.github.aasaru.drools.domain.Visa;
 import io.github.aasaru.drools.domain.VisaApplication;
 
 rule "Issue visa for valid applications"
-	dialect "mvel"
+	dialect "java"
 	when
 	  $visaApplication: VisaApplication( )
 	  $passport: Passport( this.passportNumber == $visaApplication.passportNumber )
@@ -16,5 +16,5 @@ rule "Issue visa for valid applications"
 	then
 	  Visa visa = new Visa( $passport.getPassportNumber() );
 	  System.out.println("Issue " + visa);
-	  insertLogical( visa )
+	  insertLogical( visa );
 end

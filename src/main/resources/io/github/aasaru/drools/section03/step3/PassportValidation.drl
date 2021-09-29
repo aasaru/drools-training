@@ -4,7 +4,7 @@ import io.github.aasaru.drools.domain.Passport;
 import java.time.LocalDate;
 
 rule "Valid passport"
-  dialect "mvel"
+  dialect "java"
   when
 	$passport: Passport( !isExpired(), $unusedPages: unusedVisaPages > 0 )
   then
@@ -12,7 +12,7 @@ rule "Valid passport"
 end
 
 rule "Expired passport"
-  dialect "mvel"
+  dialect "java"
   when
 	$passport: Passport( isExpired() )
   then
@@ -20,7 +20,7 @@ rule "Expired passport"
 end
 
 rule "Full passport"
-  dialect "mvel"
+  dialect "java"
   when
 	$passport: Passport( unusedVisaPages == 0 )
   then

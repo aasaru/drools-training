@@ -6,12 +6,12 @@ import io.github.aasaru.drools.domain.Validation;
 import io.github.aasaru.drools.domain.VisaApplication;
 
 rule "Invalidate visa application where passport expires earlier than 6 months after visit end date"
-  dialect "mvel"
+  dialect "java"
   when
     $passport: Passport()
     $visaApplication: VisaApplication( passportNumber == $passport.passportNumber,
                        $passport.expiresOn.isBefore(visitEndDate.plusMonths(6)) )
   then
     System.out.println( "Set " + $visaApplication + " invalid as " + $passport + " is not valid 6 months after visit");
-    insert( new InvalidVisaApplication($visaApplication) )
+    insert( new InvalidVisaApplication($visaApplication) );
 end
