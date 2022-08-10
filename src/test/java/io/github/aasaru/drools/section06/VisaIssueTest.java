@@ -119,6 +119,8 @@ class VisaIssueTest {
 
     TestUtil.addObjectsOfType(ksession, visasInSession, Visa.class);
 
+    ksession.dispose();
+
     assertThat(visasInSession.size(), CoreMatchers.is(equalTo(2)));
     assertThat(visasInSession.stream().map(Visa::getPassportNumber).collect(Collectors.toList()),
             containsInAnyOrder("AU-EMILY-3", "CA-SIMON-2"));
@@ -139,6 +141,8 @@ class VisaIssueTest {
 
     List<Visa> visasInSession = new ArrayList<>();
     TestUtil.addObjectsOfType(ksession, visasInSession, Visa.class);
+
+    ksession.dispose();
 
     assertThat(visasInSession.size(), CoreMatchers.is(equalTo(0)));
   }
