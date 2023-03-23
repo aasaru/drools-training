@@ -28,6 +28,9 @@ public class ApplicationRepository {
   public static final String EMILY_PASSPORT_NUMBER = "AU-EMILY-3";
   public static final String JAMES_PASSPORT_NUMBER = "AU-JAMES-4";
 
+  static List<VisaApplication> lastReturnedVisaApplications;
+  static List<Passport> lastReturnedPassports;
+
   public static List<Passport> getPassports() {
     List<Passport> passports = new ArrayList<>();
 
@@ -63,6 +66,7 @@ public class ApplicationRepository {
       .withAge(17)
       .build());
 
+    lastReturnedPassports = passports;
     return passports;
   }
 
@@ -97,8 +101,10 @@ public class ApplicationRepository {
       .withVisitEndDate(LocalDate.of(2045, Month.MARCH, 10))
       .build());
 
+    lastReturnedVisaApplications = visaApplications;
     return visaApplications;
   }
+
 
   public static List<FamilyVisaApplication> getFamilyVisaApplications() {
     List<FamilyVisaApplication> familyVisaApplications = new ArrayList<>();

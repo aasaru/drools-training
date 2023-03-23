@@ -21,6 +21,18 @@ class StatelessPassportValidationTest {
     StatelessPassportValidation.execute(3);
     StatelessPassportValidation.execute(4);
     StatelessPassportValidation.execute(5);
+    StatelessPassportValidation.execute(6); // wasn't there before
+    StatelessPassportValidation.execute(7);
+  }
+
+  @Test
+  void testStep7() {
+    StatelessPassportValidation.execute(7);
+  }
+
+  @Test
+  void testStep8() {
+    StatelessPassportValidation.execute(8);
   }
 
 }
