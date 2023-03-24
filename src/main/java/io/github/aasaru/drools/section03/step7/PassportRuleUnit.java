@@ -4,8 +4,8 @@ import io.github.aasaru.drools.domain.Passport;
 
 import java.util.List;
 
-public class PassportUnit extends io.github.aasaru.drools.section03.PassportUnit {
-    public PassportUnit(List<Passport> passports) {
+public class PassportRuleUnit extends io.github.aasaru.drools.section03.PassportRuleUnit {
+    public PassportRuleUnit(List<Passport> passports) {
         super(passports);
     }
 }

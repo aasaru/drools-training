@@ -15,7 +15,6 @@ import io.github.aasaru.drools.TestUtil;
 import io.github.aasaru.drools.domain.Passport;
 import io.github.aasaru.drools.domain.Validation;
 import io.github.aasaru.drools.domain.VisaApplication;
-import io.github.aasaru.drools.repository.ApplicationRepository;
 import io.github.aasaru.drools.repository.ApplicationRepositoryHelper;
 import org.junit.jupiter.api.Test;
 import org.kie.api.runtime.KieSession;

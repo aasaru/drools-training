@@ -14,7 +14,6 @@ import io.github.aasaru.drools.Common;
 import io.github.aasaru.drools.domain.Passport;
 import io.github.aasaru.drools.domain.VisaApplication;
 import io.github.aasaru.drools.repository.ApplicationRepository;
-import io.github.aasaru.drools.section03.PassportUnit;
 import org.drools.ruleunit.RuleUnitExecutor;
 import org.kie.api.KieBase;
 import org.kie.api.KieServices;
@@ -50,8 +49,8 @@ public class VisaApplicationValidation {
     else {
       KieBase kbase = kieClasspathContainer.getKieBase("section05.step"+step);
       RuleUnitExecutor executor = RuleUnitExecutor.create().bind(kbase);
-      PassportVisaApplicationUnit passportVisaApplicationUnit = getRuleUnit(step, passports, visaApplications);
-      executor.run(passportVisaApplicationUnit);
+      PassportVisaApplicationRuleUnit passportVisaApplicationRuleUnit = getRuleUnit(step, passports, visaApplications);
+      executor.run(passportVisaApplicationRuleUnit);
     }
 
     System.out.println("==== PASSPORTS AFTER DROOLS SESSION === ");
@@ -65,13 +64,13 @@ public class VisaApplicationValidation {
 
   }
 
-  private static PassportVisaApplicationUnit getRuleUnit(int step, List<Passport> passports, List<VisaApplication> visaApplications) {
-    PassportVisaApplicationUnit passportVisaApplicationUnit = null;
+  private static PassportVisaApplicationRuleUnit getRuleUnit(int step, List<Passport> passports, List<VisaApplication> visaApplications) {
+    PassportVisaApplicationRuleUnit passportVisaApplicationRuleUnit = null;
     if (step == 4) {
-      passportVisaApplicationUnit = new io.github.aasaru.drools.section05.step4.PassportVisaApplicationUnit(passports, visaApplications);
+      passportVisaApplicationRuleUnit = new io.github.aasaru.drools.section05.step4.PassportVisaApplicationRuleUnit(passports, visaApplications);
     }
 
-    return passportVisaApplicationUnit;
+    return passportVisaApplicationRuleUnit;
   }
 
 }

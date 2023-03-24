@@ -13,6 +13,7 @@ package io.github.aasaru.drools.section06;
 import io.github.aasaru.drools.Common;
 import io.github.aasaru.drools.TestUtil;
 import io.github.aasaru.drools.domain.Visa;
+import org.drools.core.impl.StatefulKnowledgeSessionImpl;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Test;
 import org.kie.api.runtime.KieSession;
@@ -20,6 +21,7 @@ import org.kie.api.runtime.KieSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import static io.github.aasaru.drools.section08.FamilyVisaApplicationValidationTest.emulateInputFromKeyboard;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -159,6 +161,30 @@ class VisaIssueTest {
     List<Visa> visasInSession = new ArrayList<>();
 
     TestUtil.addObjectsOfType(ksession, visasInSession, Visa.class);
+
+    assertThat(visasInSession.size(), CoreMatchers.is(equalTo(1)));
+    assertThat(visasInSession.get(0).getPassportNumber(), CoreMatchers.is(equalTo("AU-EMILY-3")));
+  }
+
+  @Test
+  void testStep7() {
+    int step = 7;
+
+    Common.disposeSession = false;
+    VisaIssue.execute(step);
+
+    KieSession ksession = TestUtil.getKieSession("VisaIssueStep", step);
+
+    //List<Visa> visasInSession = new ArrayList<>();
+
+   // TestUtil.addObjectsOfType(ksession, visasInSession, Visa.class);
+
+    Object ruleUnit = ((StatefulKnowledgeSessionImpl) ksession).getEntryPointMap().get("io.github.aasaru.drools.section06.step7.Section06RuleUnit.passports").getRuleUnit();
+    Section06RuleUnit ru = (Section06RuleUnit) ruleUnit;
+    //List<Visa> visasInSession = ru.getVisas();
+
+    List<Visa> visasInSession = StreamSupport.stream(ru.getVisas().spliterator(), false)
+            .collect(Collectors.toList());
 
     assertThat(visasInSession.size(), CoreMatchers.is(equalTo(1)));
     assertThat(visasInSession.get(0).getPassportNumber(), CoreMatchers.is(equalTo("AU-EMILY-3")));

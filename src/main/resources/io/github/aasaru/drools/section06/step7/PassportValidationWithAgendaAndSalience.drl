@@ -1,0 +1,48 @@
+package io.github.aasaru.drools.section06.step7
+
+unit Section06RuleUnit
+
+import io.github.aasaru.drools.domain.Passport;
+import io.github.aasaru.drools.domain.Validation;
+import java.time.LocalDate;
+
+rule "Valid passport"
+  dialect "java"
+  agenda-group "io.github.aasaru.drools.section06.step7.Section06RuleUnit"
+  salience 10
+  when
+    $passport: /passports[ validation == Validation.UNKNOWN ]
+  then
+    System.out.println( $passport + " is without validation info, consider OK for now" );
+    modify($passport) {
+      setValidation( Validation.PASSED )
+    }
+end
+
+rule "Expired passport"
+  dialect "java"
+  agenda-group "io.github.aasaru.drools.section06.step7.Section06RuleUnit"
+  salience 20
+  when
+    $passport: /passports[ isExpired() ]
+  then
+    System.out.println( $passport + " is INVALID because it is expired" );
+    modify($passport) {
+      setValidation( Validation.FAILED ),
+      setCause( "passport is expired" )
+    }
+end
+
+rule "Full passport"
+  dialect "java"
+  agenda-group "io.github.aasaru.drools.section06.step7.Section06RuleUnit"
+  salience 20
+  when
+    $passport: /passports[ unusedVisaPages == 0 ]
+  then
+    System.out.println( $passport + " is INVALID because it has no space for visa" );
+    modify($passport) {
+      setValidation( Validation.FAILED ),
+      setCause( "passport has no space for visa" )
+    }
+end

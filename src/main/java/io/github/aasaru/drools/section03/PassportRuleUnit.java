@@ -6,9 +6,9 @@ import org.drools.ruleunit.RuleUnit;
 
 import java.util.List;
 
-public class PassportUnit implements RuleUnit {
+public class PassportRuleUnit implements RuleUnit {
 
-    public PassportUnit(List<Passport> passports) {
+    public PassportRuleUnit(List<Passport> passports) {
         this.passports = DataSource.create(passports.toArray(new Passport[0]));
     }
 
@@ -17,7 +17,6 @@ public class PassportUnit implements RuleUnit {
     public DataSource<Passport> getPassports() {
         return passports;
     }
-
 
     @Override
     public void onStart() {

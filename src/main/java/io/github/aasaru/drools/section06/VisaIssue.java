@@ -15,7 +15,12 @@ import io.github.aasaru.drools.domain.Passport;
 import io.github.aasaru.drools.domain.Visa;
 import io.github.aasaru.drools.domain.VisaApplication;
 import io.github.aasaru.drools.repository.ApplicationRepository;
+import io.github.aasaru.drools.section03.PassportRuleUnit;
+import io.github.aasaru.drools.section05.PassportVisaApplicationRuleUnit;
+import org.drools.ruleunit.RuleUnitExecutor;
+import org.kie.api.KieBase;
 import org.kie.api.KieServices;
+import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.rule.Agenda;
 
@@ -30,7 +35,10 @@ public class VisaIssue {
 
   static void execute(int step) {
     System.out.println("Running step " + step);
-    KieSession ksession = KieServices.Factory.get().getKieClasspathContainer().newKieSession("VisaIssueStep" + step);
+    Section06RuleUnit section06RuleUnit = null;
+
+    KieContainer kieContainer = KieServices.Factory.get().getKieClasspathContainer();
+    KieSession ksession = kieContainer.newKieSession("VisaIssueStep" + step);
 
     ksession.addEventListener(new AgendaGroupEventListener(System.out));
 
@@ -42,12 +50,33 @@ public class VisaIssue {
         passports.forEach(passport -> passport.setExpiresOn(LocalDate.MIN));
       }
     }
-
-    passports.forEach(ksession::insert);
-
-
     List<VisaApplication> visaApplications = ApplicationRepository.getVisaApplications();
-    visaApplications.forEach(ksession::insert);
+
+
+    if (step < 7) {
+      passports.forEach(ksession::insert);
+      visaApplications.forEach(ksession::insert);
+    }
+    else {
+
+
+      KieBase kbase = kieContainer.getKieBase("section06.step"+step);
+
+
+      RuleUnitExecutor executor = RuleUnitExecutor.create(ksession).bind(kbase);
+      Agenda agenda = ksession.getAgenda();
+  agenda.clear();
+      agenda.getAgendaGroup("validate-passport").setFocus();
+
+
+
+
+
+      section06RuleUnit = getRuleUnit(step, passports, visaApplications);
+      // TODO insert passports like this? passportUnit.getPassports().insert((new Measurement("color", "green"));
+      executor.run(section06RuleUnit);
+    }
+
 
 
     if (step == 3) {
@@ -74,17 +103,35 @@ public class VisaIssue {
       agenda.getAgendaGroup("validate-passport").setFocus();
     }
 
-    System.out.println("==== DROOLS SESSION START ==== ");
-    ksession.fireAllRules();
-    if (Common.disposeSession) {
-      ksession.dispose();
+    if (step < 7) {
+      System.out.println("==== DROOLS SESSION START ==== ");
+      ksession.fireAllRules();
+      if (Common.disposeSession) {
+        ksession.dispose();
+      }
+      System.out.println("==== DROOLS SESSION END ==== ");
+      Collection<?> visaObjects = ksession.getObjects(o -> o.getClass() == Visa.class);
+      System.out.println("== Visas from session == ");
+      visaObjects.forEach(System.out::println);
     }
-    System.out.println("==== DROOLS SESSION END ==== ");
+    else {
+      System.out.println("== Visas from rule unit == ");
+      section06RuleUnit.getVisas().forEach(System.out::println);
+    }
 
-    Collection<?> visaObjects = ksession.getObjects(o -> o.getClass() == Visa.class);
-    System.out.println("== Visas from session == ");
-    visaObjects.forEach(System.out::println);
+
+    // TODO for step7 use the rule unit
 
   }
+
+  private static Section06RuleUnit getRuleUnit(int step, List<Passport> passports, List<VisaApplication> visaApplications) {
+    Section06RuleUnit section06RuleUnit = null;
+    if (step == 7) {
+      section06RuleUnit = new io.github.aasaru.drools.section06.step7.Section06RuleUnit(passports, visaApplications);
+    }
+
+    return section06RuleUnit;
+  }
+
 
 }

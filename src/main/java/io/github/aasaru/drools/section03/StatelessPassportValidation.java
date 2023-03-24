@@ -41,8 +41,9 @@ public class StatelessPassportValidation {
     else {
       KieBase kbase = kieContainer.getKieBase("section03.step"+step);
       RuleUnitExecutor executor = RuleUnitExecutor.create().bind(kbase);
-      PassportUnit passportUnit = getRuleUnit(step, passports);
-      executor.run(passportUnit);
+      PassportRuleUnit passportRuleUnit = getRuleUnit(step, passports);
+      // TODO insert passports like this? passportUnit.getPassports().insert((new Measurement("color", "green"));
+      executor.run(passportRuleUnit);
     }
 
     if (step >= 4) {
@@ -54,15 +55,15 @@ public class StatelessPassportValidation {
 
   }
 
-  private static PassportUnit getRuleUnit(int step, List<Passport> passports) {
-    PassportUnit passportUnit = null;
+  private static PassportRuleUnit getRuleUnit(int step, List<Passport> passports) {
+    PassportRuleUnit passportRuleUnit = null;
     if (step == 7) {
-      passportUnit = new io.github.aasaru.drools.section03.step7.PassportUnit(passports);
+      passportRuleUnit = new io.github.aasaru.drools.section03.step7.PassportRuleUnit(passports);
     }
     else if (step == 8) {
-      passportUnit = new io.github.aasaru.drools.section03.step8.PassportUnit(passports);
+      passportRuleUnit = new io.github.aasaru.drools.section03.step8.PassportRuleUnit(passports);
     }
-    return passportUnit;
+    return passportRuleUnit;
   }
 
 }
