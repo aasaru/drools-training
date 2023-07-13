@@ -12,7 +12,7 @@
   <properties>
     <java.module.name>io.github.aasaru.drools-training</java.module.name>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <drools.version>7.73.0.Final</drools.version>
+    <drools.version>7.74.0.Final</drools.version>
   </properties>
 
   <repositories>
