@@ -18,13 +18,19 @@ public class AgendaGroupEventListener extends DebugAgendaEventListener {
   }
 
   @Override
+  public void matchCreated(MatchCreatedEvent event) {
+    stream.println("====> " + event.getMatch().getRule() + " has a match for " + event.getMatch().getObjects());
+  }
+
+
+  @Override
   public void matchCancelled(MatchCancelledEvent event) {
-    //super.matchCancelled(event);
+    stream.println("====> " + event.getMatch().getRule() + " match has been cancelled for " + event.getMatch().getObjects());
   }
 
   @Override
-  public void matchCreated(MatchCreatedEvent event) {
-    //super.matchCreated(event);
+  public void beforeMatchFired(BeforeMatchFiredEvent event) {
+    stream.println("====> " + event.getMatch().getRule() + " is going to be fired next for " + event.getMatch().getObjects());
   }
 
   @Override
@@ -42,10 +48,7 @@ public class AgendaGroupEventListener extends DebugAgendaEventListener {
     stream.println("==> " + event.getAgendaGroup() + " pushed to stack ");
   }
 
-  @Override
-  public void beforeMatchFired(BeforeMatchFiredEvent event) {
-    //super.beforeMatchFired(event);
-  }
+
 
   @Override
   public void beforeRuleFlowGroupActivated(RuleFlowGroupActivatedEvent event) {

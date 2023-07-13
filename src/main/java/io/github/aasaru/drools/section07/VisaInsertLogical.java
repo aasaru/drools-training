@@ -13,13 +13,15 @@ package io.github.aasaru.drools.section07;
 import io.github.aasaru.drools.Common;
 import io.github.aasaru.drools.domain.*;
 import io.github.aasaru.drools.repository.ApplicationRepository;
-import io.github.aasaru.drools.section06.AgendaGroupEventListener;
+import io.github.aasaru.drools.section07.step5.Section07RuleUnit;
+import org.drools.ruleunit.RuleUnitExecutor;
+import org.kie.api.KieBase;
 import org.kie.api.KieServices;
-import org.kie.api.event.process.ProcessEventListener;
 import org.kie.api.event.rule.ObjectDeletedEvent;
 import org.kie.api.event.rule.ObjectInsertedEvent;
 import org.kie.api.event.rule.ObjectUpdatedEvent;
 import org.kie.api.event.rule.RuleRuntimeEventListener;
+import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 
 import java.util.Collection;
@@ -27,13 +29,14 @@ import java.util.List;
 
 public class VisaInsertLogical {
   public static void main(final String[] args) {
-    execute(Common.promptForStep(7, args, 1, 4));
+    execute(Common.promptForStep(7, args, 1, 5));
   }
 
 
   static void execute(int step) {
     System.out.println("Running step " + step);
-    KieSession ksession = KieServices.Factory.get().getKieClasspathContainer().newKieSession("VisaInsertLogicalStep" + step);
+    KieContainer kieContainer = KieServices.Factory.get().getKieClasspathContainer();
+    KieSession ksession = kieContainer.newKieSession("VisaInsertLogicalStep" + step);
 
     if (step < 3) {
       ksession.addEventListener(new RuleRuntimeEventListener() {
@@ -55,12 +58,23 @@ public class VisaInsertLogical {
       });
     }
 
-
     List<Passport> passports = ApplicationRepository.getPassports();
-    passports.forEach(ksession::insert);
-
     List<VisaApplication> visaApplications = ApplicationRepository.getVisaApplications();
-    visaApplications.forEach(ksession::insert);
+
+    if (step <= 4) {
+      passports.forEach(ksession::insert);
+      visaApplications.forEach(ksession::insert);
+    }
+    else {
+      Section07RuleUnit section07RuleUnit = new Section07RuleUnit(passports, visaApplications);
+
+      KieBase kbase = kieContainer.getKieBase("section07.step"+step);
+      RuleUnitExecutor executor = RuleUnitExecutor.create().bind(kbase);
+      executor.run(section07RuleUnit);
+
+    }
+
+
 
     System.out.println("==== DROOLS SESSION START ==== ");
     ksession.fireAllRules();
@@ -94,6 +108,8 @@ public class VisaInsertLogical {
       System.out.println("== Visas from session == ");
       visas.forEach(System.out::println);
     }
+
+
   }
 
 }

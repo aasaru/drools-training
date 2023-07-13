@@ -65,7 +65,7 @@ public class VisaIssue {
 
       RuleUnitExecutor executor = RuleUnitExecutor.create(ksession).bind(kbase);
       Agenda agenda = ksession.getAgenda();
-  agenda.clear();
+      agenda.clear();
       agenda.getAgendaGroup("validate-passport").setFocus();
 
 
@@ -118,9 +118,6 @@ public class VisaIssue {
       System.out.println("== Visas from rule unit == ");
       section06RuleUnit.getVisas().forEach(System.out::println);
     }
-
-
-    // TODO for step7 use the rule unit
 
   }
 
