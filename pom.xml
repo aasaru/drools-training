@@ -13,6 +13,7 @@
     <java.module.name>io.github.aasaru.drools-training</java.module.name>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <drools.version>8.44.0.Final</drools.version>
+    <version.org.kie.kogito>1.40.1.Final</version.org.kie.kogito>
   </properties>
 
   <repositories>
@@ -34,6 +35,16 @@
 
   <build>
     <plugins>
+
+      <!-- this plugin compiles drl rules that have RuleUnit in them -->
+      <plugin>
+        <groupId>org.kie.kogito</groupId>
+        <artifactId>kogito-maven-plugin</artifactId>
+        <version>${version.org.kie.kogito}</version>
+        <configuration>
+          <projectDir>src/main/resources/io/github/aasaru/drools/section09</projectDir>
+        </configuration>
+      </plugin>
 
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
