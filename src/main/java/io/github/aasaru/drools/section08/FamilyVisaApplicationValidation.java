@@ -26,27 +26,26 @@ public class FamilyVisaApplicationValidation {
 
   static void execute(int step) {
     System.out.println("Running step " + step);
-    KieSession ksession = KieServices.Factory.get().getKieClasspathContainer().newKieSession("FamilyVisaApplicationStep" + step);
 
     List<Passport> passports = ApplicationRepository.getPassports();
-    passports.forEach(ksession::insert);
-
+    String sessionName = "FamilyVisaApplicationStep" + step;
     if (step == 3) {
-      if (Common.promptForYesNoQuestion("Do you want to make everyone 3 years younger?")) {
+      boolean isYounger = Common.promptForYesNoQuestion("Do you want to make everyone 3 years younger?");
+      sessionName += isYounger;
+      if (isYounger) {
         System.out.println("Making everyone 3 years younger");
         passports.forEach(passport -> passport.setAge(passport.getAge()-3));
         passports.forEach(passport -> System.out.println(passport + " is now " + passport.getAge()));
       }
     }
+    KieSession ksession = KieServices.Factory.get().getKieClasspathContainer().newKieSession(sessionName);
+    passports.forEach(ksession::insert);
 
     List<FamilyVisaApplication> familyVisaApplications = ApplicationRepository.getFamilyVisaApplications();
     familyVisaApplications.forEach(ksession::insert);
 
     System.out.println("==== DROOLS SESSION START ==== ");
     ksession.fireAllRules();
-    if (Common.disposeSession) {
-      ksession.dispose();
-    }
     System.out.println("==== DROOLS SESSION END ==== ");
 
     System.out.println("==== INVALID FAMILY VISA APPLICATIONS FROM DROOLS SESSION === ");
@@ -61,7 +60,10 @@ public class FamilyVisaApplicationValidation {
     System.out.println("== Group leaders from session == ");
     groupLeaders.forEach(System.out::println);
 
-  }
+    if (Common.disposeSession) {
+      ksession.dispose();
+    }
 
+  }
 
 }

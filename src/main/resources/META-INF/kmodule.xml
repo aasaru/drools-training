@@ -88,7 +88,10 @@
     <ksession name="FamilyVisaApplicationStep2"/>
   </kbase>
   <kbase packages="io.github.aasaru.drools.section08.step3">
-    <ksession name="FamilyVisaApplicationStep3"/>
+    <ksession name="FamilyVisaApplicationStep3true"/>
+  </kbase>
+  <kbase packages="io.github.aasaru.drools.section08.step3">
+    <ksession name="FamilyVisaApplicationStep3false"/>
   </kbase>
   <kbase packages="io.github.aasaru.drools.section08.step4">
     <ksession name="FamilyVisaApplicationStep4"/>

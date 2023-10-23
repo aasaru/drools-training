@@ -115,7 +115,7 @@ public class FamilyVisaApplication {
 
   @Override
   public int hashCode() {
-    return new Long(applicationId).hashCode();
+    return Long.valueOf(applicationId).hashCode();
   }
 
 }
