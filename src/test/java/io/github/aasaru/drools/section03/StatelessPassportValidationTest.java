@@ -21,6 +21,7 @@ class StatelessPassportValidationTest {
     StatelessPassportValidation.execute(3);
     StatelessPassportValidation.execute(4);
     StatelessPassportValidation.execute(5);
+    StatelessPassportValidation.execute(6);
   }
 
 }

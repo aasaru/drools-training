@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class FamilyVisaApplication {
-  private int applicationId;
+  private final int applicationId;
   private List<String> passportNumbers = new ArrayList<>();
   private LocalDate visitStartDate;
   private LocalDate visitEndDate;
