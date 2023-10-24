@@ -24,7 +24,6 @@ public class StatefulPassportValidation {
     execute(Common.promptForStep(4, args, 1, 2));
   }
 
-
   static void execute(int step) {
     System.out.println("Running step " + step);
     KieContainer kieClasspathContainer = KieServices.Factory.get().getKieClasspathContainer();
@@ -32,7 +31,6 @@ public class StatefulPassportValidation {
 
     List<Passport> passports = ApplicationRepository.getPassports();
     passports.forEach(ksession::insert);
-
 
     System.out.println("==== DROOLS SESSION START ==== ");
     ksession.fireAllRules();
@@ -45,7 +43,6 @@ public class StatefulPassportValidation {
     passports.forEach(passport -> {
       System.out.println(passport + " verdict: " + passport.getValidation() + ", cause: " + passport.getCause());
     });
-
 
   }
 

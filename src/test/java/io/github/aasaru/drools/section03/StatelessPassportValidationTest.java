@@ -12,27 +12,19 @@ package io.github.aasaru.drools.section03;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
+import static io.github.aasaru.drools.SystemOutTestUtil.recordLinesWrittenToSystemOut;
+import static io.github.aasaru.drools.SystemOutTestUtil.getLinesWrittenToSystemOut;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class StatelessPassportValidationTest {
 
-    private static final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private static final PrintStream outStream = new PrintStream(outContent);
-    private static final PrintStream originalOut = System.out;
 
     @Test
     void testStep1_recordSystemOut_correctOutput() {
-        catchSystemOut();
+        recordLinesWrittenToSystemOut();
         StatelessPassportValidation.execute(1);
-        restoreSystemOut();
-        System.out.println("outContent:" + outContent);
 
-        String[] lines = outContent.toString().split("\\n");
-
-        assertThat(lines).containsExactlyInAnyOrder(
+        assertThat(getLinesWrittenToSystemOut()).containsExactlyInAnyOrder(
             "Running step 1",
             "==== DROOLS SESSION START ==== ",
             "This passport is CORRECT",
@@ -44,14 +36,10 @@ class StatelessPassportValidationTest {
 
     @Test
     void testStep2_recordSystemOut_correctOutput() {
-        catchSystemOut();
+        recordLinesWrittenToSystemOut();
         StatelessPassportValidation.execute(2);
-        restoreSystemOut();
-        System.out.println("outContent:" + outContent);
 
-        String[] lines = outContent.toString().split("\\n");
-
-        assertThat(lines).containsExactlyInAnyOrder(
+        assertThat(getLinesWrittenToSystemOut()).containsExactlyInAnyOrder(
             "Running step 2",
             "==== DROOLS SESSION START ==== ",
             "This passport is CORRECT",
@@ -63,14 +51,10 @@ class StatelessPassportValidationTest {
 
     @Test
     void testStep3_recordSystemOut_correctOutput() {
-        catchSystemOut();
+        recordLinesWrittenToSystemOut();
         StatelessPassportValidation.execute(3);
-        restoreSystemOut();
-        System.out.println("outContent:" + outContent);
 
-        String[] lines = outContent.toString().split("\\n");
-
-        assertThat(lines).containsExactlyInAnyOrder(
+        assertThat(getLinesWrittenToSystemOut()).containsExactlyInAnyOrder(
             "Running step 3",
             "==== DROOLS SESSION START ==== ",
             "Passport[no:AU-EMILY-3, name:Emily Brown] is CORRECT. It has 20 pages free.",
@@ -82,14 +66,10 @@ class StatelessPassportValidationTest {
 
     @Test
     void testStep4_recordSystemOut_correctOutput() {
-        catchSystemOut();
+        recordLinesWrittenToSystemOut();
         StatelessPassportValidation.execute(4);
-        restoreSystemOut();
-        System.out.println("outContent:" + outContent);
 
-        String[] lines = outContent.toString().split("\\n");
-
-        assertThat(lines).containsExactlyInAnyOrder(
+        assertThat(getLinesWrittenToSystemOut()).containsExactlyInAnyOrder(
             "Running step 4",
             "==== DROOLS SESSION START ==== ",
             "Passport[no:AU-EMILY-3, name:Emily Brown] is CORRECT. It has 20 pages free.",
@@ -107,14 +87,10 @@ class StatelessPassportValidationTest {
 
     @Test
     void testStep5_recordSystemOut_correctOutput() {
-        catchSystemOut();
+        recordLinesWrittenToSystemOut();
         StatelessPassportValidation.execute(5);
-        restoreSystemOut();
-        System.out.println("outContent:" + outContent);
 
-        String[] lines = outContent.toString().split("\\n");
-
-        assertThat(lines).containsExactlyInAnyOrder(
+        assertThat(getLinesWrittenToSystemOut()).containsExactlyInAnyOrder(
             "Running step 5",
             "==== DROOLS SESSION START ==== ",
             "Passport[no:CA-SARAH-1, name:Sarah Murphy] is without validation info, consider CORRECT for now",
@@ -134,14 +110,10 @@ class StatelessPassportValidationTest {
 
     @Test
     void testStep6_recordSystemOut_correctOutput() {
-        catchSystemOut();
+        recordLinesWrittenToSystemOut();
         StatelessPassportValidation.execute(6);
-        restoreSystemOut();
-        System.out.println("outContent:" + outContent);
 
-        String[] lines = outContent.toString().split("\\n");
-
-        assertThat(lines).containsExactlyInAnyOrder(
+        assertThat(getLinesWrittenToSystemOut()).containsExactlyInAnyOrder(
             "Running step 6",
             "==== DROOLS SESSION START ==== ",
             "Passport[no:CA-SARAH-1, name:Sarah Murphy] is without validation info, consider CORRECT for now",
@@ -157,15 +129,6 @@ class StatelessPassportValidationTest {
             "Passport[no:AU-EMILY-3, name:Emily Brown] validation PASSED",
             "Passport[no:AU-JAMES-4, name:James Brown] validation PASSED"
         );
-    }
-
-    void catchSystemOut() {
-        System.setOut(outStream);
-        outContent.reset();
-    }
-
-    void restoreSystemOut() {
-        System.setOut(originalOut);
     }
 
 }

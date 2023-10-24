@@ -1,19 +1,19 @@
-package io.github.aasaru.drools.section09.step1;
+package io.github.aasaru.drools8.ruledata;
 
 import io.github.aasaru.drools.domain.Passport;
 import org.drools.ruleunits.api.DataSource;
 import org.drools.ruleunits.api.DataStore;
 import org.drools.ruleunits.api.RuleUnitData;
 
-public class MyRuleUnit implements RuleUnitData {
+public class RuleData implements RuleUnitData {
 
     private final DataStore<Passport> passports;
 
-    public MyRuleUnit() {
+    public RuleData() {
         this(DataSource.createStore());
     }
 
-    public MyRuleUnit(DataStore<Passport> passports) {
+    public RuleData(DataStore<Passport> passports) {
         this.passports = passports;
     }
 
