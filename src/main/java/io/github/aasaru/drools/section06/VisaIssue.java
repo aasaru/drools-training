@@ -22,13 +22,14 @@ import org.kie.api.runtime.rule.Agenda;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class VisaIssue {
   public static void main(final String[] args) {
     execute(Common.promptForStep(6, args, 1, 6));
   }
 
-  static void execute(int step) {
+  static Collection<Visa> execute(int step) {
     System.out.println("Running step " + step);
     KieSession ksession = KieServices.Factory.get().getKieClasspathContainer().newKieSession("VisaIssueStep" + step);
 
@@ -68,7 +69,7 @@ public class VisaIssue {
     }
 
 
-    /** BONUS STEP: set focus to first agenda group only */
+    /** BONUS STEP: set focus to the first agenda group only */
     if (step == 6) {
       Agenda agenda = ksession.getAgenda();
       agenda.getAgendaGroup("validate-passport").setFocus();
@@ -76,15 +77,19 @@ public class VisaIssue {
 
     System.out.println("==== DROOLS SESSION START ==== ");
     ksession.fireAllRules();
-    if (Common.disposeSession) {
-      ksession.dispose();
-    }
     System.out.println("==== DROOLS SESSION END ==== ");
 
-    Collection<?> visaObjects = ksession.getObjects(o -> o.getClass() == Visa.class);
+    List<Visa> visaObjects = ksession
+      .getObjects(o -> o.getClass() == Visa.class).stream()
+      .map(o -> (Visa) o)
+      .collect(Collectors.toList());
     System.out.println("== Visas from session == ");
     visaObjects.forEach(System.out::println);
 
+    if (Common.disposeSession) {
+      ksession.dispose();
+    }
+    return visaObjects;
   }
 
 }

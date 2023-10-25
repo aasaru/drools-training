@@ -29,7 +29,7 @@ public class Common {
           return Integer.parseInt(stepStr);
         }
         else {
-          System.out.print(String.format("Section %d. Enter step (%d...%d): ", section, minStep, maxStep));
+          System.out.printf("Section %d. Enter step (%d...%d): ", section, minStep, maxStep);
           stepStr = br.readLine();
         }
 

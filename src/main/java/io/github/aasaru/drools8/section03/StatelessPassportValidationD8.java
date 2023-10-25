@@ -13,8 +13,8 @@ package io.github.aasaru.drools8.section03;
 import io.github.aasaru.drools.Common;
 import io.github.aasaru.drools.domain.Passport;
 import io.github.aasaru.drools.repository.ApplicationRepository;
-import io.github.aasaru.drools8.ruledata.RuleData;
-import io.github.aasaru.drools8.ruledata.StepRuleDataUtil;
+import io.github.aasaru.drools8.ruledata.PassportRuleUnit;
+import io.github.aasaru.drools8.ruledata.StepRuleUnitUtil;
 import org.drools.ruleunits.api.RuleUnitInstance;
 import org.drools.ruleunits.api.RuleUnitProvider;
 
@@ -30,15 +30,16 @@ public class StatelessPassportValidationD8 {
 
         System.out.println("Running step " + step);
 
-        RuleData ruleUnit = StepRuleDataUtil.getRuleData(3, step);
-        try (RuleUnitInstance<RuleData> instance = RuleUnitProvider.get().createRuleUnitInstance(ruleUnit)) {
+        PassportRuleUnit ruleUnit = new StepRuleUnitUtil<PassportRuleUnit>().getRuleUnit(PassportRuleUnit.class, 3, step);
+
+        try (RuleUnitInstance<PassportRuleUnit> instance = RuleUnitProvider.get().createRuleUnitInstance(ruleUnit)) {
 
             passports.forEach(ruleUnit.getPassports()::add);
 
             System.out.println("==== DROOLS SESSION START ==== ");
             instance.fire();
+            System.out.println("==== DROOLS SESSION END ==== ");
         }
-        System.out.println("==== DROOLS SESSION END ==== ");
 
         if (step >= 4) {
             System.out.println("==== PASSPORTS AFTER DROOLS SESSION ==== ");

@@ -8,20 +8,21 @@
  *  work. If not, see <http://creativecommons.org/licenses/by-nc-nd/4.0/>.
  */
 
-package io.github.aasaru.drools.section04;
+package io.github.aasaru.drools8.section04;
 
+import io.github.aasaru.drools.section04.StatefulPassportValidation;
 import org.junit.jupiter.api.Test;
 
 import static io.github.aasaru.drools.SystemOutTestUtil.getLinesWrittenToSystemOut;
 import static io.github.aasaru.drools.SystemOutTestUtil.recordLinesWrittenToSystemOut;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class StatefulPassportValidationTest {
+class StatefulPassportValidationD8Test {
 
   @Test
   void testStep1_recordSystemOut_correctOutput() {
     recordLinesWrittenToSystemOut();
-    StatefulPassportValidation.execute(1);
+    StatefulPassportValidationD8.execute(1);
 
     assertThat(getLinesWrittenToSystemOut()).containsExactlyInAnyOrder(
       "Running step 1",
@@ -41,7 +42,7 @@ class StatefulPassportValidationTest {
   @Test
   void testStep2_recordSystemOut_correctOutput() {
     recordLinesWrittenToSystemOut();
-    StatefulPassportValidation.execute(2);
+    StatefulPassportValidationD8.execute(2);
 
     assertThat(getLinesWrittenToSystemOut()).containsExactlyInAnyOrder(
       "Running step 2",
@@ -57,5 +58,4 @@ class StatefulPassportValidationTest {
       "Passport[no:AU-EMILY-3, name:Emily Brown] verdict: PASSED, cause: ",
       "Passport[no:AU-JAMES-4, name:James Brown] verdict: PASSED, cause: ");
   }
-
 }

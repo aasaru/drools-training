@@ -5,15 +5,15 @@ import org.drools.ruleunits.api.DataSource;
 import org.drools.ruleunits.api.DataStore;
 import org.drools.ruleunits.api.RuleUnitData;
 
-public class RuleData implements RuleUnitData {
+public class PassportRuleUnit implements RuleUnitData {
 
     private final DataStore<Passport> passports;
 
-    public RuleData() {
+    public PassportRuleUnit() {
         this(DataSource.createStore());
     }
 
-    public RuleData(DataStore<Passport> passports) {
+    public PassportRuleUnit(DataStore<Passport> passports) {
         this.passports = passports;
     }
 

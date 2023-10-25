@@ -1,6 +1,6 @@
 package io.github.aasaru.drools8.section03.step2
 
-unit Step2RuleData;
+unit PassportRuleUnit;
 
 import io.github.aasaru.drools.domain.Passport;
 import java.time.LocalDate;

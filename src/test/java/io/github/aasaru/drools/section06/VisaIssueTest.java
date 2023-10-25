@@ -13,11 +13,13 @@ package io.github.aasaru.drools.section06;
 import io.github.aasaru.drools.Common;
 import io.github.aasaru.drools.TestUtil;
 import io.github.aasaru.drools.domain.Visa;
+import org.assertj.core.api.Assertions;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Test;
 import org.kie.api.runtime.KieSession;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,47 +44,42 @@ class VisaIssueTest {
   }
 
   @Test
-  void testStep1_testItDoesntFail() {
+  void testStep1_ruleExecutionOrderAffectsResult_oneOrTwoVisasAreIssued() {
     int step = 1;
 
     String kieSessionName = "VisaIssueStep" + step;
     TestUtil.disposeKieSessionIfExists(kieSessionName);
 
-    VisaIssue.execute(step);
+    Collection<Visa> visasInSession = VisaIssue.execute(step);
+
+    Assertions.assertThat(visasInSession).hasSizeBetween(1, 2);
+    Assertions.assertThat(visasInSession)
+      .map(Visa::getPassportNumber)
+      .contains("AU-EMILY-3");
   }
 
   @Test
-  void testStep2() {
+  void testStep2_exactlyOneVisaIsIssued() {
     int step = 2;
 
-    Common.disposeSession = false;
-    VisaIssue.execute(step);
+    Collection<Visa> visasInSession = VisaIssue.execute(step);
 
-    KieSession ksession = TestUtil.getKieSession("VisaIssueStep", step);
-
-    List<Visa> visasInSession = new ArrayList<>();
-
-    TestUtil.addObjectsOfType(ksession, visasInSession, Visa.class);
-
-    assertThat(visasInSession.size(), CoreMatchers.is(equalTo(1)));
-    assertThat(visasInSession.get(0).getPassportNumber(), CoreMatchers.is(equalTo("AU-EMILY-3")));
+    Assertions.assertThat(visasInSession).hasSize(1);
+    Assertions.assertThat(visasInSession)
+      .map(Visa::getPassportNumber)
+      .containsExactlyInAnyOrder("AU-EMILY-3");
   }
 
   @Test
-  void testStep3() {
+  void testStep3_exactlyOneVisaIsIssued() {
     int step = 3;
 
-    Common.disposeSession = false;
-    VisaIssue.execute(step);
+    Collection<Visa> visasInSession = VisaIssue.execute(step);
 
-    KieSession ksession = TestUtil.getKieSession("VisaIssueStep", step);
-
-    List<Visa> visasInSession = new ArrayList<>();
-
-    TestUtil.addObjectsOfType(ksession, visasInSession, Visa.class);
-
-    assertThat(visasInSession.size(), CoreMatchers.is(equalTo(1)));
-    assertThat(visasInSession.get(0).getPassportNumber(), CoreMatchers.is(equalTo("AU-EMILY-3")));
+    Assertions.assertThat(visasInSession).hasSize(1);
+    Assertions.assertThat(visasInSession)
+      .map(Visa::getPassportNumber)
+      .containsExactlyInAnyOrder("AU-EMILY-3");
   }
 
   @Test

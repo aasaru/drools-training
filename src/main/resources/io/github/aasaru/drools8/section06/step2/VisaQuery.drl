@@ -1,0 +1,7 @@
+package io.github.aasaru.drools8.section06.step2
+
+unit PassportVisaApplicationVisaRuleUnit;
+
+query GetAllVisas
+   $allVisas: /visas
+end
