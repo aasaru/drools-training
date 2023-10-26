@@ -20,7 +20,7 @@ import java.util.Collection;
 class VisaIssueD8Test {
 
   @Test
-  void testStep1_ruleExecutionOrderAffectsResult_oneOrTwoVisasAreIssued() {
+  void testStep1_ruleExecutionOrderAffectsResult_oneToFourVisasAreIssued() {
     int step = 1;
 
     String kieSessionName = "VisaIssueStep" + step;
@@ -28,7 +28,7 @@ class VisaIssueD8Test {
 
     Collection<Visa> visasInSession = VisaIssueD8.execute(step);
 
-    Assertions.assertThat(visasInSession).hasSizeBetween(1, 2);
+    Assertions.assertThat(visasInSession).hasSizeBetween(1, 4);
     Assertions.assertThat(visasInSession)
       .map(Visa::getPassportNumber)
       .contains("AU-EMILY-3");

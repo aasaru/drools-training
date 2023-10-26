@@ -41,17 +41,15 @@ public class VisaIssueD8 {
     List<VisaApplication> visaApplications = ApplicationRepository.getVisaApplications();
 
     try (RuleUnitInstance<PassportVisaApplicationVisaRuleUnit> instance = RuleUnitProvider.get().createRuleUnitInstance(ruleUnit)) {
-
       passports.forEach(ruleUnit.getPassports()::add);
       visaApplications.forEach(ruleUnit.getVisaApplications()::add);
 
-      System.out.println("==== DROOLS SESSION START ==== ");
+      System.out.println("==== DROOLS START ==== ");
       instance.fire();
-      System.out.println("==== DROOLS SESSION END ==== ");
-
+      System.out.println("==== DROOLS END ==== ");
 
       Collection<Visa> visaObjects = getAllVisasUsingQuery(instance);
-      System.out.println("== Visas from session == ");
+      System.out.println("== VISAS AFTER RULES WERE FIRED == ");
       visaObjects.forEach(System.out::println);
       return visaObjects;
 

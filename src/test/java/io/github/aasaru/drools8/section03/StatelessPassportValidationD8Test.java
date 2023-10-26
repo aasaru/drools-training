@@ -15,12 +15,12 @@ public class StatelessPassportValidationD8Test {
 
         assertThat(getLinesWrittenToSystemOut()).containsExactlyInAnyOrder(
             "Running step 1",
-            "==== DROOLS SESSION START ==== ",
+            "==== DROOLS START ==== ",
             "This passport is CORRECT",
             "This passport is CORRECT",
             "This passport is INVALID because it is expired or has no space for visa",
             "This passport is INVALID because it is expired or has no space for visa",
-            "==== DROOLS SESSION END ==== ");
+            "==== DROOLS END ==== ");
     }
 
     @Test
@@ -30,11 +30,11 @@ public class StatelessPassportValidationD8Test {
 
         assertThat(getLinesWrittenToSystemOut()).containsExactlyInAnyOrder(
             "Running step 2",
-            "==== DROOLS SESSION START ==== ",
+            "==== DROOLS START ==== ",
             "This passport is CORRECT",
             "This passport is CORRECT",
             "This passport is INVALID because it is expired",
             "This passport is INVALID because it has no space for visa",
-            "==== DROOLS SESSION END ==== ");
+            "==== DROOLS END ==== ");
     }
 }

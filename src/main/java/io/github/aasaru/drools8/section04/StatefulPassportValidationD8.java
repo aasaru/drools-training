@@ -23,14 +23,15 @@ public class StatefulPassportValidationD8 {
     PassportRuleUnit ruleUnit = new StepRuleUnitUtil<PassportRuleUnit>().getRuleUnit(PassportRuleUnit.class, 4, step);
 
     try (RuleUnitInstance<PassportRuleUnit> instance = RuleUnitProvider.get().createRuleUnitInstance(ruleUnit)) {
-      // TODO move out of try?
-      passports.forEach(ruleUnit.getPassports()::add);
-      System.out.println("==== DROOLS SESSION START ==== ");
-      instance.fire();
-      System.out.println("==== DROOLS SESSION END ==== ");
+      for (Passport passport : passports) {
+        ruleUnit.getPassports().append(passport);
+      }
+      System.out.println("==== DROOLS START ==== ");
+      int firedRulesCount = instance.fire();
+      System.out.printf("==== DROOLS FINISHED. %s RULES WERE FIRED ==== \n", firedRulesCount);
     }
 
-    System.out.println("==== PASSPORTS AFTER DROOLS SESSION === ");
+    System.out.println("==== PASSPORTS AFTER RULES WERE FIRED === ");
     passports.forEach(passport -> {
       System.out.println(passport + " verdict: " + passport.getValidation() + ", cause: " + passport.getCause());
     });

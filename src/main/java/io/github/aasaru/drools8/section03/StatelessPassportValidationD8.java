@@ -34,15 +34,15 @@ public class StatelessPassportValidationD8 {
 
         try (RuleUnitInstance<PassportRuleUnit> instance = RuleUnitProvider.get().createRuleUnitInstance(ruleUnit)) {
 
-            passports.forEach(ruleUnit.getPassports()::add);
+            passports.forEach(ruleUnit.getPassports()::append);
 
-            System.out.println("==== DROOLS SESSION START ==== ");
+            System.out.println("==== DROOLS START ==== ");
             instance.fire();
-            System.out.println("==== DROOLS SESSION END ==== ");
+            System.out.println("==== DROOLS END ==== ");
         }
 
         if (step >= 4) {
-            System.out.println("==== PASSPORTS AFTER DROOLS SESSION ==== ");
+            System.out.println("==== PASSPORTS AFTER RULES WERE FIRED ==== ");
 
             passports.forEach(passport -> System.out.println(passport + " validation " + passport.getValidation()));
         }

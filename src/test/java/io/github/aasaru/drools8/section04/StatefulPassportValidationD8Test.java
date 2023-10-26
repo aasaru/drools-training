@@ -26,13 +26,13 @@ class StatefulPassportValidationD8Test {
 
     assertThat(getLinesWrittenToSystemOut()).containsExactlyInAnyOrder(
       "Running step 1",
-      "==== DROOLS SESSION START ==== ",
+      "==== DROOLS START ==== ",
       "Passport[no:CA-SARAH-1, name:Sarah Murphy] is INVALID because it is expired",
       "Passport[no:CA-SIMON-2, name:Simon Murphy] is INVALID because it has no space for visa",
       "Passport[no:AU-EMILY-3, name:Emily Brown] is without validation info, consider CORRECT for now",
       "Passport[no:AU-JAMES-4, name:James Brown] is without validation info, consider CORRECT for now",
-      "==== DROOLS SESSION END ==== ",
-      "==== PASSPORTS AFTER DROOLS SESSION === ",
+      "==== DROOLS FINISHED. 4 RULES WERE FIRED ==== ",
+      "==== PASSPORTS AFTER RULES WERE FIRED === ",
       "Passport[no:CA-SARAH-1, name:Sarah Murphy] verdict: FAILED, cause: ",
       "Passport[no:CA-SIMON-2, name:Simon Murphy] verdict: FAILED, cause: ",
       "Passport[no:AU-EMILY-3, name:Emily Brown] verdict: PASSED, cause: ",
@@ -46,13 +46,13 @@ class StatefulPassportValidationD8Test {
 
     assertThat(getLinesWrittenToSystemOut()).containsExactlyInAnyOrder(
       "Running step 2",
-      "==== DROOLS SESSION START ==== ",
+      "==== DROOLS START ==== ",
       "Passport[no:CA-SARAH-1, name:Sarah Murphy] is INVALID because it is expired",
       "Passport[no:CA-SIMON-2, name:Simon Murphy] is INVALID because it has no space for visa",
       "Passport[no:AU-EMILY-3, name:Emily Brown] is without validation info, consider CORRECT for now",
       "Passport[no:AU-JAMES-4, name:James Brown] is without validation info, consider CORRECT for now",
-      "==== DROOLS SESSION END ==== ",
-      "==== PASSPORTS AFTER DROOLS SESSION === ",
+      "==== DROOLS FINISHED. 4 RULES WERE FIRED ==== ",
+      "==== PASSPORTS AFTER RULES WERE FIRED === ",
       "Passport[no:CA-SARAH-1, name:Sarah Murphy] verdict: FAILED, cause: passport is expired",
       "Passport[no:CA-SIMON-2, name:Simon Murphy] verdict: FAILED, cause: passport has no space for visa",
       "Passport[no:AU-EMILY-3, name:Emily Brown] verdict: PASSED, cause: ",

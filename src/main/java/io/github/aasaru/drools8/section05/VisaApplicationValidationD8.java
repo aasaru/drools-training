@@ -37,14 +37,14 @@ public class VisaApplicationValidationD8 {
     sessionData.passports = ApplicationRepository.getPassports();
     sessionData.visaApplications =  ApplicationRepository.getVisaApplications();
 
-    sessionData.passports.forEach(ruleUnit.getPassports()::add);
-    sessionData.visaApplications.forEach(ruleUnit.getVisaApplications()::add);
-
     try (RuleUnitInstance<PassportVisaApplicationRuleUnit> instance = RuleUnitProvider.get().createRuleUnitInstance(ruleUnit)) {
-      System.out.println("==== DROOLS SESSION START ==== ");
+      sessionData.passports.forEach(ruleUnit.getPassports()::append);
+      sessionData.visaApplications.forEach(ruleUnit.getVisaApplications()::append);
+
+      System.out.println("==== DROOLS START ==== ");
       instance.fire();
-      System.out.println("==== DROOLS SESSION END ==== ");
-      System.out.println("==== PASSPORTS AFTER DROOLS SESSION === ");
+      System.out.println("==== DROOLS END ==== ");
+      System.out.println("==== PASSPORTS AFTER RUNNING RULES === ");
       sessionData.passports.forEach(passport -> System.out.println(passport + " verdict: " + passport.getValidation()));
 
       System.out.println("==== APPLICATIONS STATE AFTER DROOLS SESSION === ");
