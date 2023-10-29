@@ -10,6 +10,8 @@
 
 package io.github.aasaru.drools.domain;
 
+import java.util.Objects;
+
 public class Visa {
   private String passportNumber;
 
@@ -25,4 +27,18 @@ public class Visa {
   public String toString() {
     return "Visa[passport:" + passportNumber + "]";
   }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Visa visa = (Visa) o;
+    return Objects.equals(passportNumber, visa.passportNumber);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(passportNumber);
+  }
+
 }

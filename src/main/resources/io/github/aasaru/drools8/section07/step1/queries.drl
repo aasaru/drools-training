@@ -1,0 +1,7 @@
+package io.github.aasaru.drools8.section07.step1
+
+unit Section07RuleUnit;
+
+query GetAllVisas
+   $allVisas: /visas
+end

@@ -13,7 +13,7 @@ import java.util.List;
 public class StatefulPassportValidationD8 {
 
   public static void main(final String[] args) {
-    execute(Common.promptForStep(4, args, 1, 2));
+    execute(Common.promptForStepD8(4, args, 1, 2));
   }
 
   static void execute(int step) {

@@ -133,20 +133,14 @@ public class Passport {
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
-    if (!(o instanceof Passport)) return false;
+    if (o == null || getClass() != o.getClass()) return false;
     Passport passport = (Passport) o;
-    return unusedVisaPages == passport.unusedVisaPages &&
-        age == passport.age &&
-        Objects.equals(passportNumber, passport.passportNumber) &&
-        Objects.equals(name, passport.name) &&
-        Objects.equals(expiresOn, passport.expiresOn) &&
-        validation == passport.validation &&
-        Objects.equals(cause, passport.cause);
+    return Objects.equals(passportNumber, passport.passportNumber);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(passportNumber, name, expiresOn, unusedVisaPages, age, validation, cause);
+    return Objects.hash(passportNumber);
   }
 
 }

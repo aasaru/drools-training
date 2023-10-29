@@ -1,0 +1,38 @@
+package io.github.aasaru.drools8.section07.step2
+
+unit Section07RuleUnit;
+ 
+import io.github.aasaru.drools.domain.InvalidPassport;
+import io.github.aasaru.drools.domain.ValidPassport;
+import io.github.aasaru.drools.domain.Passport;
+import io.github.aasaru.drools.domain.Validation;
+import java.time.LocalDate;
+
+rule "Valid passport"
+	no-loop
+	when
+		$passport: /passports
+		(not /invalidPassports[ passport == $passport ] )
+	then
+		System.out.println( $passport + " is not invalid, consider OK for now" );
+		ValidPassport $validPassport = new ValidPassport($passport);
+		validPassports.addLogical( $validPassport );
+end
+
+rule "Expired passport"
+	when
+		$passport: /passports[ isExpired() ]
+		(not /invalidPassports[ passport == $passport ] )
+	then
+		System.out.println( $passport + " is INVALID because it is expired" );
+		invalidPassports.add( new InvalidPassport($passport) );
+end
+
+rule "Full passport"
+	when
+		$passport: /passports[ unusedVisaPages == 0 ]
+		(not /invalidPassports[ passport == $passport ] )
+	then
+		System.out.println( $passport + " is INVALID because it has no space for visa" );
+		invalidPassports.add( new InvalidPassport($passport) );
+end

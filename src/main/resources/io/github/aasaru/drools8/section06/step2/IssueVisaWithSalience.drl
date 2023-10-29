@@ -15,5 +15,5 @@ rule "Issue visa for valid applications"
   then
     Visa visa = new Visa( $visaApplication.getPassportNumber() );
     System.out.println("Issue " + visa);
-    visas.add(visa);
+    visas.append(visa);
 end

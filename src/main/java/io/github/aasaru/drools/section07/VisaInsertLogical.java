@@ -22,6 +22,7 @@ import org.kie.api.runtime.KieSession;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class VisaInsertLogical {
   public static void main(final String[] args) {
@@ -29,8 +30,10 @@ public class VisaInsertLogical {
   }
 
 
-  static void execute(int step) {
+  static SessionData execute(int step) {
     System.out.println("Running step " + step);
+    SessionData sessionData = new SessionData();
+
     KieSession ksession = KieServices.Factory.get().getKieClasspathContainer().newKieSession("VisaInsertLogicalStep" + step);
 
     if (step < 3) {
@@ -43,7 +46,6 @@ public class VisaInsertLogical {
         @Override
         public void objectUpdated(ObjectUpdatedEvent event) {
           System.out.println("==> " + event.getObject() + " updated");
-
         }
 
         @Override
@@ -52,7 +54,6 @@ public class VisaInsertLogical {
         }
       });
     }
-
 
     List<Passport> passports = ApplicationRepository.getPassports();
     passports.forEach(ksession::insert);
@@ -69,29 +70,51 @@ public class VisaInsertLogical {
 
     if (step > 1 && step < 4) {
       System.out.println("==== VALID PASSPORTS FROM DROOLS SESSION === ");
-      Collection<?> validPassport = ksession.getObjects(o -> o.getClass() == ValidPassport.class);
-      validPassport.forEach(System.out::println);
+      sessionData.validPassports = ksession.getObjects(o -> o.getClass() == ValidPassport.class).stream()
+        .map(o -> (ValidPassport) o)
+        .collect(Collectors.toList());
+      sessionData.validPassports.forEach(System.out::println);
 
       System.out.println("==== INVALID PASSPORTS FROM DROOLS SESSION === ");
-      Collection<?> invalidPassport = ksession.getObjects(o -> o.getClass() == InvalidPassport.class);
-      invalidPassport.forEach(System.out::println);
+      sessionData.invalidPassports = ksession.getObjects(o -> o.getClass() == InvalidPassport.class).stream()
+          .map(o -> (InvalidPassport) o)
+            .collect(Collectors.toList());
+      sessionData.invalidPassports.forEach(System.out::println);
     }
 
     if (step == 3) {
       System.out.println("==== VALID APPLICATIONS FROM DROOLS SESSION === ");
-      Collection<?> validApplications = ksession.getObjects(o -> o.getClass() == ValidVisaApplication.class);
-      validApplications.forEach(System.out::println);
+      sessionData.validVisaApplications = ksession.getObjects(o -> o.getClass() == ValidVisaApplication.class).stream()
+        .map(o -> (ValidVisaApplication) o)
+        .collect(Collectors.toList());
+      sessionData.validVisaApplications.forEach(System.out::println);
 
       System.out.println("==== INVALID APPLICATIONS FROM DROOLS SESSION === ");
-      Collection<?> invalidApplications = ksession.getObjects(o -> o.getClass() == InvalidVisaApplication.class);
-      invalidApplications.forEach(System.out::println);
+      sessionData.invalidVisaApplications = ksession
+        .getObjects(o -> o.getClass() == InvalidVisaApplication.class).stream()
+        .map(o -> (InvalidVisaApplication) o)
+        .collect(Collectors.toList());
+      sessionData.invalidVisaApplications.forEach(System.out::println);
     }
 
     if (step != 2) {
-      Collection<?> visas = ksession.getObjects(o -> o.getClass() == Visa.class);
+      sessionData.visas = ksession
+        .getObjects(o -> o.getClass() == Visa.class).stream()
+        .map(o -> (Visa) o)
+        .collect(Collectors.toList());
       System.out.println("== Visas from session == ");
-      visas.forEach(System.out::println);
+      sessionData.visas.forEach(System.out::println);
     }
+
+    return sessionData;
+  }
+
+  static class SessionData {
+    Collection<Visa> visas;
+    Collection<ValidPassport> validPassports;
+    Collection<InvalidPassport> invalidPassports;
+    Collection<ValidVisaApplication> validVisaApplications;
+    Collection<InvalidVisaApplication> invalidVisaApplications;
   }
 
 }

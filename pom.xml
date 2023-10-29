@@ -13,7 +13,6 @@
     <java.module.name>io.github.aasaru.drools-training</java.module.name>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <drools.version>8.44.0.Final</drools.version>
-    <version.org.kie.kogito>1.40.1.Final</version.org.kie.kogito>
   </properties>
 
   <repositories>

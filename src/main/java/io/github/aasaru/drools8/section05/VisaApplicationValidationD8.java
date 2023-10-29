@@ -23,7 +23,7 @@ import java.util.List;
 
 public class VisaApplicationValidationD8 {
   public static void main(final String[] args) {
-    execute(Common.promptForStep(5, args, 1, 3));
+    execute(Common.promptForStepD8(5, args, 1, 3));
   }
 
 

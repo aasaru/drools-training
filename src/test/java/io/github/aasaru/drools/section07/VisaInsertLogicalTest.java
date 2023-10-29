@@ -13,6 +13,7 @@ package io.github.aasaru.drools.section07;
 import io.github.aasaru.drools.Common;
 import io.github.aasaru.drools.TestUtil;
 import io.github.aasaru.drools.domain.*;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.kie.api.runtime.KieSession;
 
@@ -33,6 +34,19 @@ class VisaInsertLogicalTest {
     VisaInsertLogical.execute(2);
     VisaInsertLogical.execute(3);
     VisaInsertLogical.execute(4);
+  }
+
+  @Test
+  void testStep1() {
+    int step = 1;
+
+    Common.disposeSession = false;
+    VisaInsertLogical.SessionData sessionData = VisaInsertLogical.execute(step);
+
+    Assertions.assertThat(sessionData.visas)
+      .map(Visa::getPassportNumber)
+      .containsExactlyInAnyOrder("AU-EMILY-3");
+
   }
 
   @Test

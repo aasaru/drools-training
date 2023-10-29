@@ -22,12 +22,11 @@ import org.drools.ruleunits.api.RuleUnitProvider;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class VisaIssueD8 {
   public static void main(final String[] args) {
-    execute(Common.promptForStep(6, args, 1, 2));
+    execute(Common.promptForStepD8(6, args, 1, 2));
   }
 
   static Collection<Visa> execute(int step) {
@@ -41,8 +40,8 @@ public class VisaIssueD8 {
     List<VisaApplication> visaApplications = ApplicationRepository.getVisaApplications();
 
     try (RuleUnitInstance<PassportVisaApplicationVisaRuleUnit> instance = RuleUnitProvider.get().createRuleUnitInstance(ruleUnit)) {
-      passports.forEach(ruleUnit.getPassports()::add);
-      visaApplications.forEach(ruleUnit.getVisaApplications()::add);
+      passports.forEach(ruleUnit.getPassports()::append);
+      visaApplications.forEach(ruleUnit.getVisaApplications()::append);
 
       System.out.println("==== DROOLS START ==== ");
       instance.fire();
@@ -51,19 +50,17 @@ public class VisaIssueD8 {
       Collection<Visa> visaObjects = getAllVisasUsingQuery(instance);
       System.out.println("== VISAS AFTER RULES WERE FIRED == ");
       visaObjects.forEach(System.out::println);
-      return visaObjects;
 
+      return visaObjects;
     }
 
   }
 
   public static List<Visa> getAllVisasUsingQuery(RuleUnitInstance<PassportVisaApplicationVisaRuleUnit> instance) {
-    return instance.executeQuery("GetAllVisas").toList().stream().map(VisaIssueD8::toResult).collect(Collectors.toList());
+    return instance.executeQuery("GetAllVisas")
+      .toList().stream()
+      .map(tuple -> (Visa) tuple.get("$allVisas"))
+      .collect(Collectors.toList());
   }
-
-  private static Visa toResult(Map<String, Object> tuple) {
-    return (Visa) tuple.get("$allVisas");
-  }
-
 
 }

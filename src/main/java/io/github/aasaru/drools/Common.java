@@ -19,6 +19,14 @@ public class Common {
   public static boolean disposeSession = true;
 
   public static int promptForStep(int section, String[] args, int minStep, int maxStep) {
+    return promptForStepInternal("Section " + section, args, minStep, maxStep);
+  }
+
+  public static int promptForStepD8(int section, String[] args, int minStep, int maxStep) {
+    return promptForStepInternal("D8 section " + section, args, minStep, maxStep);
+  }
+
+  private static int promptForStepInternal(String sectionStr, String[] args, int minStep, int maxStep) {
     String stepStr = "";
 
     while (true) {
@@ -29,7 +37,7 @@ public class Common {
           return Integer.parseInt(stepStr);
         }
         else {
-          System.out.printf("Section %d. Enter step (%d...%d): ", section, minStep, maxStep);
+          System.out.printf(sectionStr + ". Enter step (%d...%d): ", minStep, maxStep);
           stepStr = br.readLine();
         }
 
