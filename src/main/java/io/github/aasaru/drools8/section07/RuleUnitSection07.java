@@ -1,4 +1,4 @@
-package io.github.aasaru.drools8.ruledata;
+package io.github.aasaru.drools8.section07;
 
 import io.github.aasaru.drools.domain.*;
 import org.drools.ruleunits.api.DataSource;
@@ -6,7 +6,7 @@ import org.drools.ruleunits.api.DataStore;
 import org.drools.ruleunits.api.DataStream;
 import org.drools.ruleunits.api.RuleUnitData;
 
-public class Section07RuleUnit implements RuleUnitData {
+public class RuleUnitSection07 implements RuleUnitData {
 
     private final DataStream<Passport> passports = DataSource.createStream();
     private final DataStream<VisaApplication> visaApplications = DataSource.createStream();

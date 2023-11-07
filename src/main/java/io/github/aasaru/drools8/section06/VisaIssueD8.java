@@ -15,7 +15,6 @@ import io.github.aasaru.drools.domain.Passport;
 import io.github.aasaru.drools.domain.Visa;
 import io.github.aasaru.drools.domain.VisaApplication;
 import io.github.aasaru.drools.repository.ApplicationRepository;
-import io.github.aasaru.drools8.ruledata.PassportVisaApplicationVisaRuleUnit;
 import io.github.aasaru.drools8.ruledata.StepRuleUnitUtil;
 import org.drools.ruleunits.api.RuleUnitInstance;
 import org.drools.ruleunits.api.RuleUnitProvider;
@@ -26,20 +25,20 @@ import java.util.stream.Collectors;
 
 public class VisaIssueD8 {
   public static void main(final String[] args) {
-    execute(Common.promptForStepD8(6, args, 1, 2));
+    execute(Common.promptForStepD8(6, args, 1, 3));
   }
 
   static Collection<Visa> execute(int step) {
     System.out.println("Running step " + step);
 
-    PassportVisaApplicationVisaRuleUnit ruleUnit = new StepRuleUnitUtil<PassportVisaApplicationVisaRuleUnit>()
-      .getRuleUnit(PassportVisaApplicationVisaRuleUnit.class, 6, step);
+    RuleUnitSection06 ruleUnit = new StepRuleUnitUtil<RuleUnitSection06>()
+      .getRuleUnit(RuleUnitSection06.class, 6, step);
 
     List<Passport> passports = ApplicationRepository.getPassports();
 
     List<VisaApplication> visaApplications = ApplicationRepository.getVisaApplications();
 
-    try (RuleUnitInstance<PassportVisaApplicationVisaRuleUnit> instance = RuleUnitProvider.get().createRuleUnitInstance(ruleUnit)) {
+    try (RuleUnitInstance<RuleUnitSection06> instance = RuleUnitProvider.get().createRuleUnitInstance(ruleUnit)) {
       passports.forEach(ruleUnit.getPassports()::append);
       visaApplications.forEach(ruleUnit.getVisaApplications()::append);
 
@@ -56,7 +55,7 @@ public class VisaIssueD8 {
 
   }
 
-  public static List<Visa> getAllVisasUsingQuery(RuleUnitInstance<PassportVisaApplicationVisaRuleUnit> instance) {
+  public static List<Visa> getAllVisasUsingQuery(RuleUnitInstance<RuleUnitSection06> instance) {
     return instance.executeQuery("GetAllVisas")
       .toList().stream()
       .map(tuple -> (Visa) tuple.get("$allVisas"))

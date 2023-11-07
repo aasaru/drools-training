@@ -13,7 +13,6 @@ package io.github.aasaru.drools8.section07;
 import io.github.aasaru.drools.Common;
 import io.github.aasaru.drools.domain.*;
 import io.github.aasaru.drools.repository.ApplicationRepository;
-import io.github.aasaru.drools8.ruledata.Section07RuleUnit;
 import io.github.aasaru.drools8.ruledata.StepRuleUnitUtil;
 import org.drools.ruleunits.api.RuleUnitInstance;
 import org.drools.ruleunits.api.RuleUnitProvider;
@@ -36,7 +35,7 @@ public class VisaAddLogicalD8 {
     System.out.println("Running step " + step);
     SessionData sessionData = new SessionData();
 
-    Section07RuleUnit ruleUnit = new StepRuleUnitUtil<Section07RuleUnit>().getRuleUnit(Section07RuleUnit.class, 7, step);
+    RuleUnitSection07 ruleUnit = new StepRuleUnitUtil<RuleUnitSection07>().getRuleUnit(RuleUnitSection07.class, 7, step);
 
 
     RuleConfig ruleConfig = RuleUnitProvider.get().newRuleConfig();
@@ -61,7 +60,7 @@ public class VisaAddLogicalD8 {
     List<Passport> passports = ApplicationRepository.getPassports();
     List<VisaApplication> visaApplications = ApplicationRepository.getVisaApplications();
 
-    try (RuleUnitInstance<Section07RuleUnit> instance = RuleUnitProvider.get().createRuleUnitInstance(ruleUnit, ruleConfig)) {
+    try (RuleUnitInstance<RuleUnitSection07> instance = RuleUnitProvider.get().createRuleUnitInstance(ruleUnit, ruleConfig)) {
       passports.forEach(ruleUnit.getPassports()::append);
       visaApplications.forEach(ruleUnit.getVisaApplications()::append);
 
@@ -100,35 +99,35 @@ public class VisaAddLogicalD8 {
     return sessionData;
   }
 
-  public static List<Visa> getAllVisasUsingQuery(RuleUnitInstance<Section07RuleUnit> instance) {
+  public static List<Visa> getAllVisasUsingQuery(RuleUnitInstance<RuleUnitSection07> instance) {
     return instance.executeQuery("GetAllVisas")
       .toList().stream()
       .map(tuple -> (Visa) tuple.get("$allVisas"))
       .collect(Collectors.toList());
   }
 
-  public static List<ValidPassport> getAllValidPassportsUsingQuery(RuleUnitInstance<Section07RuleUnit> instance) {
+  public static List<ValidPassport> getAllValidPassportsUsingQuery(RuleUnitInstance<RuleUnitSection07> instance) {
     return instance.executeQuery("GetAllValidPassports")
       .toList().stream()
       .map(tuple -> (ValidPassport) tuple.get("$allValidPassports"))
       .collect(Collectors.toList());
   }
 
-  public static List<InvalidPassport> getAllInvalidPassportsUsingQuery(RuleUnitInstance<Section07RuleUnit> instance) {
+  public static List<InvalidPassport> getAllInvalidPassportsUsingQuery(RuleUnitInstance<RuleUnitSection07> instance) {
     return instance.executeQuery("GetAllInvalidPassports")
       .toList().stream()
       .map(tuple -> (InvalidPassport) tuple.get("$allInvalidPassports"))
       .collect(Collectors.toList());
   }
 
-  public static List<ValidVisaApplication> getAllValidVisaApplicationsUsingQuery(RuleUnitInstance<Section07RuleUnit> instance) {
+  public static List<ValidVisaApplication> getAllValidVisaApplicationsUsingQuery(RuleUnitInstance<RuleUnitSection07> instance) {
     return instance.executeQuery("GetAllValidVisaApplications")
       .toList().stream()
       .map(tuple -> (ValidVisaApplication) tuple.get("$allValidVisaApplications"))
       .collect(Collectors.toList());
   }
 
-  public static List<InvalidVisaApplication> getAllInvalidVisaApplicationsUsingQuery(RuleUnitInstance<Section07RuleUnit> instance) {
+  public static List<InvalidVisaApplication> getAllInvalidVisaApplicationsUsingQuery(RuleUnitInstance<RuleUnitSection07> instance) {
     return instance.executeQuery("GetAllValidVisaApplications")
       .toList().stream()
       .map(tuple -> (InvalidVisaApplication) tuple.get("$allInvalidVisaApplications"))

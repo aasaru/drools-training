@@ -1,6 +1,6 @@
 package io.github.aasaru.drools8.section07.step4
 
-unit Section07RuleUnit;
+unit RuleUnitSection07;
 
 import io.github.aasaru.drools.domain.InvalidVisaApplication;
 import io.github.aasaru.drools.domain.Passport;

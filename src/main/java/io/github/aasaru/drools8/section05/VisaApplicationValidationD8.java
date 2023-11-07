@@ -14,7 +14,6 @@ import io.github.aasaru.drools.Common;
 import io.github.aasaru.drools.domain.Passport;
 import io.github.aasaru.drools.domain.VisaApplication;
 import io.github.aasaru.drools.repository.ApplicationRepository;
-import io.github.aasaru.drools8.ruledata.PassportVisaApplicationRuleUnit;
 import io.github.aasaru.drools8.ruledata.StepRuleUnitUtil;
 import org.drools.ruleunits.api.RuleUnitInstance;
 import org.drools.ruleunits.api.RuleUnitProvider;
@@ -30,14 +29,14 @@ public class VisaApplicationValidationD8 {
   static SessionData execute(int step) {
     System.out.println("Running step " + step);
 
-    PassportVisaApplicationRuleUnit ruleUnit = new StepRuleUnitUtil<PassportVisaApplicationRuleUnit>()
-      .getRuleUnit(PassportVisaApplicationRuleUnit.class, 5, step);
+    RuleUnitSection05 ruleUnit = new StepRuleUnitUtil<RuleUnitSection05>()
+      .getRuleUnit(RuleUnitSection05.class, 5, step);
 
     SessionData sessionData = new SessionData();
     sessionData.passports = ApplicationRepository.getPassports();
     sessionData.visaApplications =  ApplicationRepository.getVisaApplications();
 
-    try (RuleUnitInstance<PassportVisaApplicationRuleUnit> instance = RuleUnitProvider.get().createRuleUnitInstance(ruleUnit)) {
+    try (RuleUnitInstance<RuleUnitSection05> instance = RuleUnitProvider.get().createRuleUnitInstance(ruleUnit)) {
       sessionData.passports.forEach(ruleUnit.getPassports()::append);
       sessionData.visaApplications.forEach(ruleUnit.getVisaApplications()::append);
 
