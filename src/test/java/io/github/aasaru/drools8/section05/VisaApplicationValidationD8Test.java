@@ -12,10 +12,12 @@ package io.github.aasaru.drools8.section05;
 
 import io.github.aasaru.drools.TestUtil;
 import io.github.aasaru.drools.domain.Passport;
+import io.github.aasaru.drools.domain.SessionData;
 import io.github.aasaru.drools.domain.Validation;
 import io.github.aasaru.drools.domain.VisaApplication;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -34,9 +36,9 @@ class VisaApplicationValidationD8Test {
     String kieSessionName = "VisaApplicationStep" + step;
     TestUtil.disposeKieSessionIfExists(kieSessionName);
 
-    VisaApplicationValidationD8.SessionData sessionData = VisaApplicationValidationD8.execute(step);
+    SessionData sessionData = VisaApplicationValidationD8.execute(step);
 
-    List<VisaApplication> visaApplicationsInSession = sessionData.visaApplications;
+    Collection<VisaApplication> visaApplicationsInSession = sessionData.visaApplications;
 
     Map<String, VisaApplication> visaApplicationMap = visaApplicationsInSession.stream()
             .collect(Collectors.toMap(VisaApplication::getPassportNumber, Function.identity()));
@@ -63,9 +65,9 @@ class VisaApplicationValidationD8Test {
     String kieSessionName = "VisaApplicationStep" + step;
     TestUtil.disposeKieSessionIfExists(kieSessionName);
 
-    VisaApplicationValidationD8.SessionData sessionData = VisaApplicationValidationD8.execute(step);
+    SessionData sessionData = VisaApplicationValidationD8.execute(step);
 
-    List<VisaApplication> visaApplicationsInSession = sessionData.visaApplications;
+    Collection<VisaApplication> visaApplicationsInSession = sessionData.visaApplications;
 
     Map<String, VisaApplication> visaApplicationMap = visaApplicationsInSession.stream()
             .collect(Collectors.toMap(VisaApplication::getPassportNumber, Function.identity()));
@@ -92,9 +94,9 @@ class VisaApplicationValidationD8Test {
     String kieSessionName = "VisaApplicationStep" + step;
     TestUtil.disposeKieSessionIfExists(kieSessionName);
 
-    VisaApplicationValidationD8.SessionData sessionData = VisaApplicationValidationD8.execute(step);
+    SessionData sessionData = VisaApplicationValidationD8.execute(step);
 
-    List<VisaApplication> visaApplicationsInSession = sessionData.visaApplications;
+    Collection<VisaApplication> visaApplicationsInSession = sessionData.visaApplications;
 
     Map<String, VisaApplication> visaApplicationMap = visaApplicationsInSession.stream()
             .collect(Collectors.toMap(VisaApplication::getPassportNumber, Function.identity()));

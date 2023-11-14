@@ -41,7 +41,7 @@ class VisaInsertLogicalTest {
     int step = 1;
 
     Common.disposeSession = false;
-    VisaInsertLogical.SessionData sessionData = VisaInsertLogical.execute(step);
+    SessionData sessionData = VisaInsertLogical.execute(step);
 
     Assertions.assertThat(sessionData.visas)
       .map(Visa::getPassportNumber)

@@ -10,8 +10,11 @@
 package io.github.aasaru.drools8.section08;
 
 import io.github.aasaru.drools.Common;
-import io.github.aasaru.drools.domain.*;
+import io.github.aasaru.drools.domain.FamilyVisaApplication;
+import io.github.aasaru.drools.domain.Passport;
+import io.github.aasaru.drools.domain.SessionData;
 import io.github.aasaru.drools.repository.ApplicationRepository;
+import io.github.aasaru.drools8.query.SessionQueryUtil;
 import io.github.aasaru.drools8.ruledata.StepRuleUnitUtil;
 import org.drools.ruleunits.api.RuleUnitInstance;
 import org.drools.ruleunits.api.RuleUnitProvider;
@@ -19,12 +22,15 @@ import org.drools.ruleunits.api.RuleUnitProvider;
 import java.util.List;
 
 public class FamilyVisaApplicationValidationD8 {
+  public static SessionQueryUtil<RuleUnitSection08> sessionQueryUtil = new SessionQueryUtil<>();
+
   public static void main(final String[] args) {
-    execute(Common.promptForStep(8, args, 1, 5));
+    execute(Common.promptForStepD8(8, args, 1, 5));
   }
 
-  static void execute(int step) {
+  static SessionData execute(int step) {
     System.out.println("Running step " + step);
+    SessionData sessionData = new SessionData();
 
     RuleUnitSection08 ruleUnit = new StepRuleUnitUtil<RuleUnitSection08>().getRuleUnit(RuleUnitSection08.class, 8, step);
 
@@ -48,23 +54,20 @@ public class FamilyVisaApplicationValidationD8 {
       instance.fire();
       System.out.println("==== DROOLS SESSION END ==== ");
 
-      System.out.println("==== INVALID FAMILY VISA APPLICATIONS FROM DROOLS SESSION === ");
-      /*
-      Collection<?> invalidApplications = ksession.getObjects(o -> o.getClass() == InvalidFamilyVisaApplication.class);
-      invalidApplications.forEach(System.out::println);
+      System.out.println("==== INVALID FAMILY VISA APPLICATIONS FROM RULE UNIT === ");
+      sessionData.invalidFamilyVisaApplications = sessionQueryUtil.getAllInvalidFamilyVisaApplicationsUsingQuery(instance);
+      sessionData.invalidFamilyVisaApplications.forEach(System.out::println);
 
-      Collection<?> visas = ksession.getObjects(o -> o.getClass() == Visa.class);
-      System.out.println("== Visas from session == ");
-      visas.forEach(System.out::println);
+      System.out.println("== Visas from rule unit == ");
+      sessionData.visas = sessionQueryUtil.getAllVisasUsingQuery(instance);
+      sessionData.visas.forEach(System.out::println);
 
-      Collection<?> groupLeaders = ksession.getObjects(o -> o.getClass() == GroupLeader.class);
-      System.out.println("== Group leaders from session == ");
-      groupLeaders.forEach(System.out::println);
-
-
-       */
+      System.out.println("== Group leaders from rule unit == ");
+      sessionData.groupLeaders = sessionQueryUtil.getAllGroupLeadersUsingQuery(instance);
+      sessionData.groupLeaders.forEach(System.out::println);
     }
 
+    return sessionData;
   }
 
 }

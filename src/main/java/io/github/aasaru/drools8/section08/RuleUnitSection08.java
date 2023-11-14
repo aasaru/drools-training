@@ -15,6 +15,8 @@ public class RuleUnitSection08 implements RuleUnitData {
   private final DataStore<InvalidPassport> invalidPassports = DataSource.createStore();
   private final DataStore<InvalidFamilyVisaApplication> invalidFamilyVisaApplications = DataSource.createStore();
 
+  private final DataStore<GroupLeader> groupLeaders = DataSource.createStore();
+
   public DataStream<Passport> getPassports() {
     return passports;
   }
@@ -35,5 +37,8 @@ public class RuleUnitSection08 implements RuleUnitData {
     return visas;
   }
 
+  public DataStore<GroupLeader> getGroupLeaders() {
+    return groupLeaders;
+  }
 
 }

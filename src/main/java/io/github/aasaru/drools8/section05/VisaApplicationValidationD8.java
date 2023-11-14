@@ -11,14 +11,11 @@
 package io.github.aasaru.drools8.section05;
 
 import io.github.aasaru.drools.Common;
-import io.github.aasaru.drools.domain.Passport;
-import io.github.aasaru.drools.domain.VisaApplication;
+import io.github.aasaru.drools.domain.SessionData;
 import io.github.aasaru.drools.repository.ApplicationRepository;
 import io.github.aasaru.drools8.ruledata.StepRuleUnitUtil;
 import org.drools.ruleunits.api.RuleUnitInstance;
 import org.drools.ruleunits.api.RuleUnitProvider;
-
-import java.util.List;
 
 public class VisaApplicationValidationD8 {
   public static void main(final String[] args) {
@@ -53,11 +50,6 @@ public class VisaApplicationValidationD8 {
     }
 
     return sessionData;
-  }
-
-  static class SessionData {
-    List<Passport> passports;
-    List<VisaApplication> visaApplications;
   }
 
 }

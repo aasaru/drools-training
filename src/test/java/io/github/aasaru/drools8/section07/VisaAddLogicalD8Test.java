@@ -13,7 +13,6 @@ package io.github.aasaru.drools8.section07;
 import io.github.aasaru.drools.Common;
 import io.github.aasaru.drools.domain.*;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collection;
@@ -35,12 +34,11 @@ class VisaAddLogicalD8Test {
   }
 
   @Test
-  @Disabled // https://issues.redhat.com/browse/DROOLS-7583
   void testStep1() {
     int step = 1;
 
     Common.disposeSession = false;
-    VisaAddLogicalD8.SessionData sessionData = VisaAddLogicalD8.execute(step);
+    SessionData sessionData = VisaAddLogicalD8.execute(step);
 
     Assertions.assertThat(sessionData.visas)
       .map(Visa::getPassportNumber)
@@ -48,23 +46,23 @@ class VisaAddLogicalD8Test {
 
   }
 
-  @Disabled // https://issues.redhat.com/browse/DROOLS-7583
+  //@Disabled // https://issues.redhat.com/browse/DROOLS-7583
   @Test
   void testStep2() {
     int step = 2;
 
-    VisaAddLogicalD8.SessionData sessionData = VisaAddLogicalD8.execute(step);
+    SessionData sessionData = VisaAddLogicalD8.execute(step);
 
     assertThat(getPassportNumbersOfValidPassports(sessionData), containsInAnyOrder(EMILY_PASSPORT_NUMBER, JAMES_PASSPORT_NUMBER));
     assertThat(getPassportNumbersOfInvalidPassports(sessionData), containsInAnyOrder(SARAH_PASSPORT_NUMBER, SIMON_PASSPORT_NUMBER));
   }
 
   @Test
-  @Disabled // https://issues.redhat.com/browse/DROOLS-7583
+  //@Disabled // https://issues.redhat.com/browse/DROOLS-7583
   void testStep3() {
     int step = 3;
 
-    VisaAddLogicalD8.SessionData sessionData = VisaAddLogicalD8.execute(step);
+    SessionData sessionData = VisaAddLogicalD8.execute(step);
 
     assertThat(sessionData.validVisaApplications.stream().findFirst().get().getVisaApplication().getPassportNumber(), is(equalTo(EMILY_PASSPORT_NUMBER)));
 
@@ -80,14 +78,14 @@ class VisaAddLogicalD8Test {
     return invalidVisaApplications.stream().map(InvalidVisaApplication::getVisaApplication).map(VisaApplication::getPassportNumber).collect(Collectors.toList());
   }
 
-  private List<String> getPassportNumbersOfValidPassports(VisaAddLogicalD8.SessionData sessionData) {
+  private List<String> getPassportNumbersOfValidPassports(SessionData sessionData) {
     return sessionData.validPassports.stream()
             .map(ValidPassport::getPassport)
             .map(Passport::getPassportNumber)
             .collect(Collectors.toList());
   }
 
-  private List<String> getPassportNumbersOfInvalidPassports(VisaAddLogicalD8.SessionData sessionData) {
+  private List<String> getPassportNumbersOfInvalidPassports(SessionData sessionData) {
     return sessionData.invalidPassports.stream()
             .map(InvalidPassport::getPassport)
             .map(Passport::getPassportNumber)

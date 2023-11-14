@@ -2,8 +2,6 @@ package io.github.aasaru.drools8.section08.step2
 
 unit RuleUnitSection08;
 
-unit RuleUnitSection08;
-
 import io.github.aasaru.drools.domain.InvalidPassport;
 import io.github.aasaru.drools.domain.Passport;
 import io.github.aasaru.drools.domain.InvalidFamilyVisaApplication;
@@ -15,8 +13,9 @@ rule "Invalidate visa applications with invalid passport"
 	dialect "java"
 	when
 		$familyVisaApplication: /familyVisaApplications
-		exists InvalidPassport( $familyVisaApplication.passportNumbers.contains(this.passport.passportNumber) )
+		// TODO could we refactor contains?
+		exists /invalidPassports[ $familyVisaApplication.passportNumbers.contains(this.passport.passportNumber) ]
 	then
 		System.out.println( "Set " + $familyVisaApplication + " invalid as it contains invalid passport");
-		insert( new InvalidFamilyVisaApplication($familyVisaApplication) );
+		invalidFamilyVisaApplications.add( new InvalidFamilyVisaApplication($familyVisaApplication) );
 end

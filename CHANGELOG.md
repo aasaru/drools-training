@@ -1,5 +1,8 @@
 # Changes
 
+## November 2023
+* lift to Drools 8
+
 ## Aug 9, 2021
 * upgrade Drools version to 7.58.0
 * make Travis to test with Java 16 JDK

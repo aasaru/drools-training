@@ -1,4 +1,4 @@
-package io.github.aasaru.drools8.section08.step2
+package io.github.aasaru.drools8.section08.step3
 
 unit RuleUnitSection08;
 
@@ -12,10 +12,10 @@ rule "Issue visas for valid applications"
 	dialect "java"
 	when
 		$familyVisaApplication: /familyVisaApplications
-		not ( InvalidFamilyVisaApplication( this.familyVisaApplication == $familyVisaApplication ) )
+		not ( /invalidFamilyVisaApplications[ this.familyVisaApplication == $familyVisaApplication ] )
 	then
 		for (String passportNumber : $familyVisaApplication.getPassportNumbers()) {
 		  System.out.println( "Issue visa for passport number " + passportNumber);
-		  insertLogical( new Visa( passportNumber ) );
+		  visas.addLogical( new Visa( passportNumber ) );
 		}
 end

@@ -11,7 +11,7 @@ import java.time.LocalDate;
 rule "Everyone is at least 10"
 	dialect "java"
 	when
-		forall ( Passport( age >= 10 ))
+		forall ( /passports[ age >= 10 ])
 	then
 		System.out.println( "Everyone whose passport is in session is at least 10 years old" );
 end

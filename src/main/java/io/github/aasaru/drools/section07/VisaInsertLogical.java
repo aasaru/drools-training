@@ -20,7 +20,6 @@ import org.kie.api.event.rule.ObjectUpdatedEvent;
 import org.kie.api.event.rule.RuleRuntimeEventListener;
 import org.kie.api.runtime.KieSession;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -107,14 +106,6 @@ public class VisaInsertLogical {
     }
 
     return sessionData;
-  }
-
-  static class SessionData {
-    Collection<Visa> visas;
-    Collection<ValidPassport> validPassports;
-    Collection<InvalidPassport> invalidPassports;
-    Collection<ValidVisaApplication> validVisaApplications;
-    Collection<InvalidVisaApplication> invalidVisaApplications;
   }
 
 }
