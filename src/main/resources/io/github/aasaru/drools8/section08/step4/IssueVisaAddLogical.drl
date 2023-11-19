@@ -2,11 +2,7 @@ package io.github.aasaru.drools8.section08.step4
 
 unit RuleUnitSection08;
 
-import io.github.aasaru.drools.domain.InvalidFamilyVisaApplication;
-import io.github.aasaru.drools.domain.FamilyVisaApplication;
 import io.github.aasaru.drools.domain.Visa;
-
-import java.time.LocalDate;
 
 rule "Issue visas for valid applications"
 	dialect "java"

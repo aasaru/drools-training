@@ -4,7 +4,6 @@ unit RuleUnitSection05;
 
 import io.github.aasaru.drools.domain.Passport;
 import io.github.aasaru.drools.domain.Validation;
-import java.time.LocalDate;
 
 rule "Expired passport"
 	dialect "java"

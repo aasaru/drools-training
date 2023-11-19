@@ -4,12 +4,8 @@ unit RuleUnitSection07;
 
 import io.github.aasaru.drools.domain.InvalidPassport;
 import io.github.aasaru.drools.domain.InvalidVisaApplication;
-import io.github.aasaru.drools.domain.Passport;
 import io.github.aasaru.drools.domain.Validation;
 import io.github.aasaru.drools.domain.ValidVisaApplication;
-import io.github.aasaru.drools.domain.VisaApplication;
-
-import java.time.LocalDate;
 
 rule "Invalidate visa application with invalid passport"
   dialect "java"

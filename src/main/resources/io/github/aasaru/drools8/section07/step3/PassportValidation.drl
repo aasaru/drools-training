@@ -4,9 +4,7 @@ unit RuleUnitSection07;
  
 import io.github.aasaru.drools.domain.InvalidPassport;
 import io.github.aasaru.drools.domain.ValidPassport;
-import io.github.aasaru.drools.domain.Passport;
 import io.github.aasaru.drools.domain.Validation;
-import java.time.LocalDate;
 
 rule "Valid passport"
 	dialect "java"

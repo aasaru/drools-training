@@ -2,9 +2,7 @@ package io.github.aasaru.drools8.section04.step2
 
 unit PassportRuleUnit;
 
-import io.github.aasaru.drools.domain.Passport;
 import io.github.aasaru.drools.domain.Validation;
-import java.time.LocalDate;
 
 rule "Expired passport"
 	dialect "java"

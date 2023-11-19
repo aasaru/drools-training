@@ -5,8 +5,6 @@ import io.github.aasaru.drools.domain.Passport;
 import io.github.aasaru.drools.domain.InvalidFamilyVisaApplication;
 import io.github.aasaru.drools.domain.FamilyVisaApplication;
 
-import java.time.LocalDate;
-
 rule "Invalidate visa applications with invalid passport"
 	dialect "java"
 	when

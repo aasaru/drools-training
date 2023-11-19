@@ -3,9 +3,6 @@ package io.github.aasaru.drools8.section07.step4
 unit RuleUnitSection07;
 
 import io.github.aasaru.drools.domain.InvalidVisaApplication;
-import io.github.aasaru.drools.domain.Passport;
-import io.github.aasaru.drools.domain.Validation;
-import io.github.aasaru.drools.domain.VisaApplication;
 
 rule "Invalidate visa application where passport expires earlier than 6 months after visit end date"
   dialect "java"

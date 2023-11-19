@@ -2,7 +2,7 @@ package io.github.aasaru.drools.section06.step6
  
 import io.github.aasaru.drools.domain.Passport;
 import io.github.aasaru.drools.domain.Validation;
-import java.time.LocalDate;
+import io.github.aasaru.drools.domain.VisaApplication;
 
 rule "Switch agenda to visa application validation"
   dialect "java"

@@ -3,7 +3,6 @@ package io.github.aasaru.drools8.section07.step1
 unit RuleUnitSection07;
 
 import io.github.aasaru.drools.domain.Validation;
-import io.github.aasaru.drools.domain.VisaApplication;
 import io.github.aasaru.drools.domain.Visa;
 
 rule "Issue visa for valid applications"

@@ -20,7 +20,7 @@ import java.util.Collection;
 class VisaIssueD8Test {
 
   @Test
-  void testStep1_ruleExecutionOrderAffectsResult_oneToFourVisasAreIssued() {
+  void testStep1_ruleExecutionOrderAffectsResult_oneOrTwoOrFourVisasAreIssued() {
     int step = 1;
 
     String kieSessionName = "VisaIssueStep" + step;

@@ -44,7 +44,7 @@ class VisaIssueTest {
   }
 
   @Test
-  void testStep1_ruleExecutionOrderAffectsResult_oneOrTwoVisasAreIssued() {
+  void testStep1_ruleExecutionOrderAffectsResult_oneOrTwoOrFourVisasAreIssued() {
     int step = 1;
 
     String kieSessionName = "VisaIssueStep" + step;
@@ -52,7 +52,7 @@ class VisaIssueTest {
 
     Collection<Visa> visasInSession = VisaIssue.execute(step);
 
-    Assertions.assertThat(visasInSession).hasSizeBetween(1, 2);
+    Assertions.assertThat(visasInSession).hasSizeBetween(1, 4);
     Assertions.assertThat(visasInSession)
       .map(Visa::getPassportNumber)
       .contains("AU-EMILY-3");

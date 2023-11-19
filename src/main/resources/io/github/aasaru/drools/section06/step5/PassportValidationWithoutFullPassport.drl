@@ -2,7 +2,6 @@ package io.github.aasaru.drools.section06.step5
  
 import io.github.aasaru.drools.domain.Passport;
 import io.github.aasaru.drools.domain.Validation;
-import java.time.LocalDate;
 
 rule "Valid passport"
   dialect "java"

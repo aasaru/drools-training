@@ -3,8 +3,6 @@ package io.github.aasaru.drools8.section06.step2
 unit RuleUnitSection06;
 
 import io.github.aasaru.drools.domain.Validation;
-import io.github.aasaru.drools.domain.VisaApplication;
-import java.time.LocalDate
 import io.github.aasaru.drools.domain.Visa;
 
 rule "Issue visa for valid applications"
