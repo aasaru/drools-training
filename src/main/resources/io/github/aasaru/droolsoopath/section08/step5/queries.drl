@@ -1,0 +1,19 @@
+package io.github.aasaru.droolsoopath.section08.step5
+
+unit RuleUnitSection08;
+
+query GetAllVisas
+   $allVisas: /visas
+end
+
+query GetAllInvalidPassports
+   $allInvalidPassports: /invalidPassports
+end
+
+query GetAllInvalidFamilyVisaApplications
+   $allInvalidFamilyVisaApplications: /invalidFamilyVisaApplications
+end
+
+query GetAllGroupLeaders
+   $allGroupLeaders: /groupLeaders
+end

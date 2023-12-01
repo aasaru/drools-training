@@ -1,0 +1,17 @@
+package io.github.aasaru.droolsoopath.section08.step5
+
+unit RuleUnitSection08;
+
+import io.github.aasaru.drools.domain.Visa;
+
+rule "Issue visas for valid applications"
+	dialect "java"
+	when
+		$familyVisaApplication: /familyVisaApplications
+		not ( /invalidFamilyVisaApplications[ this.familyVisaApplication == $familyVisaApplication ] )
+	then
+		for (String passportNumber : $familyVisaApplication.getPassportNumbers()) {
+		  System.out.println( "Issue visa for passport number " + passportNumber);
+		  visas.addLogical( new Visa(passportNumber) );
+		}
+end

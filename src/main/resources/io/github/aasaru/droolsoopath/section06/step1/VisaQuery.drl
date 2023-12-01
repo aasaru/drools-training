@@ -1,0 +1,7 @@
+package io.github.aasaru.droolsoopath.section06.step1
+
+unit RuleUnitSection06;
+
+query GetAllVisas
+   $allVisas: /visas
+end

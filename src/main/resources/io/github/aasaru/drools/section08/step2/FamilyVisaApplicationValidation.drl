@@ -9,7 +9,7 @@ rule "Invalidate visa applications with invalid passport"
 	dialect "java"
 	when
 		$familyVisaApplication: FamilyVisaApplication( )
-		exists InvalidPassport( $familyVisaApplication.passportNumbers.contains(this.passport.passportNumber) )
+		exists InvalidPassport( $familyVisaApplication.passportNumbers contains this.passport.passportNumber )
 	then
 		System.out.println( "Set " + $familyVisaApplication + " invalid as it contains invalid passport");
 		insert( new InvalidFamilyVisaApplication($familyVisaApplication) );

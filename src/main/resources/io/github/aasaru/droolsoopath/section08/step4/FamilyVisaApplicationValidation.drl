@@ -1,0 +1,47 @@
+package io.github.aasaru.droolsoopath.section08.step4
+
+unit RuleUnitSection08;
+
+import io.github.aasaru.drools.domain.GroupLeader;
+import io.github.aasaru.drools.domain.InvalidFamilyVisaApplication;
+
+rule "Invalidate visa applications with invalid passport"
+	dialect "java"
+	when
+		$familyVisaApplication: /familyVisaApplications
+		exists /invalidPassports[ $familyVisaApplication.passportNumbers.contains(this.passport.passportNumber) ]
+	then
+		System.out.println( "Set " + $familyVisaApplication + " invalid as it contains invalid passport");
+		invalidFamilyVisaApplications.add( new InvalidFamilyVisaApplication($familyVisaApplication) );
+end
+
+rule "Invalidate visa application where everyone is under 16"
+	dialect "java"
+	when
+		$familyVisaApplication: /familyVisaApplications
+		forall (
+		  $passport : /passports[ $familyVisaApplication.passportNumbers.contains(this.passportNumber) ],
+					  /passports[ this == $passport, this.age < 16 ]
+		)
+	then
+		System.out.println( "Set " + $familyVisaApplication + " invalid as everyone is younger than 16");
+		invalidFamilyVisaApplications.add( new InvalidFamilyVisaApplication($familyVisaApplication) );
+end
+
+rule "Choose the leader for the group of people under 18"
+	dialect "java"
+	when
+		$familyVisaApplication: /familyVisaApplications
+		forall (
+		  $passport : /passports[ $familyVisaApplication.passportNumbers.contains(this.passportNumber) ],
+					  /passports[ this == $passport, age < 18 ]
+		)
+		$groupLeaderPassport: /passports[ $familyVisaApplication.passportNumbers.contains(this.passportNumber) ]
+		forall (
+		  $passport : /passports[ $familyVisaApplication.passportNumbers.contains(this.passportNumber) ],
+					  /passports[ this == $passport, this.age <= $groupLeaderPassport.age ]
+		)
+	then
+		System.out.println( "Set " + $groupLeaderPassport + " as group leader as the oldest person in group");
+		groupLeaders.add( new GroupLeader( $groupLeaderPassport, $familyVisaApplication) );
+end

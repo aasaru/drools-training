@@ -1,0 +1,19 @@
+package io.github.aasaru.droolsoopath.section03.step1
+
+unit PassportRuleUnit;
+
+rule "Valid passport"
+  dialect "java"
+  when
+	/passports[ !isExpired(), unusedVisaPages > 0 ]
+  then
+	System.out.println("This passport is CORRECT");
+end
+
+rule "Expired or full passport"
+  dialect "java"
+  when
+	/passports[ isExpired() || unusedVisaPages == 0 ]
+  then
+	System.out.println( "This passport is INVALID because it is expired or has no space for visa" );
+end

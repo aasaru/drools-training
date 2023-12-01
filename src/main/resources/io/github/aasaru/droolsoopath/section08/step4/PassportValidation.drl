@@ -1,0 +1,23 @@
+package io.github.aasaru.droolsoopath.section08.step4
+
+unit RuleUnitSection08;
+ 
+import io.github.aasaru.drools.domain.InvalidPassport;
+
+rule "Expired passport"
+	dialect "java"
+	when
+		$passport: /passports[ isExpired() ]
+	then
+		System.out.println( $passport + " is INVALID because it is expired" );
+		invalidPassports.add( new InvalidPassport($passport) );
+end
+
+rule "Full passport"
+	dialect "java"
+	when
+		$passport: /passports[ unusedVisaPages == 0 ]
+	then
+		System.out.println( $passport + " is INVALID because it has no space for visa" );
+		invalidPassports.add( new InvalidPassport($passport) );
+end

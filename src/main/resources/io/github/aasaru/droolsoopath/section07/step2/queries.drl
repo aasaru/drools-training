@@ -1,0 +1,11 @@
+package io.github.aasaru.droolsoopath.section07.step2
+
+unit RuleUnitSection07;
+
+query GetAllValidPassports
+   $allValidPassports: /validPassports
+end
+
+query GetAllInvalidPassports
+   $allInvalidPassports: /invalidPassports
+end

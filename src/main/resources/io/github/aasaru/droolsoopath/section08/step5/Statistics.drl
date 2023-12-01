@@ -1,0 +1,11 @@
+package io.github.aasaru.droolsoopath.section08.step5
+
+unit RuleUnitSection08;
+
+rule "Everyone is at least 10"
+	dialect "java"
+	when
+		forall ( /passports[age >= 10] )
+	then
+		System.out.println( "Everyone whose passport is in session is at least 10 years old" );
+end

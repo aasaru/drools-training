@@ -1,0 +1,16 @@
+package io.github.aasaru.droolsoopath.section07.step3
+
+unit RuleUnitSection07;
+
+import io.github.aasaru.drools.domain.ValidVisaApplication;
+import io.github.aasaru.drools.domain.Visa;
+
+rule "Issue visa for valid applications"
+	dialect "java"
+	when
+	  /validVisaApplications[ $visaApplication: this.visaApplication ]
+	then
+	  Visa visa = new Visa( $visaApplication.getPassportNumber() );
+	  System.out.println("Issue " + visa);
+	  visas.addLogical( visa );
+end

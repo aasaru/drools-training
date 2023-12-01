@@ -1,0 +1,15 @@
+package io.github.aasaru.droolsoopath.section08.step2
+
+unit RuleUnitSection08;
+
+import io.github.aasaru.drools.domain.InvalidFamilyVisaApplication;
+
+rule "Invalidate visa applications with invalid passport"
+	dialect "java"
+	when
+		$familyVisaApplication: /familyVisaApplications
+		exists /invalidPassports[ $familyVisaApplication.passportNumbers contains this.passport.passportNumber ]
+	then
+		System.out.println( "Set " + $familyVisaApplication + " invalid as it contains invalid passport");
+		invalidFamilyVisaApplications.add( new InvalidFamilyVisaApplication($familyVisaApplication) );
+end

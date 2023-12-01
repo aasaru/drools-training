@@ -1,0 +1,43 @@
+package io.github.aasaru.droolsoopath.section05.step2
+
+unit RuleUnitSection05;
+
+import io.github.aasaru.drools.domain.Validation;
+import io.github.aasaru.drools.domain.VisaApplication;
+
+rule "Invalidate visa application with invalid passport"
+  dialect "java"
+  when
+  	$passport: /passports[ validation == Validation.FAILED ]
+  	$visaApplication: /visaApplications[ passportNumber == $passport.passportNumber ]
+  then
+  	System.out.println( "Set " + $visaApplication + " invalid as " + $passport + " hasn't passed validation");
+    modify($visaApplication) {
+      setValidation( Validation.FAILED )
+    }
+end
+
+rule "Set application without validation info as passed"
+  dialect "java"
+  when
+    $visaApplication: /visaApplications[ validation == Validation.UNKNOWN ]
+  then
+    System.out.println( $visaApplication + " is without validation info, consider OK for now" );
+    modify($visaApplication) {
+      setValidation( Validation.PASSED )
+    }
+end
+
+rule "Invalidate visa application where passport expires earlier than 6 months after visit end date"
+  dialect "java"
+  when
+    $passport: /passports
+    $visaApplication: /visaApplications[ passportNumber == $passport.passportNumber,
+                                       $passport.expiresOn.isBefore(visitEndDate.plusMonths(6)),
+                                       validation != Validation.FAILED ]
+  then
+    System.out.println( "Set " + $visaApplication + " invalid as " + $passport + " not valid 6 months after visit");
+    modify($visaApplication) {
+      setValidation( Validation.FAILED )
+    }
+end

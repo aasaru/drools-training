@@ -1,7 +1,15 @@
 # Changes
 
-## November 2023
-* lift to Drools 8
+## Dec 1, 2023
+* upgrade to Drools version 8 (8.45.0-SNAPSHOT)
+* for each Drools code example, add second examples written in OOPath notation
+* io.github.aasaru.drools.section08.step2 -> FamilyVisaApplicationValidation.drl changed to use "contains" constructor
+
+## Aug 10, 2022
+* upgrade Drools version to 7.73.0
+
+## Sept 29, 2021
+* change dialect from "mvel" to "java" in all *.drl files (because of a bug)
 
 ## Aug 9, 2021
 * upgrade Drools version to 7.58.0

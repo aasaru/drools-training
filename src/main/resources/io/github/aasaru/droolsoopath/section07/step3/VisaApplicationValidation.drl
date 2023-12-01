@@ -1,0 +1,43 @@
+package io.github.aasaru.droolsoopath.section07.step3
+
+unit RuleUnitSection07;
+
+import io.github.aasaru.drools.domain.InvalidPassport;
+import io.github.aasaru.drools.domain.InvalidVisaApplication;
+import io.github.aasaru.drools.domain.Validation;
+import io.github.aasaru.drools.domain.ValidVisaApplication;
+
+rule "Invalidate visa application with invalid passport"
+  dialect "java"
+  when
+    $invalidPassport: /invalidPassports
+    $visaApplication: /visaApplications[ $invalidPassport.passport.passportNumber == this.passportNumber ]
+    (not /invalidVisaApplications[ this.visaApplication == $visaApplication ])
+  then
+    System.out.println( "Set " + $visaApplication + " invalid as " + $invalidPassport.getPassport() + " is invalid");
+    invalidVisaApplications.add( new InvalidVisaApplication($visaApplication) );
+
+end
+
+rule "Set application without validation info as passed"
+  dialect "java"
+  when
+    $visaApplication: /visaApplications
+	(not /invalidVisaApplications[ this.visaApplication == $visaApplication ])
+  then
+	System.out.println( $visaApplication + " is not known to be invalid, consider Valid" );
+	validVisaApplications.addLogical( new ValidVisaApplication($visaApplication) );
+end
+
+rule "Invalidate visa application where passport expires earlier than 6 months after visit end date"
+  dialect "java"
+  when
+	$passport: /passports
+	(not /invalidPassports[ this.passport == $passport ])
+	$visaApplication: /visaApplications[ passportNumber == $passport.passportNumber,
+	                                     $passport.expiresOn.isBefore(visitEndDate.plusMonths(6)) ]
+    (not /invalidVisaApplications[ this.visaApplication == $visaApplication ] )
+  then
+    System.out.println( "Set " + $visaApplication + " invalid as " + $passport + " is not valid 6 months after planned visit end date");
+    invalidVisaApplications.add( new InvalidVisaApplication($visaApplication) );
+end
