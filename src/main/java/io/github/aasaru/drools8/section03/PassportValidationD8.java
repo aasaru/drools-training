@@ -20,7 +20,7 @@ import org.drools.ruleunits.api.RuleUnitProvider;
 
 import java.util.List;
 
-public class StatelessPassportValidationD8 {
+public class PassportValidationD8 {
     public static void main(final String[] args) {
         execute(Common.promptForStepD8(3, args, 1, 6));
     }
