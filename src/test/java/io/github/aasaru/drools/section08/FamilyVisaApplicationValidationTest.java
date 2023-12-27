@@ -36,6 +36,7 @@ public class FamilyVisaApplicationValidationTest {
   }
 
   @Test
+  @SuppressWarnings("unchecked")
   void test_runStep1_invalidVisaApplication10isFoundTwoTimes() {
     Common.disposeSession = false;
     int step = 1;
@@ -121,29 +122,32 @@ public class FamilyVisaApplicationValidationTest {
     ksession.dispose();
   }
 
+  @SuppressWarnings("unchecked") 
   private static void assertNoVisasAreIssued(KieSession ksession) {
     Collection<Visa> visas = (Collection<Visa>) ksession.getObjects(o -> o.getClass() == Visa.class);
     Assertions.assertThat(visas).isEmpty();
   }
 
+  @SuppressWarnings("unchecked") 
   private static void assertBothFamilyVisaApplicationsAreMarkedAsInvalid(KieSession ksession) {
     Collection<InvalidFamilyVisaApplication> invalidApplications = (Collection<InvalidFamilyVisaApplication>) ksession.getObjects(o -> o.getClass() == InvalidFamilyVisaApplication.class);
     Assertions.assertThat(invalidApplications).extracting("familyVisaApplication.applicationId").containsOnly(10, 11);
   }
 
-
+  @SuppressWarnings("unchecked") 
   private static void assertOnlyVisaApplication10isMarkedInvalid(KieSession ksession) {
     Collection<InvalidFamilyVisaApplication> invalidApplications = (Collection<InvalidFamilyVisaApplication>) ksession.getObjects(o -> o.getClass() == InvalidFamilyVisaApplication.class);
     System.out.println(invalidApplications);
     Assertions.assertThat(invalidApplications).extracting("familyVisaApplication.applicationId").containsOnly(10);
   }
 
-
+  @SuppressWarnings("unchecked") 
   private static void asserVisasForEmilyAndJamesWereIssued(KieSession ksession) {
     Collection<Visa> visas = (Collection<Visa>) ksession.getObjects(o -> o.getClass() == Visa.class);
     Assertions.assertThat(visas).extracting("passportNumber").containsOnly("AU-EMILY-3", "AU-JAMES-4");
   }
 
+  @SuppressWarnings("unchecked") 
   private static void assertJamesIsSetAsGroupLeader(KieSession ksession) {
     Collection<GroupLeader> groupLeaders = (Collection<GroupLeader>) ksession.getObjects(o -> o.getClass() == GroupLeader.class);
     Assertions.assertThat(groupLeaders).extracting("passport.name").containsOnly("James Brown");

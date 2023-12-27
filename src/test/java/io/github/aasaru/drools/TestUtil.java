@@ -48,6 +48,7 @@ public class TestUtil {
         Optional.ofNullable(TestUtil.getKieSession(kieSessionName)).ifPresent(KieSession::dispose);
     }
 
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public static void addObjectsOfType(KieSession ksession, Collection collection, Class type) {
 
         for (Object object : ksession.getObjects()) {

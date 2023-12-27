@@ -91,9 +91,10 @@ class VisaInsertLogicalTest {
     return invalidVisaApplications.stream().map(InvalidVisaApplication::getVisaApplication).map(VisaApplication::getPassportNumber).collect(Collectors.toList());
   }
 
+  @SuppressWarnings({"rawtypes", "unchecked"})
   private void addObjectsOfType(KieSession ksession, Collection collection, Class type) {
 
-    for (Object object : ksession.getObjects()) {
+    for (var object : ksession.getObjects()) {
       if (object.getClass() == type) {
         collection.add(type.cast(object));
       }
