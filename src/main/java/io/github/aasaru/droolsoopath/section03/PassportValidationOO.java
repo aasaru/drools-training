@@ -18,11 +18,12 @@ import io.github.aasaru.droolsoopath.ruledata.StepRuleUnitUtil;
 import org.drools.ruleunits.api.RuleUnitInstance;
 import org.drools.ruleunits.api.RuleUnitProvider;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class PassportValidationOO {
     public static void main(final String[] args) {
-        execute(Common.promptForStepD8(3, args, 1, 6));
+        execute(Common.promptForStepOo(3, args, 1, 6));
     }
 
     static void execute(int step) {
@@ -38,10 +39,19 @@ public class PassportValidationOO {
 
             System.out.println("==== DROOLS START ==== ");
             instance.fire();
+
+          System.out.println("about to sleep");
+            ruleUnit.getPassports().append(Passport.newBuilder()
+              .withPassportNumber("ABC123")
+                .withExpiresOn(LocalDate.of(2200,12,12))
+                .withUnusedVisaPages(3)
+              .build());
+            instance.fire();
+
             System.out.println("==== DROOLS END ==== ");
         }
 
-        if (step >= 4) {
+      if (step >= 4) {
             System.out.println("==== PASSPORTS AFTER RULES WERE FIRED ==== ");
 
             passports.forEach(passport -> System.out.println(passport + " validation " + passport.getValidation()));

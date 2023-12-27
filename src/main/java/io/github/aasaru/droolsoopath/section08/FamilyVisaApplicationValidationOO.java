@@ -25,7 +25,7 @@ public class FamilyVisaApplicationValidationOO {
   public static SessionQueryUtil<RuleUnitSection08> sessionQueryUtil = new SessionQueryUtil<>();
 
   public static void main(final String[] args) {
-    execute(Common.promptForStepD8(8, args, 1, 5));
+    execute(Common.promptForStepOo(8, args, 1, 5));
   }
 
   static SessionData execute(int step) {

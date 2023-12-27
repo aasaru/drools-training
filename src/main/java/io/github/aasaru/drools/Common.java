@@ -22,8 +22,8 @@ public class Common {
     return promptForStepInternal("Section " + section, args, minStep, maxStep);
   }
 
-  public static int promptForStepD8(int section, String[] args, int minStep, int maxStep) {
-    return promptForStepInternal("D8 section " + section, args, minStep, maxStep);
+  public static int promptForStepOo(int section, String[] args, int minStep, int maxStep) {
+    return promptForStepInternal("OOPath section " + section, args, minStep, maxStep);
   }
 
   private static int promptForStepInternal(String sectionStr, String[] args, int minStep, int maxStep) {
@@ -67,7 +67,7 @@ public class Common {
     while (true) {
       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
       try {
-        System.out.print(String.format("%s Enter 'yes' or 'no': ", question));
+        System.out.printf("%s Enter 'yes' or 'no': ", question);
         enteredStr = br.readLine().trim();
 
         if ("yes".equalsIgnoreCase(enteredStr) || "y".equalsIgnoreCase(enteredStr)) {

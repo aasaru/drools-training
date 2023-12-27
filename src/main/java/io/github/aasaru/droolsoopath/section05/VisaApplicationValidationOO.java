@@ -19,7 +19,7 @@ import org.drools.ruleunits.api.RuleUnitProvider;
 
 public class VisaApplicationValidationOO {
   public static void main(final String[] args) {
-    execute(Common.promptForStepD8(5, args, 1, 3));
+    execute(Common.promptForStepOo(5, args, 1, 3));
   }
 
 

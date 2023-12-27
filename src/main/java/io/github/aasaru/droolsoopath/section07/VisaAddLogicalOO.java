@@ -29,7 +29,7 @@ import java.util.List;
 
 public class VisaAddLogicalOO {
   public static void main(final String[] args) {
-    execute(Common.promptForStepD8(7, args, 1, 4));
+    execute(Common.promptForStepOo(7, args, 1, 4));
   }
 
   public static SessionQueryUtil<RuleUnitSection07> sessionQueryUtil = new SessionQueryUtil<>();

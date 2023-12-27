@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 
 public class VisaIssueOO {
   public static void main(final String[] args) {
-    execute(Common.promptForStepD8(6, args, 1, 3));
+    execute(Common.promptForStepOo(6, args, 1, 3));
   }
 
   static Collection<Visa> execute(int step) {
