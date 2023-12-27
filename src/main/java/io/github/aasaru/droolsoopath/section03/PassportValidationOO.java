@@ -18,7 +18,6 @@ import io.github.aasaru.droolsoopath.ruledata.StepRuleUnitUtil;
 import org.drools.ruleunits.api.RuleUnitInstance;
 import org.drools.ruleunits.api.RuleUnitProvider;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public class PassportValidationOO {
@@ -40,13 +39,13 @@ public class PassportValidationOO {
             System.out.println("==== DROOLS START ==== ");
             instance.fire();
 
-          System.out.println("about to sleep");
+            /* An idea to try:
             ruleUnit.getPassports().append(Passport.newBuilder()
               .withPassportNumber("ABC123")
                 .withExpiresOn(LocalDate.of(2200,12,12))
                 .withUnusedVisaPages(3)
               .build());
-            instance.fire();
+            instance.fire();*/
 
             System.out.println("==== DROOLS END ==== ");
         }
