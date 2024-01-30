@@ -62,9 +62,6 @@ public class VisaInsertLogical {
 
     System.out.println("==== DROOLS SESSION START ==== ");
     ksession.fireAllRules();
-    if (Common.disposeSession) {
-      ksession.dispose();
-    }
     System.out.println("==== DROOLS SESSION END ==== ");
 
     if (step > 1 && step < 4) {
@@ -103,6 +100,10 @@ public class VisaInsertLogical {
         .collect(Collectors.toList());
       System.out.println("== Visas from session == ");
       sessionData.visas.forEach(System.out::println);
+    }
+
+    if (Common.disposeSession) {
+      ksession.dispose();
     }
 
     return sessionData;
