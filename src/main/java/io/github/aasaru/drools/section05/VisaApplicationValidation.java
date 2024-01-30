@@ -39,9 +39,6 @@ public class VisaApplicationValidation {
 
     System.out.println("==== DROOLS SESSION START ==== ");
     ksession.fireAllRules();
-    if (Common.disposeSession) {
-      ksession.dispose();
-    }
     System.out.println("==== DROOLS SESSION END ==== ");
 
     System.out.println("==== PASSPORTS AFTER DROOLS SESSION === ");
@@ -52,6 +49,9 @@ public class VisaApplicationValidation {
         System.out.println(visaApplication + " verdict: " + visaApplication.getValidation())
     );
 
+    if (Common.disposeSession) {
+      ksession.dispose();
+    }
 
   }
 

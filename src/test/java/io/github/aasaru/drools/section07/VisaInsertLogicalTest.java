@@ -47,6 +47,8 @@ class VisaInsertLogicalTest {
       .map(Visa::getPassportNumber)
       .containsExactlyInAnyOrder("AU-EMILY-3");
 
+    String kieSessionName = "VisaInsertLogicalStep" + step;
+    TestUtil.disposeKieSessionIfExists(kieSessionName);
   }
 
   @Test
@@ -60,6 +62,8 @@ class VisaInsertLogicalTest {
 
     assertThat(getPassportNumbersOfValidPassports(ksession), containsInAnyOrder(EMILY_PASSPORT_NUMBER, JAMES_PASSPORT_NUMBER));
     assertThat(getPassportNumbersOfInvalidPassports(ksession), containsInAnyOrder(SARAH_PASSPORT_NUMBER, SIMON_PASSPORT_NUMBER));
+
+    ksession.dispose();
   }
 
   @Test
@@ -85,6 +89,8 @@ class VisaInsertLogicalTest {
 
     assertThat(getPassportNumbersOfValidPassports(ksession), containsInAnyOrder(EMILY_PASSPORT_NUMBER, JAMES_PASSPORT_NUMBER));
     assertThat(getPassportNumbersOfInvalidPassports(ksession), containsInAnyOrder(SARAH_PASSPORT_NUMBER, SIMON_PASSPORT_NUMBER));
+
+    ksession.dispose();
   }
 
   private List<String> passportNumbersOfInvalidVisaApplications(Collection<InvalidVisaApplication> invalidVisaApplications) {

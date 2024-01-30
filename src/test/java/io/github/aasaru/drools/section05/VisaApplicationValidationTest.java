@@ -63,6 +63,8 @@ class VisaApplicationValidationTest {
     assertThat(passportMap.get("CA-SIMON-2").getValidation(), is(equalTo(Validation.FAILED)));
     assertThat(passportMap.get("AU-EMILY-3").getValidation(), is(equalTo(Validation.PASSED)));
     assertThat(passportMap.get("AU-JAMES-4").getValidation(), is(equalTo(Validation.PASSED)));
+
+    ksession.dispose();
   }
 
   @Test
@@ -98,6 +100,8 @@ class VisaApplicationValidationTest {
     assertThat(passportMap.get("CA-SIMON-2").getValidation(), is(equalTo(Validation.FAILED)));
     assertThat(passportMap.get("AU-EMILY-3").getValidation(), is(equalTo(Validation.PASSED)));
     assertThat(passportMap.get("AU-JAMES-4").getValidation(), is(equalTo(Validation.PASSED)));
+
+    ksession.dispose();
   }
 
   @Test
@@ -133,6 +137,8 @@ class VisaApplicationValidationTest {
     assertThat(passportMap.get("CA-SIMON-2").getValidation(), is(equalTo(Validation.FAILED)));
     assertThat(passportMap.get("AU-EMILY-3").getValidation(), is(equalTo(Validation.PASSED)));
     assertThat(passportMap.get("AU-JAMES-4").getValidation(), is(equalTo(Validation.PASSED)));
+
+    ksession.dispose();
   }
 
 }
