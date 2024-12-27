@@ -13,7 +13,7 @@
     <java.module.name>io.github.aasaru.drools-training</java.module.name>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <drools.version>10.0.0</drools.version>
-    <maven.compiler.release>11</maven.compiler.release>
+    <maven.compiler.release>17</maven.compiler.release>
   </properties>
 
   <repositories>
