@@ -1,5 +1,10 @@
 # Changes
 
+## December 27, 2024
+* Upgrade to Drools to version 10.0.0
+* Upgrade Maven Wrapper to version 3.9.9
+* NB! The project needs JDK 17 or JDK 19 and won't work with Java JDK 21
+
 ## Dec 1, 2023
 * upgrade to Drools version 8 (8.45.0-SNAPSHOT)
 * for each Drools code example, add second examples written in OOPath notation
